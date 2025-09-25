@@ -1,0 +1,10 @@
+fastapi==0.117.1
+uvicorn==0.37.0
+sqlalchemy==2.0.43
+psycopg2-binary==2.9.10
+alembic==1.16.5
+python-dotenv==1.1.1
+pydantic-settings==2.11.0
+redis==6.4.0
+celery==5.5.3
+python-multipart==0.0.10
