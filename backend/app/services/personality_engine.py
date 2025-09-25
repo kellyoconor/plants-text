@@ -10,6 +10,14 @@ from sqlalchemy.orm import Session
 from ..core.config import settings
 from ..models.plants import UserPlant, PersonalityType, ConversationSession, CareSchedule
 
+# Import Braintrust manager (optional)
+try:
+    from .braintrust_manager import braintrust_manager
+    BRAINTRUST_ENABLED = True
+except ImportError:
+    BRAINTRUST_ENABLED = False
+    braintrust_manager = None
+
 
 class PersonalityEngine:
     """Core engine for generating plant personality responses"""
@@ -71,7 +79,7 @@ class PersonalityEngine:
         if self.demo_mode:
             return self._generate_demo_response(plant_info, conversation_context)
         
-        return self._generate_ai_response(plant_info, conversation_context)
+        return self._generate_ai_response(user_plant_id, plant_info, conversation_context)
     
     def _generate_ai_message(self, plant_info: Dict, task_type: str, context: Dict) -> str:
         """Generate message using OpenAI API"""
@@ -144,7 +152,7 @@ class PersonalityEngine:
             print(f"OpenAI API error: {e}")
             return self._generate_demo_message(plant_info, task_type, context)
     
-    def _generate_ai_response(self, plant_info: Dict, context: Dict) -> str:
+    def _generate_ai_response(self, user_plant_id: int, plant_info: Dict, context: Dict) -> str:
         """Generate response to user message using OpenAI API"""
         
         personality = self.db.query(PersonalityType).filter(

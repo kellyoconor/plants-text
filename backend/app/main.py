@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .core.config import settings
-from .api import plants
+from .api import plants, evaluations
 
 # Create FastAPI instance
 app = FastAPI(
@@ -22,6 +22,7 @@ app.add_middleware(
 
 # Include API routes
 app.include_router(plants.router, prefix=settings.api_v1_prefix, tags=["plants"])
+app.include_router(evaluations.router, prefix=f"{settings.api_v1_prefix}/evaluations", tags=["evaluations"])
 
 @app.get("/")
 def read_root():

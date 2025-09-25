@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     # OpenAI settings
     openai_api_key: str = "your-openai-api-key-here"  # Will be overridden by env
     
+    # Braintrust settings
+    braintrust_api_key: str = ""  # Optional - for prompt management and evals
+    
     class Config:
         env_file = ".env"
 
