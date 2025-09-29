@@ -59,6 +59,31 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     return user
 
 
+@router.get("/users/find/{phone}", response_model=UserResponse)
+def find_user_by_phone(phone: str, db: Session = Depends(get_db)):
+    """Find user by phone number"""
+    user = db.query(User).filter(User.phone == phone).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+
+@router.post("/users/find-or-create", response_model=UserResponse)
+def find_or_create_user(user: UserCreate, db: Session = Depends(get_db)):
+    """Find existing user by phone or create new one"""
+    # First try to find existing user
+    existing_user = db.query(User).filter(User.phone == user.phone).first()
+    if existing_user:
+        return existing_user
+    
+    # If not found, create new user
+    db_user = User(**user.dict())
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+
 @router.get("/users/{user_id}/dashboard", response_model=UserDashboard)
 def get_user_dashboard(user_id: int, db: Session = Depends(get_db)):
     """Get user dashboard with plants and upcoming care"""

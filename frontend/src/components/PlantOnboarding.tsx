@@ -1,11 +1,95 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Check, Leaf } from 'lucide-react';
-import { getPlantCatalog, addPlantToUser, createUser } from '../api';
+import { Search, Check, Leaf, Phone, MessageCircle, ArrowRight, ArrowLeft } from 'lucide-react';
+import { getPlantCatalog, addPlantToUser, findOrCreateUser } from '../api';
 import { Plant, User } from '../types';
 
 interface PlantOnboardingProps {
   onComplete: (user: User) => void;
 }
+
+// Back Button Component
+const BackButton: React.FC<{ onClick: () => void; show: boolean }> = ({ onClick, show }) => {
+  if (!show) return null;
+  
+  return (
+    <button
+      onClick={onClick}
+      className="group flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 mb-4"
+    >
+      <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-200" />
+      <span className="font-medium">Back</span>
+    </button>
+  );
+};
+
+// Progress Steps Component  
+const ProgressSteps: React.FC<{ currentStep: string; onBack?: () => void }> = ({ currentStep, onBack }) => {
+  const steps = [
+    { key: 'welcome', label: 'Welcome', icon: Leaf },
+    { key: 'phone', label: 'Phone Number', icon: Phone },
+    { key: 'plants', label: 'Add Plants', icon: Search },
+    { key: 'complete', label: 'Start Chatting', icon: MessageCircle }
+  ];
+
+  const getStepIndex = (stepKey: string) => steps.findIndex(s => s.key === stepKey);
+  const currentIndex = getStepIndex(currentStep);
+
+  return (
+    <div className="w-full max-w-4xl mx-auto mb-8">
+      <BackButton onClick={onBack || (() => {})} show={currentIndex > 0 && !!onBack} />
+      <div className="flex items-center justify-between">
+        {steps.map((step, index) => {
+          const Icon = step.icon;
+          const isActive = index === currentIndex;
+          const isCompleted = index < currentIndex;
+
+          return (
+            <React.Fragment key={step.key}>
+              <div className="flex flex-col items-center relative">
+                <div className={`
+                  w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-300
+                  ${isActive ? 'bg-green-600 border-green-600 text-white shadow-lg scale-110' : 
+                    isCompleted ? 'bg-green-100 border-green-500 text-green-600' : 
+                    'bg-gray-100 border-gray-300 text-gray-400'}
+                `}>
+                  {isCompleted ? (
+                    <Check className="w-6 h-6" />
+                  ) : (
+                    <Icon className="w-6 h-6" />
+                  )}
+                </div>
+                <span className={`
+                  mt-2 text-sm font-medium transition-colors duration-300
+                  ${isActive ? 'text-green-600' : 
+                    isCompleted ? 'text-green-500' : 
+                    'text-gray-400'}
+                `}>
+                  {step.label}
+                </span>
+              </div>
+              
+              {index < steps.length - 1 && (
+                <div className={`
+                  flex-1 h-0.5 mx-4 transition-colors duration-300
+                  ${index < currentIndex ? 'bg-green-500' : 'bg-gray-200'}
+                `} />
+              )}
+            </React.Fragment>
+          );
+        })}
+      </div>
+      
+      {/* Progress Description */}
+      <div className="text-center mt-6">
+        <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
+          <span>Step {currentIndex + 1} of {steps.length}</span>
+          <ArrowRight className="w-4 h-4" />
+          <span className="font-medium text-green-600">{steps[currentIndex]?.label}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
   const [step, setStep] = useState<'welcome' | 'phone' | 'plants' | 'complete'>('welcome');
@@ -52,12 +136,12 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
     
     setLoading(true);
     try {
-      const newUser = await createUser({ phone: phone.trim() });
-      setUser(newUser);
+      const user = await findOrCreateUser({ phone: phone.trim() });
+      setUser(user);
       setStep('plants');
     } catch (error) {
-      console.error('Failed to create user:', error);
-      alert('Failed to create account. Please try again.');
+      console.error('Failed to find or create user:', error);
+      alert('Failed to set up account. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -102,22 +186,95 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
     }, 2000);
   };
 
+  const handleBack = () => {
+    if (step === 'phone') {
+      setStep('welcome');
+      // Clear phone input when going back to welcome
+      setPhone('');
+      setUser(null);
+    } else if (step === 'plants') {
+      setStep('phone');
+      // Clear plant search when going back to phone
+      setSearchTerm('');
+      setSelectedPlant(null);
+      setCurrentNickname('');
+    } else if (step === 'complete') {
+      setStep('plants');
+    }
+  };
+
   if (step === 'welcome') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
-          <div className="mb-6">
-            <Leaf className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to PlantTexts!</h1>
-            <p className="text-gray-600">Get personalized care reminders and chat with your plants via text message.</p>
+      <div className="min-h-screen bg-white flex flex-col justify-center p-4">
+        {/* Subtle floating background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-green-50 rounded-full opacity-20 animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-emerald-50 rounded-full opacity-25 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-teal-50 rounded-full opacity-20 animate-pulse delay-500"></div>
+        </div>
+        
+        <ProgressSteps currentStep={step} />
+        <div className="max-w-lg w-full mx-auto">
+          <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 p-10 text-center">
+            <div className="mb-8">
+              {/* Enhanced plant icon with gradient */}
+              <div className="w-24 h-24 mx-auto mb-6 relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full opacity-20 animate-pulse"></div>
+                <Leaf className="w-24 h-24 text-green-600 mx-auto relative z-10" />
+              </div>
+              
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent mb-4 font-black tracking-tight">
+                PlantTexts
+              </h1>
+              <p className="text-xl text-gray-700 leading-relaxed font-medium mb-4">
+                Your plants, with personality
+              </p>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                Get care reminders and have conversations with your plants - each with their own unique character and voice.
+              </p>
+              
+              {/* What to expect */}
+              <div className="bg-green-50 rounded-2xl p-6 mb-6 border border-green-100">
+                <h3 className="text-lg font-semibold text-green-800 mb-4">What happens next:</h3>
+                <div className="space-y-3 text-left">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <span className="text-green-600 font-bold text-sm">1</span>
+                    </div>
+                    <span className="text-green-700">Share your phone number for plant messages</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <span className="text-green-600 font-bold text-sm">2</span>
+                    </div>
+                    <span className="text-green-700">Add your plants and give them names</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <span className="text-green-600 font-bold text-sm">3</span>
+                    </div>
+                    <span className="text-green-700">Start chatting with your plant friends!</span>
+                  </div>
+                </div>
+                <div className="mt-4 text-center">
+                  <span className="text-green-600 text-sm font-medium">⏱️ Takes about 2 minutes</span>
+                </div>
+              </div>
+            </div>
+            
+            <button
+              onClick={() => setStep('phone')}
+              className="group relative w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 px-8 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-green-700 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+              <span className="relative flex items-center justify-center space-x-2">
+                <span>Start Growing Together</span>
+                <div className="w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 animate-bounce delay-100 transition-opacity"></div>
+                <div className="w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 animate-bounce delay-200 transition-opacity"></div>
+                <div className="w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 animate-bounce delay-300 transition-opacity"></div>
+              </span>
+            </button>
           </div>
-          
-          <button
-            onClick={() => setStep('phone')}
-            className="w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 transition-colors"
-          >
-            Get Started
-          </button>
         </div>
       </div>
     );
@@ -125,30 +282,66 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
 
   if (step === 'phone') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">What's your phone number?</h2>
-            <p className="text-gray-600">We'll send your plant messages here</p>
-          </div>
-          
-          <div className="space-y-4">
-            <input
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="(555) 123-4567"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              autoFocus
-            />
+      <div className="min-h-screen bg-white flex flex-col justify-center p-4">
+        {/* Subtle floating background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-green-50 rounded-full opacity-20 animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-emerald-50 rounded-full opacity-25 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-teal-50 rounded-full opacity-20 animate-pulse delay-500"></div>
+        </div>
+        
+        <ProgressSteps currentStep={step} onBack={handleBack} />
+        <div className="max-w-md w-full mx-auto">
+          <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-400 to-emerald-500 rounded-2xl flex items-center justify-center">
+                <Phone className="w-8 h-8 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                What's your phone number?
+              </h2>
+              <p className="text-gray-600">Your plants will send you care reminders and messages here</p>
+            </div>
             
-            <button
-              onClick={handlePhoneSubmit}
-              disabled={!phone.trim() || loading}
-              className="w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
-            >
-              {loading ? 'Creating Account...' : 'Continue'}
-            </button>
+            <div className="space-y-6">
+              <div className="relative">
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="(555) 123-4567"
+                  className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl text-lg focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-200 bg-white/50"
+                  autoFocus
+                />
+                <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                  <MessageCircle className="w-5 h-5 text-gray-400" />
+                </div>
+              </div>
+              
+              <button
+                onClick={handlePhoneSubmit}
+                disabled={!phone.trim() || loading}
+                className="group relative w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 px-6 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-green-700 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                <span className="relative">
+                  {loading ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span>Creating your garden...</span>
+                    </div>
+                  ) : (
+                    'Continue'
+                  )}
+                </span>
+              </button>
+              
+              <div className="text-center">
+                <p className="text-sm text-gray-500">
+                  🔒 Your number is secure and only used for plant messages
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -157,8 +350,16 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
 
   if (step === 'plants') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 p-4">
-        <div className="max-w-4xl mx-auto">
+      <div className="min-h-screen bg-white p-4">
+        {/* Subtle floating background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-green-50 rounded-full opacity-20 animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-emerald-50 rounded-full opacity-25 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-teal-50 rounded-full opacity-20 animate-pulse delay-500"></div>
+        </div>
+        
+        <ProgressSteps currentStep={step} onBack={handleBack} />
+        <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">What plants do you have?</h2>
             <p className="text-gray-600">Search for your plants and give them names</p>
@@ -170,7 +371,7 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Plant Family ({addedPlants.length})</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 {addedPlants.map((item, index) => (
-                  <div key={index} className="bg-white rounded-lg p-4 border-2 border-green-200 shadow-sm">
+                  <div key={index} className="bg-white rounded-2xl p-4 border-2 border-green-200 shadow-lg">
                     <div className="flex items-center space-x-3">
                       <Check className="w-5 h-5 text-green-600" />
                       <div>
@@ -185,7 +386,7 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
           )}
 
           {/* Search and Add Plant */}
-          <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
+          <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-6 mb-8">
             {!selectedPlant ? (
               <div>
                 <div className="relative mb-6">
@@ -272,18 +473,26 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
           {/* Complete Button */}
           {addedPlants.length > 0 && (
             <div className="text-center">
-              <button
-                onClick={handleComplete}
-                className="bg-green-600 text-white py-3 px-8 rounded-lg font-medium hover:bg-green-700 transition-colors"
-              >
-                Start Getting Messages! ({addedPlants.length} plant{addedPlants.length !== 1 ? 's' : ''})
-              </button>
+                <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-6">
+                <button
+                  onClick={handleComplete}
+                  className="group relative w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 px-8 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-700 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                  <span className="relative flex items-center justify-center space-x-2">
+                    <span>Start Getting Messages!</span>
+                    <span className="px-2 py-1 bg-white/20 rounded-lg text-sm">
+                      {addedPlants.length} plant{addedPlants.length !== 1 ? 's' : ''}
+                    </span>
+                  </span>
+                </button>
               
-              {!selectedPlant && (
-                <p className="text-gray-500 text-sm mt-2">
-                  Or search to add more plants
-                </p>
-              )}
+                {!selectedPlant && (
+                  <p className="text-gray-500 text-sm mt-4">
+                    Or search to add more plants
+                  </p>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -293,16 +502,30 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
 
   if (step === 'complete') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
-          <div className="mb-6">
+      <div className="min-h-screen bg-white flex flex-col justify-center p-4">
+        {/* Subtle floating background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-green-50 rounded-full opacity-20 animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-emerald-50 rounded-full opacity-25 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-teal-50 rounded-full opacity-20 animate-pulse delay-500"></div>
+        </div>
+        
+        <ProgressSteps currentStep={step} onBack={handleBack} />
+        <div className="max-w-md w-full mx-auto relative z-10">
+          <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 text-center">
+            <div className="mb-6">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Check className="w-8 h-8 text-green-600" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">You're all set!</h2>
             <p className="text-gray-600 mb-4">
-              Your plants will start sending you care reminders and messages at {phone}.
+              Your plants are ready to chat! You can now start conversations with them right here in the app.
             </p>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+              <p className="text-blue-700 text-sm">
+                💬 <strong>Coming Soon:</strong> Your plants will also send you care reminders and messages directly to {phone} via text!
+              </p>
+            </div>
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <h3 className="font-semibold text-green-900 mb-2">Your Plant Family:</h3>
               <div className="space-y-1">
@@ -312,6 +535,7 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
                   </p>
                 ))}
               </div>
+            </div>
             </div>
           </div>
         </div>

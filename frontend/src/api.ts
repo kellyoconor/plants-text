@@ -40,6 +40,11 @@ export const createUser = async (userData: { phone: string; email?: string }): P
   return response.data;
 };
 
+export const findOrCreateUser = async (userData: { phone: string; email?: string }): Promise<User> => {
+  const response = await api.post('/users/find-or-create', userData);
+  return response.data;
+};
+
 export const getUser = async (id: number): Promise<User> => {
   const response = await api.get(`/users/${id}`);
   return response.data;
