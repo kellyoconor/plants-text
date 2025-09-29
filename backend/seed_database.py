@@ -234,7 +234,7 @@ def main():
         json_path = Path(__file__).parent / "house_plants.json"
         if json_path.exists():
             print(f"Seeding plants from {json_path}...")
-            seed_plants_from_json(session, str(json_path), limit=50)
+            seed_plants_from_json(session, str(json_path), limit=209)
         else:
             print(f"Plant data file not found at {json_path}")
         
