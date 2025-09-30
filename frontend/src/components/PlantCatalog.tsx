@@ -289,9 +289,7 @@ const PlantCatalog: React.FC<PlantCatalogProps> = ({ userId, onPlantAdded, onBac
                 <Leaf className="w-8 h-8 text-green-600" />
               </div>
               
-              <h2 className="text-4xl font-bold text-green-800 mb-3 font-body tracking-tight">Let's meet your leafy friends!</h2>
-              <p className="text-lg font-body font-medium text-gray-700 mb-2 leading-relaxed">Choose plants to add to your collection</p>
-              <p className="text-sm text-gray-500 font-body">You can always edit or add more plants later.</p>
+              <h2 className="text-4xl font-bold text-green-800 mb-6 font-body tracking-tight">Plant Catalog</h2>
             </div>
 
             {/* Search Bar */}
@@ -311,7 +309,7 @@ const PlantCatalog: React.FC<PlantCatalogProps> = ({ userId, onPlantAdded, onBac
                     // Delay hiding suggestions to allow clicking
                     setTimeout(() => setShowSuggestions(false), 150);
                   }}
-                  placeholder="Type in your plant's name... even nicknames count! 🌿"
+                  placeholder="Search plants (e.g., Snake Plant, Monstera)"
                   className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl text-lg focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-200 bg-white/50 font-body"
                 />
           
@@ -332,12 +330,8 @@ const PlantCatalog: React.FC<PlantCatalogProps> = ({ userId, onPlantAdded, onBac
               </div>
               
               {searchTerm && filteredPlants.length === 0 && (
-                <div className="text-center mt-6 p-6 bg-gray-50 rounded-2xl relative z-10">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl flex items-center justify-center shadow-sm">
-                    <span className="text-2xl">🌿</span>
-                  </div>
-                  <p className="text-gray-600 font-body">Hmm, "{searchTerm}" is playing hide and seek!</p>
-                  <p className="text-sm text-gray-500 mt-1 font-body">Try another name or check the spelling 🕵️‍♀️</p>
+                <div className="text-center mt-6 p-6 relative z-10">
+                  <p className="text-gray-400 font-body">No results for "{searchTerm}"</p>
                 </div>
               )}
               {searchTerm && filteredPlants.length > 0 && (
