@@ -41,22 +41,11 @@ const StreamlinedApp: React.FC = () => {
 
   if (appState === 'addPlants' && user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 p-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Add More Plants</h2>
-            <button
-              onClick={() => setAppState('dashboard')}
-              className="text-green-600 hover:text-green-700"
-            >
-              ← Back to Dashboard
-            </button>
-          </div>
-          <div className="bg-white rounded-2xl shadow-xl">
-            <PlantCatalog userId={user.id} onPlantAdded={handlePlantsAdded} />
-          </div>
-        </div>
-      </div>
+      <PlantCatalog 
+        userId={user.id} 
+        onPlantAdded={handlePlantsAdded}
+        onBack={() => setAppState('dashboard')}
+      />
     );
   }
 
