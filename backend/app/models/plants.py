@@ -64,6 +64,8 @@ class UserPlant(Base):
     nickname = Column(String(100), nullable=False)
     qr_code = Column(String(100), unique=True, nullable=True, index=True)
     is_active = Column(Boolean, default=True)
+    last_watered = Column(DateTime(timezone=True), nullable=True)
+    last_fertilized = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships

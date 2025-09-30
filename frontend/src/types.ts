@@ -78,3 +78,37 @@ export interface ConversationDemo {
   conversation_samples: Record<string, string>;
   personality_traits: PersonalityType['voice_traits'];
 }
+
+// Care Schedule Types
+export interface CareSchedule {
+  plant_id: number;
+  plant_name: string;
+  plant_type: string;
+  next_watering: string;
+  next_fertilizing?: string;
+  next_repotting?: string;
+  watering_frequency_days: number;
+  growth_stage: 'new_plant' | 'established' | 'mature';
+  personality_type: string;
+  care_notes: string[];
+  common_issues?: Record<string, any>;
+  seasonal_adjustments?: string;
+}
+
+export interface CareReminder {
+  plant_id: number;
+  plant_name: string;
+  care_type: 'watering' | 'fertilizing' | 'repotting';
+  due_date: string;
+  message: string;
+  urgency: 'low' | 'medium' | 'high' | 'critical';
+  personality_type: string;
+}
+
+export interface UserCareSchedule {
+  user_id: number;
+  schedules: CareSchedule[];
+  due_reminders: CareReminder[];
+  seasonal_tips: string[];
+  current_season: 'spring' | 'summer' | 'fall' | 'winter';
+}

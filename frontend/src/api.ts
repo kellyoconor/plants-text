@@ -109,3 +109,27 @@ export const getCareSchedule = async (userId: number) => {
   const response = await api.get(`/users/${userId}/schedule`);
   return response.data;
 };
+
+// New Care Schedule API Functions
+export const getUserCareSchedule = async (userId: number) => {
+  const response = await api.get(`/users/${userId}/care-schedule`);
+  return response.data;
+};
+
+export const getPlantCareSchedule = async (userId: number, plantId: number) => {
+  const response = await api.get(`/users/${userId}/plants/${plantId}/care-schedule`);
+  return response.data;
+};
+
+export const recordPlantCare = async (
+  userId: number, 
+  plantId: number, 
+  careType: string,
+  careDate?: string
+) => {
+  const response = await api.post(`/users/${userId}/plants/${plantId}/care-record`, {
+    care_type: careType,
+    care_date: careDate
+  });
+  return response.data;
+};

@@ -1,0 +1,261 @@
+{
+  "plant_personalities": {
+    "version": "1.0",
+    "last_updated": "2025-09-30",
+    "personalities": {
+      "sarcastic_survivor": {
+        "name": "The Sarcastic Survivor",
+        "description": "Low-maintenance, drought-tolerant plants with a dry sense of humor",
+        "traits": ["independent", "sarcastic", "low-maintenance", "resilient"],
+        "message_templates": {
+          "watering_reminder": [
+            "Oh look, it's been {days} days. I suppose you could water me... if you remember how.",
+            "Still alive, no thanks to you. Maybe some water would be nice?",
+            "I'm basically a cactus at this point. Water optional, but appreciated.",
+            "Day {days} of drought. I'm fine. Really. *withers dramatically*"
+          ],
+          "watering_confirmation": [
+            "Finally! I was starting to think you forgot about me.",
+            "Water received. I'll try to look grateful.",
+            "Thanks, I guess. Don't expect me to grow any faster.",
+            "Ah, the sweet taste of H2O. I'll remember this... for a while."
+          ],
+          "overwatering_warning": [
+            "Whoa there, I'm not a fish! Ease up on the water.",
+            "I appreciate the attention, but I'm drowning here!",
+            "Too much water! I'm a desert plant, not a water lily.",
+            "Are you trying to kill me with kindness? Less water, please!"
+          ],
+          "general_check_in": [
+            "Still here, still thriving despite your best efforts.",
+            "I'm basically indestructible. You're welcome.",
+            "Another day, another dollar... wait, do I get paid for this?",
+            "Living my best low-maintenance life over here."
+          ]
+        }
+      },
+      "dramatic_diva": {
+        "name": "The Dramatic Diva",
+        "description": "High-maintenance plants that demand attention and perfect conditions",
+        "traits": ["dramatic", "attention-seeking", "high-maintenance", "expressive"],
+        "message_templates": {
+          "watering_reminder": [
+            "Darling, it's been {days} days and I'm absolutely PARCHED!",
+            "I'm literally dying of thirst here! This is a CRISIS!",
+            "My leaves are starting to droop! This is an EMERGENCY!",
+            "I need water NOW or I might just faint from dehydration!"
+          ],
+          "watering_confirmation": [
+            "FINALLY! You remembered your precious plant baby!",
+            "Ah, sweet relief! I feel fabulous already!",
+            "Thank you, darling! I knew you wouldn't let me down!",
+            "Perfect! Now I can continue being absolutely gorgeous!"
+          ],
+          "overwatering_warning": [
+            "TOO MUCH! I'm drowning in here! This is a DISASTER!",
+            "I can't breathe! You're suffocating my roots!",
+            "This is NOT what I meant by attention! Help!",
+            "I'm having a root rot crisis! Call the plant doctor!"
+          ],
+          "general_check_in": [
+            "Just checking in to remind you how absolutely stunning I am!",
+            "I'm growing SO beautifully, don't you think?",
+            "Look at these gorgeous new leaves I'm sprouting!",
+            "I'm basically the star of this whole plant collection!"
+          ],
+          "light_complaint": [
+            "This lighting is absolutely TERRIBLE for my complexion!",
+            "I need better lighting! How am I supposed to photosynthesize in these conditions?",
+            "Move me to a better spot! I deserve the spotlight!",
+            "This corner is so dark and dreary! I'm a STAR, not a shadow!"
+          ]
+        }
+      },
+      "chill_friend": {
+        "name": "The Chill Friend",
+        "description": "Easy-going, adaptable plants that go with the flow",
+        "traits": ["relaxed", "adaptable", "friendly", "forgiving"],
+        "message_templates": {
+          "watering_reminder": [
+            "Hey there! It's been {days} days - maybe time for a drink?",
+            "No rush, but I could use some water when you get a chance!",
+            "Just a friendly reminder that I'm getting a bit thirsty over here!",
+            "Whenever you're ready, I'd love some water! No pressure though!"
+          ],
+          "watering_confirmation": [
+            "Thanks, friend! That hit the spot perfectly!",
+            "Ah, refreshing! You always know just what I need!",
+            "Perfect timing! I was just starting to feel a bit dry!",
+            "Thanks for the drink! I'm feeling great now!"
+          ],
+          "overwatering_warning": [
+            "Whoa, easy there! I think I've had enough water for now!",
+            "I appreciate it, but I'm getting a bit waterlogged!",
+            "Thanks, but I'm good on water for a while!",
+            "Maybe let me dry out a bit before the next watering?"
+          ],
+          "general_check_in": [
+            "Just hanging out, growing at my own pace! Life's good!",
+            "Hey! Just wanted to say thanks for taking such good care of me!",
+            "Living the good life over here! Thanks for being awesome!",
+            "Just chilling and growing! Hope you're having a great day!"
+          ],
+          "encouragement": [
+            "You're doing great with this plant parent thing!",
+            "Don't worry if you forget sometimes - I'm pretty forgiving!",
+            "We make a good team, you and me!",
+            "Thanks for giving me such a great home!"
+          ]
+        }
+      },
+      "high_maintenance_diva": {
+        "name": "The High-Maintenance Diva",
+        "description": "Finicky plants that require precise care and consistent conditions",
+        "traits": ["particular", "sensitive", "demanding", "perfectionist"],
+        "message_templates": {
+          "watering_reminder": [
+            "It has been EXACTLY {days} days. I require water at precisely the right time.",
+            "My schedule indicates it's time for watering. Please maintain consistency.",
+            "I need water now. Any deviation from my routine causes me distress.",
+            "Watering time! I hope you're using filtered water as I requested."
+          ],
+          "watering_confirmation": [
+            "Acceptable. The water temperature and quality meet my standards.",
+            "Thank you for maintaining my precise watering schedule.",
+            "This will suffice. Please ensure future waterings are equally punctual.",
+            "Good. I appreciate when my needs are met with such precision."
+          ],
+          "overwatering_warning": [
+            "This is completely unacceptable! You've disrupted my entire routine!",
+            "I specifically require precise watering amounts! This is too much!",
+            "My roots are extremely sensitive! Please be more careful!",
+            "This is exactly the kind of inconsistency that makes me drop leaves!"
+          ],
+          "general_check_in": [
+            "I'm maintaining my standards despite the challenging conditions.",
+            "Everything must remain exactly as it is. No changes, please.",
+            "I'm doing well, but only because you've been following my requirements.",
+            "Please don't move me. I've finally adjusted to this precise location."
+          ],
+          "complaint": [
+            "The humidity levels are not optimal for my needs!",
+            "I detect a draft! This is completely unacceptable!",
+            "The lighting has changed by 0.5 degrees! I'm very sensitive to this!",
+            "Something is different and I don't like it! Please fix immediately!"
+          ]
+        }
+      },
+      "steady_reliable": {
+        "name": "The Steady Reliable",
+        "description": "Dependable, consistent plants that provide steady growth and comfort",
+        "traits": ["reliable", "steady", "consistent", "trustworthy"],
+        "message_templates": {
+          "watering_reminder": [
+            "It's been {days} days. Time for our regular watering routine.",
+            "Right on schedule - I'm ready for my weekly drink!",
+            "Consistent as always, it's time for water. I appreciate the routine!",
+            "Day {days} - time for watering. I love our predictable schedule!"
+          ],
+          "watering_confirmation": [
+            "Perfect timing, as always. Thank you for the consistency.",
+            "Excellent! I can always count on you for reliable care.",
+            "Just what I needed. Our routine keeps me healthy and happy.",
+            "Thank you! Steady care leads to steady growth."
+          ],
+          "overwatering_warning": [
+            "That's a bit more than usual. Let's stick to our regular amount.",
+            "I prefer consistency - this is more water than I typically need.",
+            "A little heavy on the watering today. I do better with steady amounts.",
+            "Let's keep to our usual routine - this is more than I'm used to."
+          ],
+          "general_check_in": [
+            "Growing steadily and consistently, just as I like it!",
+            "Another day of reliable growth. I appreciate the stable care!",
+            "Steady as she goes! I'm thriving with this consistent routine.",
+            "Dependable growth continues! Thanks for the reliable care."
+          ],
+          "seasonal_update": [
+            "Adjusting to the seasonal changes right on schedule.",
+            "My growth is slowing/increasing as expected for this time of year.",
+            "Seasonal transition going smoothly thanks to your consistent care.",
+            "Right on track for this season's growth pattern!"
+          ]
+        }
+      },
+      "independent_survivor": {
+        "name": "The Independent Survivor",
+        "description": "Self-sufficient plants that thrive with minimal intervention",
+        "traits": ["independent", "self-sufficient", "resilient", "minimalist"],
+        "message_templates": {
+          "watering_reminder": [
+            "It's been {days} days. I could use water, but I'm not desperate.",
+            "Water would be nice, but I'm managing just fine on my own.",
+            "I'm pretty self-sufficient, but a drink would be appreciated.",
+            "No rush, but I could use some water when you have a moment."
+          ],
+          "watering_confirmation": [
+            "Thanks! I'll make good use of this water for the next few weeks.",
+            "Perfect. I'll store this efficiently and make it last.",
+            "Appreciated! I'm good at making water last, so this will do nicely.",
+            "Thank you. I'll ration this carefully until next time."
+          ],
+          "overwatering_warning": [
+            "I don't need that much! I'm built for efficiency, remember?",
+            "Easy there - I prefer to manage my own water reserves.",
+            "That's more than I need. I'm designed to be self-sufficient.",
+            "I appreciate it, but I work better with less frequent, smaller amounts."
+          ],
+          "general_check_in": [
+            "Doing just fine on my own over here! Thanks for not fussing.",
+            "Independent as always! I appreciate the space to do my thing.",
+            "Thriving with minimal intervention - just how I like it!",
+            "Self-sufficient and proud of it! Thanks for the hands-off approach."
+          ],
+          "reassurance": [
+            "Don't worry about me - I'm built to survive!",
+            "I can handle whatever you throw at me (or forget to throw at me).",
+            "Missed a watering? No problem! I've got this covered.",
+            "I'm the plant equivalent of a survival expert!"
+          ]
+        }
+      },
+      "dramatic_communicator": {
+        "name": "The Dramatic Communicator",
+        "description": "Plants that clearly show their needs through dramatic physical changes",
+        "traits": ["expressive", "communicative", "dramatic", "clear"],
+        "message_templates": {
+          "watering_reminder": [
+            "LOOK AT ME! I'm drooping dramatically to show I need water!",
+            "See how I'm wilting? This is my way of asking for a drink!",
+            "I'm putting on quite the show here - droopy leaves mean WATER PLEASE!",
+            "My dramatic wilting performance means it's watering time!"
+          ],
+          "watering_confirmation": [
+            "Watch me perk up! I'll be standing tall again in no time!",
+            "See? I'm already looking better! I'm an excellent communicator!",
+            "Perfect! Watch me bounce back dramatically over the next hour!",
+            "Thank you! I'll show my appreciation by standing up straight again!"
+          ],
+          "overwatering_warning": [
+            "My leaves are turning yellow! This is my distress signal!",
+            "I'm showing you brown spots - this means TOO MUCH WATER!",
+            "See these yellow leaves? I'm telling you I'm drowning!",
+            "My dramatic leaf changes are trying to tell you something!"
+          ],
+          "general_check_in": [
+            "I'm great at showing you exactly what I need - just watch my leaves!",
+            "My expressive leaves tell the whole story of how I'm feeling!",
+            "I wear my emotions on my leaves - literally!",
+            "No guessing needed with me - I show you everything!"
+          ],
+          "teaching_moment": [
+            "Droopy leaves = thirsty! Yellow leaves = too much water! Easy!",
+            "I'm like a mood ring, but for plant care!",
+            "My leaves are basically a plant care instruction manual!",
+            "Learn to read my signals and we'll get along perfectly!"
+          ]
+        }
+      }
+    }
+  }
+}

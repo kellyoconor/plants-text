@@ -13,6 +13,7 @@ from ..schemas.plants import (
 from ..services.plant_care import PlantCareService
 from ..services.personality_matcher import PersonalityMatcher
 from ..services.personality_engine import PersonalityEngine
+from ..services.care_scheduler import CareScheduleEngine
 
 router = APIRouter()
 
@@ -384,3 +385,194 @@ def test_ai_personality(plant_id: int, request: dict, db: Session = Depends(get_
             "ai_enabled": False,
             "status": "error"
         }
+
+
+# Care Schedule endpoints
+@router.get("/users/{user_id}/care-schedule")
+def get_user_care_schedule(user_id: int, db: Session = Depends(get_db)):
+    """Get comprehensive care schedule for all user's plants"""
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Get user's plants
+    user_plants = db.query(UserPlant).filter(UserPlant.user_id == user_id).all()
+    
+    if not user_plants:
+        return {
+            "user_id": user_id,
+            "schedules": [],
+            "due_reminders": [],
+            "seasonal_tips": []
+        }
+    
+    # Initialize care scheduler
+    scheduler = CareScheduleEngine()
+    
+    # Convert user plants to format expected by scheduler
+    plant_data = []
+    for plant in user_plants:
+        plant_data.append({
+            "id": plant.id,
+            "nickname": plant.nickname,
+            "common_name": plant.plant_catalog.name,
+            "last_watered": plant.last_watered or datetime.now(),
+            "created_at": plant.created_at,
+            "last_fertilized": plant.last_fertilized
+        })
+    
+    # Generate schedules for each plant
+    schedules = []
+    for plant in plant_data:
+        schedule = scheduler.generate_care_schedule(
+            plant_id=plant["id"],
+            plant_name=plant["nickname"],
+            plant_type=plant["common_name"],
+            last_watered=plant["last_watered"],
+            plant_added_date=plant["created_at"],
+            last_fertilized=plant.get("last_fertilized")
+        )
+        
+        schedules.append({
+            "plant_id": schedule.plant_id,
+            "plant_name": schedule.plant_name,
+            "plant_type": schedule.plant_type,
+            "next_watering": schedule.next_watering.isoformat(),
+            "next_fertilizing": schedule.next_fertilizing.isoformat() if schedule.next_fertilizing else None,
+            "next_repotting": schedule.next_repotting.isoformat() if schedule.next_repotting else None,
+            "watering_frequency_days": schedule.watering_frequency_days,
+            "growth_stage": schedule.growth_stage.value,
+            "personality_type": schedule.personality_type,
+            "care_notes": schedule.care_notes[:3]  # Limit to 3 tips
+        })
+    
+    # Get due reminders
+    reminders = scheduler.get_due_reminders(plant_data)
+    reminder_data = []
+    for reminder in reminders:
+        reminder_data.append({
+            "plant_id": reminder.plant_id,
+            "plant_name": reminder.plant_name,
+            "care_type": reminder.care_type,
+            "due_date": reminder.due_date.isoformat(),
+            "message": reminder.message,
+            "urgency": reminder.urgency,
+            "personality_type": reminder.personality_type
+        })
+    
+    # Get seasonal tips
+    seasonal_tips = scheduler.get_seasonal_care_tips()
+    
+    return {
+        "user_id": user_id,
+        "schedules": schedules,
+        "due_reminders": reminder_data,
+        "seasonal_tips": seasonal_tips,
+        "current_season": scheduler.get_current_season().value
+    }
+
+
+@router.get("/users/{user_id}/plants/{plant_id}/care-schedule")
+def get_plant_care_schedule(user_id: int, plant_id: int, db: Session = Depends(get_db)):
+    """Get detailed care schedule for a specific plant"""
+    user_plant = db.query(UserPlant).filter(
+        UserPlant.user_id == user_id,
+        UserPlant.id == plant_id
+    ).first()
+    
+    if not user_plant:
+        raise HTTPException(status_code=404, detail="Plant not found")
+    
+    scheduler = CareScheduleEngine()
+    
+    schedule = scheduler.generate_care_schedule(
+        plant_id=user_plant.id,
+        plant_name=user_plant.nickname,
+        plant_type=user_plant.plant_catalog.name,
+        last_watered=user_plant.last_watered or datetime.now(),
+        plant_added_date=user_plant.created_at,
+        last_fertilized=user_plant.last_fertilized
+    )
+    
+    # Get plant care info for detailed tips
+    plant_info = scheduler.get_plant_care_info(user_plant.plant_catalog.name)
+    common_issues = plant_info.get("common_issues", {}) if plant_info else {}
+    
+    return {
+        "plant_id": schedule.plant_id,
+        "plant_name": schedule.plant_name,
+        "plant_type": schedule.plant_type,
+        "next_watering": schedule.next_watering.isoformat(),
+        "next_fertilizing": schedule.next_fertilizing.isoformat() if schedule.next_fertilizing else None,
+        "next_repotting": schedule.next_repotting.isoformat() if schedule.next_repotting else None,
+        "watering_frequency_days": schedule.watering_frequency_days,
+        "growth_stage": schedule.growth_stage.value,
+        "personality_type": schedule.personality_type,
+        "care_notes": schedule.care_notes,
+        "common_issues": common_issues,
+        "seasonal_adjustments": schedule.seasonal_adjustments
+    }
+
+
+@router.post("/users/{user_id}/plants/{plant_id}/care-record")
+def record_plant_care(
+    user_id: int, 
+    plant_id: int, 
+    care_data: dict,
+    db: Session = Depends(get_db)
+):
+    """Record that care was performed on a plant"""
+    user_plant = db.query(UserPlant).filter(
+        UserPlant.user_id == user_id,
+        UserPlant.id == plant_id
+    ).first()
+    
+    if not user_plant:
+        raise HTTPException(status_code=404, detail="Plant not found")
+    
+    care_type = care_data.get("care_type")
+    care_date_str = care_data.get("care_date")
+    
+    if care_date_str:
+        care_date = datetime.fromisoformat(care_date_str.replace('Z', '+00:00'))
+    else:
+        care_date = datetime.now()
+    
+    # Update the plant record based on care type
+    if care_type == "watering":
+        user_plant.last_watered = care_date
+    elif care_type == "fertilizing":
+        user_plant.last_fertilized = care_date
+    
+    # Add to care history
+    care_history = CareHistory(
+        user_plant_id=plant_id,
+        task_type=care_type,
+        completed_at=care_date,
+        method="manual",
+        notes=f"{care_type.capitalize()} completed"
+    )
+    
+    db.add(care_history)
+    db.commit()
+    db.refresh(user_plant)
+    
+    # Generate updated schedule
+    scheduler = CareScheduleEngine()
+    updated_schedule = scheduler.generate_care_schedule(
+        plant_id=user_plant.id,
+        plant_name=user_plant.nickname,
+        plant_type=user_plant.plant_catalog.name,
+        last_watered=user_plant.last_watered or datetime.now(),
+        plant_added_date=user_plant.created_at,
+        last_fertilized=user_plant.last_fertilized
+    )
+    
+    return {
+        "success": True,
+        "care_type": care_type,
+        "care_date": care_date.isoformat(),
+        "plant_name": user_plant.nickname,
+        "next_watering": updated_schedule.next_watering.isoformat(),
+        "message": f"{care_type.capitalize()} recorded successfully!"
+    }
