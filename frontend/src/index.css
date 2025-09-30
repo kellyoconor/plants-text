@@ -10,6 +10,39 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  line-height: 1.6;
+}
+
+/* Premium Typography Classes */
+.font-display {
+  font-family: 'Playfair Display', serif;
+  font-feature-settings: 'liga', 'dlig';
+}
+
+.font-body {
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: -0.005em;
+}
+
+.font-brand {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.tracking-wide {
+  letter-spacing: 0.05em;
+}
+
+.tracking-wider {
+  letter-spacing: 0.1em;
+}
+
+.leading-relaxed {
+  line-height: 1.7;
+}
+
+.leading-loose {
+  line-height: 1.8;
 }
 
 /* Add subtle texture pattern to avoid flat backgrounds */
@@ -17,6 +50,30 @@ body {
   background-image: radial-gradient(circle at 25px 25px, rgba(255,255,255,.2) 2%, transparent 0%), 
                     radial-gradient(circle at 75px 75px, rgba(255,255,255,.1) 1%, transparent 0%);
   background-size: 100px 100px;
+}
+
+/* Fade-in animation for welcome screen steps */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
 }
 
 code {

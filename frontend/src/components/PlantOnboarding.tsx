@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Check, Leaf, Phone, MessageCircle, ArrowRight, ArrowLeft } from 'lucide-react';
 import { getPlantCatalog, addPlantToUser, findOrCreateUser } from '../api';
 import { Plant, User } from '../types';
+import { getPlantImage } from '../utils/plantImageMapping';
 
 interface PlantOnboardingProps {
   onComplete: (user: User) => void;
@@ -35,9 +36,19 @@ const ProgressSteps: React.FC<{ currentStep: string; onBack?: () => void }> = ({
   const currentIndex = getStepIndex(currentStep);
 
   return (
-    <div className="w-full max-w-4xl mx-auto mb-8">
+    <div className="w-full max-w-2xl mx-auto">
       <BackButton onClick={onBack || (() => {})} show={currentIndex > 0 && !!onBack} />
-      <div className="flex items-center justify-between">
+      
+      {/* Combined Progress Label and Bar */}
+      <div className="text-center mb-4">
+        <div className="flex items-center justify-center space-x-2 text-xs text-gray-500 font-body mb-3">
+          <span>Step {currentIndex + 1} of {steps.length}</span>
+          <span>•</span>
+          <span className="text-green-600 font-medium">{steps[currentIndex]?.label}</span>
+        </div>
+      </div>
+      
+      <div className="flex items-center justify-between px-4">
         {steps.map((step, index) => {
           const Icon = step.icon;
           const isActive = index === currentIndex;
@@ -47,45 +58,28 @@ const ProgressSteps: React.FC<{ currentStep: string; onBack?: () => void }> = ({
             <React.Fragment key={step.key}>
               <div className="flex flex-col items-center relative">
                 <div className={`
-                  w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-300
-                  ${isActive ? 'bg-green-600 border-green-600 text-white shadow-lg scale-110' : 
-                    isCompleted ? 'bg-green-100 border-green-500 text-green-600' : 
-                    'bg-gray-100 border-gray-300 text-gray-400'}
+                  w-7 h-7 rounded-full flex items-center justify-center border transition-all duration-300
+                  ${isActive ? 'bg-green-600 border-green-600 text-white shadow-md' : 
+                    isCompleted ? 'bg-green-100 border-green-400 text-green-600' : 
+                    'bg-gray-50 border-gray-200 text-gray-300'}
                 `}>
                   {isCompleted ? (
-                    <Check className="w-6 h-6" />
+                    <Check className="w-3.5 h-3.5" />
                   ) : (
-                    <Icon className="w-6 h-6" />
+                    <Icon className="w-3.5 h-3.5" />
                   )}
                 </div>
-                <span className={`
-                  mt-2 text-sm font-medium transition-colors duration-300
-                  ${isActive ? 'text-green-600' : 
-                    isCompleted ? 'text-green-500' : 
-                    'text-gray-400'}
-                `}>
-                  {step.label}
-                </span>
               </div>
               
               {index < steps.length - 1 && (
                 <div className={`
-                  flex-1 h-0.5 mx-4 transition-colors duration-300
-                  ${index < currentIndex ? 'bg-green-500' : 'bg-gray-200'}
+                  flex-1 h-px mx-3 transition-colors duration-300
+                  ${index < currentIndex ? 'bg-green-400' : 'bg-gray-200'}
                 `} />
               )}
             </React.Fragment>
           );
         })}
-      </div>
-      
-      {/* Progress Description */}
-      <div className="text-center mt-6">
-        <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
-          <span>Step {currentIndex + 1} of {steps.length}</span>
-          <ArrowRight className="w-4 h-4" />
-          <span className="font-medium text-green-600">{steps[currentIndex]?.label}</span>
-        </div>
       </div>
     </div>
   );
@@ -205,7 +199,7 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
 
   if (step === 'welcome') {
     return (
-      <div className="min-h-screen bg-white flex flex-col justify-center p-4">
+      <div className="min-h-screen bg-white flex flex-col p-4 py-12">
         {/* Subtle floating background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-green-50 rounded-full opacity-20 animate-pulse"></div>
@@ -213,67 +207,86 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
           <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-teal-50 rounded-full opacity-20 animate-pulse delay-500"></div>
         </div>
         
-        <ProgressSteps currentStep={step} />
-        <div className="max-w-lg w-full mx-auto">
-          <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 p-10 text-center">
-            <div className="mb-8">
-              {/* Enhanced plant icon with gradient */}
-              <div className="w-24 h-24 mx-auto mb-6 relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full opacity-20 animate-pulse"></div>
-                <Leaf className="w-24 h-24 text-green-600 mx-auto relative z-10" />
+        <div className="flex-1 flex flex-col justify-center">
+          <div className="max-w-md w-full mx-auto">
+            <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 p-6 pt-6 text-center overflow-hidden">
+              {/* Subtle background accents */}
+              <div className="absolute top-4 right-4 w-8 h-8 bg-green-50 rounded-full opacity-40"></div>
+              <div className="absolute bottom-6 left-4 w-6 h-6 bg-emerald-50 rounded-full opacity-30"></div>
+              <div className="absolute top-1/2 right-8 w-4 h-4 bg-teal-50 rounded-full opacity-25"></div>
+              
+              {/* Branding & Hero */}
+              <div className="mb-3 relative z-10">
+                {/* Logo treatment */}
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center shadow-sm">
+                  <Leaf className="w-8 h-8 text-green-600" />
+                </div>
+                
+                <h1 className="text-4xl font-bold text-green-800 mb-2 font-body tracking-tight">
+                  PlantTexts
+                </h1>
+                <p className="text-lg font-body font-medium text-gray-700 mb-2 leading-relaxed">
+                  Chat with your plants.<br />Keep them happy.
+                </p>
+                <p className="text-sm text-gray-500 leading-relaxed mb-4 font-body">
+                  Get care reminders and have conversations with your plants — each with their own unique personality.
+                </p>
               </div>
               
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent mb-4 font-black tracking-tight">
-                PlantTexts
-              </h1>
-              <p className="text-xl text-gray-700 leading-relaxed font-medium mb-4">
-                Your plants, with personality
-              </p>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Get care reminders and have conversations with your plants - each with their own unique character and voice.
-              </p>
+              {/* Friendly Steps List */}
+              <div className="mb-5 relative z-10">
+                <h3 className="text-xs font-medium text-gray-500 mb-4 font-body uppercase tracking-wider">What happens next</h3>
+                <div className="space-y-8 text-left">
+                  <div className="flex items-center space-x-4 animate-fade-in">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center shadow-sm">
+                      <Phone className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-800 text-sm font-body mb-0.5">Share your number</p>
+                      <p className="text-xs text-gray-500 font-body">We'll send you gentle plant care reminders</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4 animate-fade-in delay-100">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl flex items-center justify-center shadow-sm">
+                      <Leaf className="w-5 h-5 text-green-600" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-800 text-sm font-body mb-0.5">Add your plants</p>
+                      <p className="text-xs text-gray-500 font-body">Give them names and fun personalities</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4 animate-fade-in delay-200">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center shadow-sm">
+                      <MessageCircle className="w-5 h-5 text-purple-600" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-800 text-sm font-body mb-0.5">Start chatting</p>
+                      <p className="text-xs text-gray-500 font-body">Have real conversations with your plant friends</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
               
-              {/* What to expect */}
-              <div className="bg-green-50 rounded-2xl p-6 mb-6 border border-green-100">
-                <h3 className="text-lg font-semibold text-green-800 mb-4">What happens next:</h3>
-                <div className="space-y-3 text-left">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 font-bold text-sm">1</span>
-                    </div>
-                    <span className="text-green-700">Share your phone number for plant messages</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 font-bold text-sm">2</span>
-                    </div>
-                    <span className="text-green-700">Add your plants and give them names</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 font-bold text-sm">3</span>
-                    </div>
-                    <span className="text-green-700">Start chatting with your plant friends!</span>
-                  </div>
-                </div>
-                <div className="mt-4 text-center">
-                  <span className="text-green-600 text-sm font-medium">⏱️ Takes about 2 minutes</span>
-                </div>
+              {/* CTA Section */}
+              <div className="border-t border-gray-100 pt-5 mt-3">
+                <button
+                  onClick={() => setStep('phone')}
+                  className="w-full bg-green-700 hover:bg-green-800 text-white py-3.5 px-6 rounded-2xl font-medium text-base shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 mb-3 font-body"
+                >
+                  Start Growing
+                </button>
+                
+                {/* Reassurance text */}
+                <p className="text-xs text-gray-400 font-body text-center">Takes about 2 minutes</p>
               </div>
             </div>
             
-            <button
-              onClick={() => setStep('phone')}
-              className="group relative w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 px-8 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-700 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-              <span className="relative flex items-center justify-center space-x-2">
-                <span>Start Growing Together</span>
-                <div className="w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 animate-bounce delay-100 transition-opacity"></div>
-                <div className="w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 animate-bounce delay-200 transition-opacity"></div>
-                <div className="w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 animate-bounce delay-300 transition-opacity"></div>
-              </span>
-            </button>
+            {/* Progress indicator positioned closer to card */}
+            <div className="mt-4">
+              <ProgressSteps currentStep={step} />
+            </div>
           </div>
         </div>
       </div>
@@ -282,7 +295,7 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
 
   if (step === 'phone') {
     return (
-      <div className="min-h-screen bg-white flex flex-col justify-center p-4">
+      <div className="min-h-screen bg-white flex flex-col p-4 py-12">
         {/* Subtle floating background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-green-50 rounded-full opacity-20 animate-pulse"></div>
@@ -290,9 +303,10 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
           <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-teal-50 rounded-full opacity-20 animate-pulse delay-500"></div>
         </div>
         
-        <ProgressSteps currentStep={step} onBack={handleBack} />
-        <div className="max-w-md w-full mx-auto">
-          <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
+        <div className="flex-1 flex flex-col justify-center">
+          <ProgressSteps currentStep={step} onBack={handleBack} />
+          <div className="max-w-md w-full mx-auto">
+            <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
             <div className="text-center mb-8">
               <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-400 to-emerald-500 rounded-2xl flex items-center justify-center">
                 <Phone className="w-8 h-8 text-white" />
@@ -344,13 +358,14 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
             </div>
           </div>
         </div>
+        </div>
       </div>
     );
   }
 
   if (step === 'plants') {
     return (
-      <div className="min-h-screen bg-white p-4">
+      <div className="min-h-screen bg-white p-4 py-8">
         {/* Subtle floating background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-green-50 rounded-full opacity-20 animate-pulse"></div>
@@ -370,17 +385,40 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Plant Family ({addedPlants.length})</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                {addedPlants.map((item, index) => (
-                  <div key={index} className="bg-white rounded-2xl p-4 border-2 border-green-200 shadow-lg">
-                    <div className="flex items-center space-x-3">
-                      <Check className="w-5 h-5 text-green-600" />
-                      <div>
-                        <h4 className="font-semibold text-gray-900">{item.nickname}</h4>
-                        <p className="text-sm text-gray-600">{item.plant.name}</p>
+                {addedPlants.map((item, index) => {
+                  const imageUrl = getPlantImage(item.plant);
+                  return (
+                    <div key={index} className="bg-white rounded-2xl overflow-hidden border-2 border-green-200 shadow-lg">
+                      {/* Small plant image */}
+                      <div className="h-20 w-full bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
+                        {imageUrl ? (
+                          <img
+                            src={imageUrl}
+                            alt={item.plant.name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                              e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                            }}
+                          />
+                        ) : null}
+                        <div className={`flex items-center justify-center ${imageUrl ? 'hidden' : ''}`}>
+                          <Leaf className="w-6 h-6 text-green-500" />
+                        </div>
+                      </div>
+                      
+                      <div className="p-4">
+                        <div className="flex items-center space-x-3">
+                          <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
+                          <div>
+                            <h4 className="font-semibold text-gray-900">{item.nickname}</h4>
+                            <p className="text-sm text-gray-600">{item.plant.name}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -403,21 +441,44 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
 
                 {filteredPlants.length > 0 && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {filteredPlants.map((plant) => (
-                      <div
-                        key={plant.id}
-                        onClick={() => handleSelectPlant(plant)}
-                        className="border border-gray-200 rounded-lg p-4 cursor-pointer hover:border-green-300 hover:bg-green-50 transition-all"
-                      >
-                        <h3 className="font-semibold text-gray-900">{plant.name}</h3>
-                        <p className="text-sm text-gray-600 italic">{plant.species}</p>
-                        <div className="mt-2">
-                          <span className="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-                            {plant.difficulty_level} care
-                          </span>
+                    {filteredPlants.map((plant) => {
+                      const imageUrl = getPlantImage(plant);
+                      return (
+                        <div
+                          key={plant.id}
+                          onClick={() => handleSelectPlant(plant)}
+                          className="border border-gray-200 rounded-lg overflow-hidden cursor-pointer hover:border-green-300 hover:shadow-md transition-all"
+                        >
+                          {/* Plant Image */}
+                          <div className="h-32 w-full bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
+                            {imageUrl ? (
+                              <img
+                                src={imageUrl}
+                                alt={plant.name}
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                  e.currentTarget.style.display = 'none';
+                                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                                }}
+                              />
+                            ) : null}
+                            <div className={`flex items-center justify-center ${imageUrl ? 'hidden' : ''}`}>
+                              <Leaf className="w-8 h-8 text-green-500" />
+                            </div>
+                          </div>
+                          
+                          <div className="p-4">
+                            <h3 className="font-semibold text-gray-900">{plant.name}</h3>
+                            <p className="text-sm text-gray-600 italic">{plant.species}</p>
+                            <div className="mt-2">
+                              <span className="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                                {plant.difficulty_level} care
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
 
@@ -430,9 +491,34 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
               </div>
             ) : (
               <div>
-                <div className="border border-green-200 rounded-lg p-4 mb-4 bg-green-50">
-                  <h3 className="font-semibold text-gray-900">{selectedPlant.name}</h3>
-                  <p className="text-sm text-gray-600 italic">{selectedPlant.species}</p>
+                <div className="border border-green-200 rounded-lg overflow-hidden mb-4 bg-green-50">
+                  {/* Selected Plant Image */}
+                  <div className="h-40 w-full bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
+                    {(() => {
+                      const imageUrl = getPlantImage(selectedPlant);
+                      return imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt={selectedPlant.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                          }}
+                        />
+                      ) : (
+                        <Leaf className="w-12 h-12 text-green-500" />
+                      );
+                    })()}
+                    <div className="hidden flex items-center justify-center">
+                      <Leaf className="w-12 h-12 text-green-500" />
+                    </div>
+                  </div>
+                  
+                  <div className="p-4">
+                    <h3 className="font-semibold text-gray-900">{selectedPlant.name}</h3>
+                    <p className="text-sm text-gray-600 italic">{selectedPlant.species}</p>
+                  </div>
                 </div>
 
                 <div className="space-y-4">
@@ -502,7 +588,7 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
 
   if (step === 'complete') {
     return (
-      <div className="min-h-screen bg-white flex flex-col justify-center p-4">
+      <div className="min-h-screen bg-white flex flex-col p-4 py-12">
         {/* Subtle floating background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-green-50 rounded-full opacity-20 animate-pulse"></div>
@@ -510,9 +596,10 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
           <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-teal-50 rounded-full opacity-20 animate-pulse delay-500"></div>
         </div>
         
-        <ProgressSteps currentStep={step} onBack={handleBack} />
-        <div className="max-w-md w-full mx-auto relative z-10">
-          <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 text-center">
+        <div className="flex-1 flex flex-col justify-center">
+          <ProgressSteps currentStep={step} onBack={handleBack} />
+          <div className="max-w-md w-full mx-auto relative z-10">
+            <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 text-center">
             <div className="mb-6">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Check className="w-8 h-8 text-green-600" />
@@ -538,6 +625,7 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
             </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     );
