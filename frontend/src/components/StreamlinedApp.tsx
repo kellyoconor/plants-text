@@ -3,8 +3,9 @@ import { User } from '../types';
 import PlantOnboarding from './PlantOnboarding';
 import PlantDashboard from './PlantDashboard';
 import PlantCatalog from './PlantCatalog';
+import PersonalityTester from './PersonalityTester';
 
-type AppState = 'onboarding' | 'dashboard' | 'addPlants';
+type AppState = 'onboarding' | 'dashboard' | 'addPlants' | 'personalityTester';
 
 const StreamlinedApp: React.FC = () => {
   const [appState, setAppState] = useState<AppState>('onboarding');
@@ -12,6 +13,13 @@ const StreamlinedApp: React.FC = () => {
 
   // Check if user is already logged in (in a real app, this would check localStorage/session)
   useEffect(() => {
+    // Check for personality tester URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('test') === 'personalities') {
+      setAppState('personalityTester');
+      return;
+    }
+
     // For demo purposes, assume user ID 1 exists if they've been through onboarding
     // In production, you'd check localStorage or a session token
     const existingUserId = localStorage.getItem('plantTextsUserId');
@@ -34,6 +42,10 @@ const StreamlinedApp: React.FC = () => {
   const handlePlantsAdded = () => {
     setAppState('dashboard');
   };
+
+  if (appState === 'personalityTester') {
+    return <PersonalityTester />;
+  }
 
   if (appState === 'onboarding') {
     return <PlantOnboarding onComplete={handleOnboardingComplete} />;
