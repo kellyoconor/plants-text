@@ -44,9 +44,10 @@ def check_all_plants_daily(self):
         
         for user in active_users:
             try:
-                # Process each user's plants
-                user_reminders = check_user_plants_for_care.delay(user.id)
-                total_reminders += 1
+                # Process each user's plants directly (avoid recursive Celery calls)
+                result = check_user_plants_for_care(user.id)
+                if result.get("sms_scheduled", 0) > 0:
+                    total_reminders += result["sms_scheduled"]
                 
             except Exception as e:
                 logger.error(f"Error processing user {user.id}: {str(e)}")

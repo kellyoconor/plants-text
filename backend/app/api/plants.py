@@ -14,6 +14,7 @@ from ..services.plant_care import PlantCareService
 from ..services.personality_matcher import PersonalityMatcher
 from ..services.personality_engine import PersonalityEngine
 from ..services.care_scheduler import CareScheduleEngine
+from ..services.ai_chat import PlantAIChat
 
 router = APIRouter()
 
@@ -253,20 +254,23 @@ def suggest_personality_for_plant(plant_id: int, db: Session = Depends(get_db)):
 # Plant Conversation endpoints
 @router.post("/plants/{plant_id}/remind/{task_type}")
 def get_care_reminder(plant_id: int, task_type: str, db: Session = Depends(get_db)):
-    """Get a personality-based care reminder from the plant"""
+    """Get an AI personality-based care reminder from the plant"""
     # Verify plant exists
     plant = db.query(UserPlant).filter(UserPlant.id == plant_id).first()
     if not plant:
         raise HTTPException(status_code=404, detail="Plant not found")
     
-    # Generate personality message
-    personality_engine = PersonalityEngine(db)
-    message = personality_engine.generate_care_reminder(plant_id, task_type)
+    # Generate AI personality message
+    ai_chat = PlantAIChat()
+    message = ai_chat.generate_care_reminder_message(plant_id, task_type)
+    
+    # Get plant context for additional info
+    context = ai_chat.get_plant_context(plant_id)
     
     return {
         "plant_id": plant_id,
         "plant_name": plant.nickname,
-        "personality": plant.personality.name,
+        "personality": context.get("personality_type", "chill_friend"),
         "task_type": task_type,
         "message": message,
         "timestamp": datetime.utcnow().isoformat()
@@ -275,7 +279,7 @@ def get_care_reminder(plant_id: int, task_type: str, db: Session = Depends(get_d
 
 @router.post("/plants/{plant_id}/chat")
 def chat_with_plant(plant_id: int, message: dict, db: Session = Depends(get_db)):
-    """Send a message to a plant and get a personality response"""
+    """Send a message to a plant and get an AI personality response"""
     # Verify plant exists
     plant = db.query(UserPlant).filter(UserPlant.id == plant_id).first()
     if not plant:
@@ -285,14 +289,23 @@ def chat_with_plant(plant_id: int, message: dict, db: Session = Depends(get_db))
     if not user_message:
         raise HTTPException(status_code=400, detail="Message is required")
     
-    # Generate personality response
-    personality_engine = PersonalityEngine(db)
-    response = personality_engine.respond_to_user(plant_id, user_message)
+    conversation_history = message.get("conversation_history", [])
+    
+    # Generate AI personality response
+    ai_chat = PlantAIChat()
+    response = ai_chat.generate_chat_response(
+        plant_id=plant_id,
+        user_message=user_message,
+        conversation_history=conversation_history
+    )
+    
+    # Get plant context for additional info
+    context = ai_chat.get_plant_context(plant_id)
     
     return {
         "plant_id": plant_id,
         "plant_name": plant.nickname,
-        "personality": plant.personality.name,
+        "personality": context.get("personality_type", "chill_friend"),
         "user_message": user_message,
         "plant_response": response,
         "timestamp": datetime.utcnow().isoformat()
