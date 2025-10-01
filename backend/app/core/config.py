@@ -14,6 +14,15 @@ class Settings(BaseSettings):
     debug: bool = True
     environment: str = "development"
     
+    # Twilio settings
+    twilio_account_sid: Optional[str] = None
+    twilio_auth_token: Optional[str] = None
+    twilio_phone_number: Optional[str] = None
+    
+    # Production settings
+    allowed_hosts: list = ["*"]  # Configure for production
+    cors_origins: list = ["http://localhost:3000"]  # Configure for production
+    
     # API settings
     api_v1_prefix: str = "/api/v1"
     project_name: str = "Plant Texts API"
