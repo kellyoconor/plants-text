@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from datetime import datetime
+import json
+import os
 from ..core.database import get_db
 from ..models.plants import PlantCatalog, User, UserPlant, CareSchedule, CareHistory, PersonalityType
 from ..schemas.plants import (
@@ -275,6 +277,84 @@ def get_care_reminder(plant_id: int, task_type: str, db: Session = Depends(get_d
         "message": message,
         "timestamp": datetime.utcnow().isoformat()
     }
+
+
+@router.post("/admin/seed-database")
+def seed_database(db: Session = Depends(get_db)):
+    """Seed the database with plant catalog data (admin endpoint)"""
+    try:
+        # Check if plants already exist
+        existing_count = db.query(PlantCatalog).count()
+        if existing_count > 0:
+            return {"message": f"Database already seeded with {existing_count} plants"}
+        
+        # Load plant data from JSON file
+        json_path = os.path.join(os.path.dirname(__file__), "..", "..", "house_plants.json")
+        
+        if not os.path.exists(json_path):
+            raise HTTPException(status_code=500, detail="Plant data file not found")
+        
+        with open(json_path, 'r') as f:
+            plants_data = json.load(f)
+        
+        # Create PlantCatalog entries
+        plants_created = 0
+        for plant_data in plants_data:
+            # Create care requirements dict
+            care_requirements = {
+                "watering_frequency_days": plant_data.get("watering_frequency_days", 7),
+                "light_level": plant_data.get("light", "medium"),
+                "ideal_temp_min": plant_data.get("ideal_temp_min", 18),
+                "ideal_temp_max": plant_data.get("ideal_temp_max", 24),
+                "humidity_level": plant_data.get("humidity", "medium"),
+                "fertilizing_frequency_days": plant_data.get("fertilizing_frequency_days", 30),
+                "original_watering_text": plant_data.get("watering", ""),
+                "original_light_text": plant_data.get("light", "")
+            }
+            
+            plant = PlantCatalog(
+                name=plant_data.get("common_name", "Unknown Plant"),
+                species=plant_data.get("latin_name", "Unknown Species"),
+                care_requirements=care_requirements,
+                difficulty_level=plant_data.get("difficulty", "medium"),
+                description=plant_data.get("description", "")
+            )
+            
+            db.add(plant)
+            plants_created += 1
+        
+        db.commit()
+        
+        return {
+            "message": f"Successfully seeded database with {plants_created} plants",
+            "plants_created": plants_created
+        }
+        
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Failed to seed database: {str(e)}")
+
+
+@router.get("/admin/database-status")
+def get_database_status(db: Session = Depends(get_db)):
+    """Check database status (admin endpoint)"""
+    try:
+        plant_count = db.query(PlantCatalog).count()
+        user_count = db.query(User).count()
+        user_plant_count = db.query(UserPlant).count()
+        
+        return {
+            "status": "connected",
+            "plants_in_catalog": plant_count,
+            "total_users": user_count,
+            "total_user_plants": user_plant_count,
+            "database_seeded": plant_count > 0
+        }
+    except Exception as e:
+        return {
+            "status": "error", 
+            "error": str(e)
+        }
 
 
 @router.post("/plants/{plant_id}/chat")
