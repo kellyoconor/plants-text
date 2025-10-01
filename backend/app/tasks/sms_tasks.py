@@ -14,6 +14,7 @@ import logging
 
 from ..core.celery_app import celery_app
 from ..core.config import settings
+from ..services.sms_processor import SMSProcessor
 
 logger = logging.getLogger(__name__)
 
@@ -131,47 +132,29 @@ def process_incoming_sms(phone_number: str, message_body: str):
     try:
         logger.info(f"Processing SMS from {phone_number}: {message_body}")
         
-        # Parse the message for care actions
-        message_lower = message_body.lower().strip()
+        # Use SMS processor to handle the message
+        processor = SMSProcessor()
+        result = processor.process_sms_message(phone_number, message_body)
         
-        # Look for care action keywords
-        care_actions = {
-            "watered": "watering",
-            "fertilized": "fertilizing", 
-            "repotted": "repotting",
-            "misted": "misting"
-        }
+        # Log the result
+        logger.info(f"SMS processing result: {result['status']} for {phone_number}")
         
-        detected_action = None
-        for keyword, action in care_actions.items():
-            if keyword in message_lower:
-                detected_action = action
-                break
+        # If successful, send thank you message
+        if result["status"] == "success":
+            send_thank_you_sms.delay(
+                phone_number, 
+                result["plant_name"], 
+                result["care_action"]
+            )
+        elif result["status"] == "plant_not_identified":
+            # Send clarification message
+            plants_list = ", ".join(result["available_plants"])
+            clarification_msg = f"I detected {result['care_action']}, but which plant? You have: {plants_list}"
+            
+            # TODO: Send clarification SMS
+            logger.info(f"Would send clarification to {phone_number}: {clarification_msg}")
         
-        if detected_action:
-            # Extract plant name (simple approach for now)
-            plant_name = "your plant"  # TODO: Improve plant name extraction
-            
-            # TODO: Record the care action in database
-            # record_care_action(phone_number, plant_name, detected_action)
-            
-            # Send thank you message
-            send_thank_you_sms.delay(phone_number, plant_name, detected_action)
-            
-            return {
-                "status": "processed",
-                "phone": phone_number,
-                "action_detected": detected_action,
-                "plant_name": plant_name
-            }
-        else:
-            # Didn't recognize the message
-            logger.info(f"No care action detected in message from {phone_number}")
-            return {
-                "status": "no_action_detected",
-                "phone": phone_number,
-                "message": message_body
-            }
+        return result
             
     except Exception as exc:
         logger.error(f"Error processing SMS from {phone_number}: {str(exc)}")
