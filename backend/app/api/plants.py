@@ -279,7 +279,7 @@ def get_care_reminder(plant_id: int, task_type: str, db: Session = Depends(get_d
     }
 
 
-@router.post("/admin/init-database")
+@router.get("/admin/init-database")
 def init_database(db: Session = Depends(get_db)):
     """Initialize database tables (admin endpoint)"""
     try:
@@ -297,7 +297,7 @@ def init_database(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=f"Failed to create database tables: {str(e)}")
 
 
-@router.post("/admin/seed-database")
+@router.get("/admin/seed-database")
 def seed_database(db: Session = Depends(get_db)):
     """Seed the database with complete plant system data (admin endpoint)"""
     try:
