@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { Plant, PersonalityType, UserPlant, User, ConversationDemo } from './types';
 
-const API_BASE = 'http://localhost:8000/api/v1';
+const API_BASE = process.env.REACT_APP_API_URL || 'https://plants-text-production.up.railway.app/api/v1';
 
 const api = axios.create({
   baseURL: API_BASE,

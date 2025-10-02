@@ -8,10 +8,14 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm ci
 
 # Copy source code
 COPY . .
+
+# Set build argument for API URL
+ARG REACT_APP_API_URL=https://plants-text-production.up.railway.app/api/v1
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
 # Build the app
 RUN npm run build
