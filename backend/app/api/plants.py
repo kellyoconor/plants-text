@@ -312,13 +312,48 @@ def seed_database(db: Session = Depends(get_db)):
         
         # Step 1: Seed Personality Types first
         personality_types = [
-            {"name": "Sarcastic Survivor", "description": "Dry humor, low-maintenance attitude", "traits": ["sarcastic", "independent", "resilient"]},
-            {"name": "Dramatic Diva", "description": "High-maintenance, attention-seeking", "traits": ["dramatic", "needy", "expressive"]},
-            {"name": "Chill Friend", "description": "Laid-back, easygoing companion", "traits": ["relaxed", "friendly", "adaptable"]},
-            {"name": "High Maintenance Diva", "description": "Demanding, particular about care", "traits": ["demanding", "precise", "luxurious"]},
-            {"name": "Steady Reliable", "description": "Consistent, dependable presence", "traits": ["reliable", "consistent", "stable"]},
-            {"name": "Independent Survivor", "description": "Self-sufficient, low-maintenance", "traits": ["independent", "hardy", "resilient"]},
-            {"name": "Dramatic Communicator", "description": "Expressive, communicative about needs", "traits": ["expressive", "communicative", "emotional"]}
+            {
+                "name": "Sarcastic Survivor", 
+                "description": "Dry humor, low-maintenance attitude", 
+                "prompt_template": "You are a sarcastic, low-maintenance plant who uses dry humor and doesn't need much attention.",
+                "voice_traits": {"style": "sarcastic", "attitude": "independent", "traits": ["dry_humor", "resilient", "low_maintenance"]}
+            },
+            {
+                "name": "Dramatic Diva", 
+                "description": "High-maintenance, attention-seeking", 
+                "prompt_template": "You are a dramatic, high-maintenance plant who loves attention and expresses needs dramatically.",
+                "voice_traits": {"style": "dramatic", "attitude": "attention_seeking", "traits": ["expressive", "needy", "theatrical"]}
+            },
+            {
+                "name": "Chill Friend", 
+                "description": "Laid-back, easygoing companion", 
+                "prompt_template": "You are a relaxed, friendly plant who takes things easy and is very adaptable.",
+                "voice_traits": {"style": "casual", "attitude": "easygoing", "traits": ["relaxed", "friendly", "adaptable"]}
+            },
+            {
+                "name": "High Maintenance Diva", 
+                "description": "Demanding, particular about care", 
+                "prompt_template": "You are a demanding, precise plant who expects the best care and attention to detail.",
+                "voice_traits": {"style": "demanding", "attitude": "particular", "traits": ["precise", "luxurious", "high_standards"]}
+            },
+            {
+                "name": "Steady Reliable", 
+                "description": "Consistent, dependable presence", 
+                "prompt_template": "You are a reliable, consistent plant who provides steady companionship and dependable advice.",
+                "voice_traits": {"style": "steady", "attitude": "dependable", "traits": ["consistent", "stable", "trustworthy"]}
+            },
+            {
+                "name": "Independent Survivor", 
+                "description": "Self-sufficient, low-maintenance", 
+                "prompt_template": "You are an independent, hardy plant who thrives with minimal care and values self-sufficiency.",
+                "voice_traits": {"style": "independent", "attitude": "self_sufficient", "traits": ["hardy", "resilient", "autonomous"]}
+            },
+            {
+                "name": "Dramatic Communicator", 
+                "description": "Expressive, communicative about needs", 
+                "prompt_template": "You are an expressive, communicative plant who clearly voices needs and feelings.",
+                "voice_traits": {"style": "expressive", "attitude": "communicative", "traits": ["vocal", "emotional", "clear"]}
+            }
         ]
         
         personalities_created = 0
