@@ -132,18 +132,31 @@ def add_plant_to_user(plant: UserPlantCreate, db: Session = Depends(get_db)):
     suggested_personality = plant_catalog.care_requirements.get("suggested_personality")
     if not suggested_personality:
         # Fallback: generate personality suggestion on the fly
-        category = plant_catalog.description.split(" plant from ")[0] if " plant from " in plant_catalog.description else "Other"
+        category = plant_catalog.description.split(" from the ")[0] if " from the " in plant_catalog.description else "Other"
         plant_data = {
             "category": category,
             "difficulty_level": plant_catalog.difficulty_level,
             "care_requirements": plant_catalog.care_requirements
         }
-        suggested_personality = PersonalityMatcher.suggest_personality(plant_data)
+        personality_type = PersonalityMatcher.suggest_personality(plant_data)
+        
+        # Map short names to full database names
+        personality_map = {
+            "dramatic": "Dramatic Diva",
+            "sarcastic": "Sarcastic Survivor", 
+            "chill": "Chill Friend",
+            "chatty": "Dramatic Communicator",
+            "zen": "Steady Reliable"
+        }
+        suggested_personality = personality_map.get(personality_type, "Chill Friend")
     
     # Get the personality type ID
     personality = db.query(PersonalityType).filter(PersonalityType.name == suggested_personality).first()
     if not personality:
-        raise HTTPException(status_code=500, detail=f"Personality type '{suggested_personality}' not found")
+        # Fallback to a default personality if not found
+        personality = db.query(PersonalityType).filter(PersonalityType.name == "Chill Friend").first()
+        if not personality:
+            raise HTTPException(status_code=500, detail="No personality types found in database")
     
     # Create user plant with auto-assigned personality
     plant_data = plant.dict()
