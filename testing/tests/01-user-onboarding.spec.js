@@ -6,14 +6,22 @@ test.describe('User Onboarding Flow', () => {
   });
 
   test('should display onboarding form', async ({ page }) => {
-    // Check if onboarding form is visible
+    // Check if welcome step is visible first
+    await expect(page.locator('h1').filter({ hasText: 'PlantTexts' })).toBeVisible();
+    await expect(page.locator('button').filter({ hasText: 'Start Growing' })).toBeVisible();
+    
+    // Click to go to phone step
+    await page.locator('button').filter({ hasText: 'Start Growing' }).click();
+    
+    // Now check if phone input is visible
     await expect(page.locator('input[type="tel"]')).toBeVisible();
     await expect(page.locator('button').filter({ hasText: 'Continue' })).toBeVisible();
-    // Check for the welcome step elements
-    await expect(page.locator('h1').filter({ hasText: 'PlantTexts' })).toBeVisible();
   });
 
   test('should validate phone number input', async ({ page }) => {
+    // Navigate to phone step
+    await page.locator('button').filter({ hasText: 'Start Growing' }).click();
+    
     const phoneInput = page.locator('input[type="tel"]');
     const submitButton = page.locator('button').filter({ hasText: 'Continue' });
 
@@ -29,6 +37,9 @@ test.describe('User Onboarding Flow', () => {
   // Email input test removed - no email field in actual form
 
   test('should create user successfully', async ({ page }) => {
+    // Navigate to phone step
+    await page.locator('button').filter({ hasText: 'Start Growing' }).click();
+    
     // Fill out the form
     await page.locator('input[type="tel"]').fill('+1234567890');
     
@@ -45,6 +56,9 @@ test.describe('User Onboarding Flow', () => {
   });
 
   test('should handle API errors gracefully', async ({ page }) => {
+    // Navigate to phone step
+    await page.locator('button').filter({ hasText: 'Start Growing' }).click();
+    
     // Mock API error
     await page.route('**/users/find-or-create', route => {
       route.fulfill({
@@ -65,6 +79,9 @@ test.describe('User Onboarding Flow', () => {
   });
 
   test('should show loading state during submission', async ({ page }) => {
+    // Navigate to phone step
+    await page.locator('button').filter({ hasText: 'Start Growing' }).click();
+    
     // Fill out the form
     await page.locator('input[type="tel"]').fill('+1234567890');
     
