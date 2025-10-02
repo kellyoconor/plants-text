@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Texts Frontend Test Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .summary-card { background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; }
+        .summary-card h3 { margin: 0 0 10px 0; color: #333; }
+        .summary-card .number { font-size: 2em; font-weight: bold; }
+        .passed { color: #28a745; }
+        .failed { color: #dc3545; }
+        .skipped { color: #ffc107; }
+        .issues { margin-bottom: 30px; }
+        .issue { background: #fff; border-left: 4px solid #dc3545; padding: 15px; margin-bottom: 10px; border-radius: 4px; }
+        .issue.critical { border-left-color: #dc3545; }
+        .issue.high { border-left-color: #fd7e14; }
+        .issue.medium { border-left-color: #ffc107; }
+        .issue.low { border-left-color: #6c757d; }
+        .recommendations { background: #e9ecef; padding: 20px; border-radius: 8px; }
+        .recommendation { background: white; padding: 15px; margin-bottom: 10px; border-radius: 4px; }
+        .timestamp { text-align: center; color: #6c757d; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌱 Plant Texts Frontend Test Report</h1>
+            <p>Automated Testing Results</p>
+        </div>
+        
+        <div class="summary">
+            <div class="summary-card">
+                <h3>Total Tests</h3>
+                <div class="number">0</div>
+            </div>
+            <div class="summary-card">
+                <h3>Passed</h3>
+                <div class="number passed">0</div>
+            </div>
+            <div class="summary-card">
+                <h3>Failed</h3>
+                <div class="number failed">0</div>
+            </div>
+            <div class="summary-card">
+                <h3>Pass Rate</h3>
+                <div class="number">0%</div>
+            </div>
+        </div>
+        
+        <div class="issues">
+            <h2>Issues Found (12)</h2>
+            
+                <div class="issue high">
+                    <strong>[HIGH] User Onboarding</strong><br>
+                    Test category failed: Command failed: npm run test:onboarding<br>
+                    <small>10/2/2025, 5:00:54 PM</small>
+                </div>
+            
+                <div class="issue high">
+                    <strong>[HIGH] Plant Catalog</strong><br>
+                    Test category failed: Command failed: npm run test:catalog<br>
+                    <small>10/2/2025, 5:01:09 PM</small>
+                </div>
+            
+                <div class="issue high">
+                    <strong>[HIGH] Plant Dashboard</strong><br>
+                    Test category failed: Command failed: npm run test:dashboard<br>
+                    <small>10/2/2025, 5:01:32 PM</small>
+                </div>
+            
+                <div class="issue high">
+                    <strong>[HIGH] Plant Conversations</strong><br>
+                    Test category failed: Command failed: npm run test:conversations<br>
+                    <small>10/2/2025, 5:01:50 PM</small>
+                </div>
+            
+                <div class="issue high">
+                    <strong>[HIGH] Care Management</strong><br>
+                    Test category failed: Command failed: npm run test:care<br>
+                    <small>10/2/2025, 5:02:15 PM</small>
+                </div>
+            
+                <div class="issue high">
+                    <strong>[HIGH] Personality Testing</strong><br>
+                    Test category failed: Command failed: npm run test:personality<br>
+                    <small>10/2/2025, 5:02:41 PM</small>
+                </div>
+            
+                <div class="issue high">
+                    <strong>[HIGH] Responsive Design</strong><br>
+                    Test category failed: Command failed: npm run test:responsive<br>
+                    <small>10/2/2025, 5:03:06 PM</small>
+                </div>
+            
+                <div class="issue medium">
+                    <strong>[MEDIUM] Cross-Browser Testing</strong><br>
+                    chromium tests failed: Command failed: npx playwright test --project=chromium
+Error: Project(s) "chromium" not found. Available projects: ""
+    at filterProjects (/Users/kellyoconor/plants-text-main/testing/node_modules/playwright/lib/runner/projectUtils.js:79:11)
+    at runTests (/Users/kellyoconor/plants-text-main/testing/node_modules/playwright/lib/program.js:154:42)
+    at async i.<anonymous> (/Users/kellyoconor/plants-text-main/testing/node_modules/playwright/lib/program.js:64:7)
+<br>
+                    <small>10/2/2025, 5:03:08 PM</small>
+                </div>
+            
+                <div class="issue medium">
+                    <strong>[MEDIUM] Cross-Browser Testing</strong><br>
+                    firefox tests failed: Command failed: npx playwright test --project=firefox
+Error: Project(s) "firefox" not found. Available projects: ""
+    at filterProjects (/Users/kellyoconor/plants-text-main/testing/node_modules/playwright/lib/runner/projectUtils.js:79:11)
+    at runTests (/Users/kellyoconor/plants-text-main/testing/node_modules/playwright/lib/program.js:154:42)
+    at async i.<anonymous> (/Users/kellyoconor/plants-text-main/testing/node_modules/playwright/lib/program.js:64:7)
+<br>
+                    <small>10/2/2025, 5:03:10 PM</small>
+                </div>
+            
+                <div class="issue medium">
+                    <strong>[MEDIUM] Cross-Browser Testing</strong><br>
+                    webkit tests failed: Command failed: npx playwright test --project=webkit
+Error: Project(s) "webkit" not found. Available projects: ""
+    at filterProjects (/Users/kellyoconor/plants-text-main/testing/node_modules/playwright/lib/runner/projectUtils.js:79:11)
+    at runTests (/Users/kellyoconor/plants-text-main/testing/node_modules/playwright/lib/program.js:154:42)
+    at async i.<anonymous> (/Users/kellyoconor/plants-text-main/testing/node_modules/playwright/lib/program.js:64:7)
+<br>
+                    <small>10/2/2025, 5:03:12 PM</small>
+                </div>
+            
+                <div class="issue medium">
+                    <strong>[MEDIUM] Performance</strong><br>
+                    Performance tests failed: Command failed: npx playwright test tests/08-performance.spec.js<br>
+                    <small>10/2/2025, 5:03:34 PM</small>
+                </div>
+            
+                <div class="issue medium">
+                    <strong>[MEDIUM] Accessibility</strong><br>
+                    Accessibility tests failed: Command failed: npx playwright test tests/09-accessibility.spec.js<br>
+                    <small>10/2/2025, 5:04:03 PM</small>
+                </div>
+            
+        </div>
+        
+        <div class="recommendations">
+            <h2>Recommendations</h2>
+            
+                <div class="recommendation">
+                    <strong>[HIGH] High Priority Issues</strong><br>
+                    Address 7 high priority issues
+                </div>
+            
+        </div>
+        
+        <div class="timestamp">
+            <p>Test completed on 12/31/1969, 7:00:00 PM</p>
+            <p>Duration: 0s</p>
+        </div>
+    </div>
+</body>
+</html>

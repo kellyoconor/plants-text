@@ -1,0 +1,52 @@
+{
+  "name": "plants-text-automated-tests",
+  "version": "1.0.0",
+  "description": "Automated testing suite for Plant Texts frontend",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:install": "playwright install",
+    "test:ci": "playwright test --reporter=html,json,junit",
+    "test:mobile": "playwright test --project=Mobile Chrome --project=Mobile Safari",
+    "test:desktop": "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:all": "playwright test --project=chromium --project=firefox --project=\"Mobile Chrome\"",
+    "test:onboarding": "playwright test tests/01-user-onboarding.spec.js",
+    "test:catalog": "playwright test tests/02-plant-catalog.spec.js",
+    "test:dashboard": "playwright test tests/03-plant-dashboard.spec.js",
+    "test:conversations": "playwright test tests/04-plant-conversations.spec.js",
+    "test:care": "playwright test tests/05-care-management.spec.js",
+    "test:personality": "playwright test tests/06-personality-testing.spec.js",
+    "test:responsive": "playwright test tests/07-responsive-design.spec.js",
+    "test:performance": "playwright test tests/08-performance.spec.js",
+    "test:accessibility": "playwright test tests/09-accessibility.spec.js",
+    "test:security": "playwright test tests/10-security.spec.js",
+    "test:integration": "playwright test tests/11-integration.spec.js",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:critical": "playwright test --grep @critical",
+    "test:generate-report": "node scripts/generate-test-report.js",
+    "test:create-issues": "node scripts/create-github-issues.js",
+    "test:full-suite": "npm run test:all && npm run test:generate-report && npm run test:create-issues"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "playwright": "^1.40.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.0"
+  },
+  "keywords": [
+    "testing",
+    "playwright",
+    "e2e",
+    "frontend",
+    "automation"
+  ],
+  "author": "Plant Texts Team",
+  "license": "MIT"
+}
+
