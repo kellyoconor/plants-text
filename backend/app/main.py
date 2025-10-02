@@ -11,10 +11,14 @@ app = FastAPI(
     debug=settings.debug
 )
 
-# CORS middleware for frontend development
+# CORS middleware for frontend development and production
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # React dev servers
+    allow_origins=[
+        "http://localhost:3000", 
+        "http://localhost:5173",
+        "https://front-end-plants-text-production.up.railway.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
