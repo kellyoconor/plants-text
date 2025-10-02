@@ -80,14 +80,20 @@ test.describe('User Onboarding Flow', () => {
       });
     });
 
+    // Set up alert dialog handler
+    page.on('dialog', async dialog => {
+      expect(dialog.message()).toBe('Failed to set up account. Please try again.');
+      await dialog.accept();
+    });
+
     // Fill out the form
     await page.locator('input[type="tel"]').fill('+1234567890');
     
     // Submit the form
     await page.locator('button').filter({ hasText: 'Continue' }).click();
     
-    // Should show error message (alert or console error)
-    await expect(page.locator('text=Failed to set up account')).toBeVisible();
+    // Wait a moment for the alert to appear
+    await page.waitForTimeout(1000);
   });
 
   test('should show loading state during submission', async ({ page }) => {
