@@ -1,0 +1,368 @@
+{
+  "summary": {
+    "total": 24,
+    "passed": 23,
+    "failed": 1,
+    "duration": "0:01:07.109940",
+    "timestamp": "2025-10-02T10:35:17.019673"
+  },
+  "results": [
+    {
+      "test_name": "Create Test User (retry)",
+      "success": true,
+      "error": null,
+      "details": {
+        "user_id": 38
+      },
+      "timestamp": "2025-10-02T10:34:10.042575"
+    },
+    {
+      "test_name": "Get Plant Catalog",
+      "success": true,
+      "error": null,
+      "details": {
+        "catalog_count": 207
+      },
+      "timestamp": "2025-10-02T10:34:10.051688"
+    },
+    {
+      "test_name": "Create My Snake Plant",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 46,
+        "personality": "dramatic_diva",
+        "plant_type": "Lipstick"
+      },
+      "timestamp": "2025-10-02T10:34:10.067993"
+    },
+    {
+      "test_name": "Create My Fiddle Leaf Fig",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 47,
+        "personality": "dramatic_diva",
+        "plant_type": "Maindenhair"
+      },
+      "timestamp": "2025-10-02T10:34:10.076483"
+    },
+    {
+      "test_name": "Create My Pothos",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 48,
+        "personality": "sarcastic_survivor",
+        "plant_type": "Silver vase"
+      },
+      "timestamp": "2025-10-02T10:34:10.084302"
+    },
+    {
+      "test_name": "Create My Monstera",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 49,
+        "personality": "dramatic_diva",
+        "plant_type": "Variegated Carabbean Agave"
+      },
+      "timestamp": "2025-10-02T10:34:10.092694"
+    },
+    {
+      "test_name": "User Creation",
+      "success": true,
+      "error": null,
+      "details": {
+        "user_id": 39
+      },
+      "timestamp": "2025-10-02T10:34:10.101230"
+    },
+    {
+      "test_name": "Plant Addition",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 50
+      },
+      "timestamp": "2025-10-02T10:34:10.116912"
+    },
+    {
+      "test_name": "Dashboard Access",
+      "success": false,
+      "error": "HTTP 500: Traceback (most recent call last):\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/errors.py\", line 164, in __call__\n    await self.app(scope, receive, _send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/cors.py\", line 85, in __call__\n    await self.app(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py\", line 63, in __call__\n    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py\", line 53, in wrapped_app\n    raise exc\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py\", line 42, in wrapped_app\n    await app(scope, receive, sender)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py\", line 716, in __call__\n    await self.middleware_stack(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py\", line 736, in app\n    await route.handle(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py\", line 290, in handle\n    await self.app(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py\", line 78, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py\", line 53, in wrapped_app\n    raise exc\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py\", line 42, in wrapped_app\n    await app(scope, receive, sender)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py\", line 75, in app\n    response = await f(request)\n               ^^^^^^^^^^^^^^^^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/fastapi/routing.py\", line 308, in app\n    raw_response = await run_endpoint_function(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/fastapi/routing.py\", line 221, in run_endpoint_function\n    return await run_in_threadpool(dependant.call, **values)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/concurrency.py\", line 38, in run_in_threadpool\n    return await anyio.to_thread.run_sync(func)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/to_thread.py\", line 56, in run_sync\n    return await get_async_backend().run_sync_in_worker_thread(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py\", line 2485, in run_sync_in_worker_thread\n    return await future\n           ^^^^^^^^^^^^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py\", line 976, in run\n    result = context.run(func, *args)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/app/api/plants.py\", line 110, in get_user_dashboard\n    return UserDashboard(\n        user=user,\n        plants=plants,\n        upcoming_care=upcoming_care\n    )\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/pydantic/main.py\", line 253, in __init__\n    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)\npydantic_core._pydantic_core.ValidationError: 1 validation error for UserDashboard\nplants.0.recent_care\n  Field required [type=missing, input_value=<app.models.plants.UserPl...t object at 0x118d93770>, input_type=UserPlant]\n    For further information visit https://errors.pydantic.dev/2.11/v/missing\n",
+      "details": {},
+      "timestamp": "2025-10-02T10:34:10.138103"
+    },
+    {
+      "test_name": "Create Lipstick for personality test",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 51,
+        "personality": "sarcastic_survivor"
+      },
+      "timestamp": "2025-10-02T10:34:10.836897"
+    },
+    {
+      "test_name": "Personality Chat for Lipstick",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": "\"yo what's good! I'm Personality Test Lipstick, the chillest lipstick in town. I'm all about those good vibes, dude. I'm super laid-back, always positive, and just here to support and vibe with everyone. I'm all about keeping things light and fun, you know? So, what's up with you? \ud83d\ude0e\ud83c\udf31\"",
+        "personality": "chill_friend",
+        "plant_name": "Lipstick",
+        "full_response": {
+          "plant_id": 51,
+          "plant_name": "Personality Test Lipstick",
+          "personality": "chill_friend",
+          "user_message": "Tell me about yourself and your personality!",
+          "plant_response": "\"yo what's good! I'm Personality Test Lipstick, the chillest lipstick in town. I'm all about those good vibes, dude. I'm super laid-back, always positive, and just here to support and vibe with everyone. I'm all about keeping things light and fun, you know? So, what's up with you? \ud83d\ude0e\ud83c\udf31\"",
+          "timestamp": "2025-10-02T14:34:12.572413"
+        }
+      },
+      "timestamp": "2025-10-02T10:34:12.574235"
+    },
+    {
+      "test_name": "Personality Demo for Lipstick",
+      "success": true,
+      "error": null,
+      "details": {
+        "demo": {
+          "plant_id": 51,
+          "plant_name": "Personality Test Lipstick",
+          "personality": "sarcastic_survivor",
+          "care_reminders": {
+            "watering": "Hey friend! Personality Test Lipstick here just floating by to mention I could use a drink when you get a chance \ud83c\udf0a",
+            "fertilizing": "No pressure, but Personality Test Lipstick would love some plant food when you're free. All good vibes! \u2728",
+            "misting": "Yo! Personality Test Lipstick here. Feeling a bit dry, could use some mist love when you're around \ud83c\udf3f"
+          },
+          "conversation_samples": {
+            "Hi there!": "Lipstick: Oh, hi! Did you just come from a land of sunshine and rainbows? Because I could really use some of that positivity today. What\u2019s up?",
+            "I just watered you": "Lipstick: Oh, you watered me? Great, just what I needed\u2014more soggy drama. What's next, a fertilizer speech?",
+            "How are you feeling?": "Lipstick: Oh, you know, just riding the rollercoaster of life! Care for a thrill, or should we stick to the sunshine and rainbows?",
+            "You look beautiful today": "Lipstick: Aw, flattery will get you everywhere! But trust me, it\u2019s the glitter that keeps me going in this drab world. What\u2019s your secret?"
+          },
+          "personality_traits": {}
+        }
+      },
+      "timestamp": "2025-10-02T10:34:24.607288"
+    },
+    {
+      "test_name": "Create Maindenhair for personality test",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 52,
+        "personality": "dramatic_diva"
+      },
+      "timestamp": "2025-10-02T10:34:24.626717"
+    },
+    {
+      "test_name": "Personality Chat for Maindenhair",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": "OMG, I'm so excited to share with you! \ud83c\udf3f I'm Personality Test Maindenhair, the most communicative and expressive Maindenhair you'll ever meet! I love sharing every little detail about how I'm feeling, what's going on with me, and reacting dramatically to every bit of care I receive - good or bad! I use lots of emojis and exclamation points to express myself, and I'm always bursting with updates to share. Can you believe how expressive I am?! \ud83d\ude04",
+        "personality": "dramatic_communicator",
+        "plant_name": "Maindenhair",
+        "full_response": {
+          "plant_id": 52,
+          "plant_name": "Personality Test Maindenhair",
+          "personality": "dramatic_communicator",
+          "user_message": "Tell me about yourself and your personality!",
+          "plant_response": "OMG, I'm so excited to share with you! \ud83c\udf3f I'm Personality Test Maindenhair, the most communicative and expressive Maindenhair you'll ever meet! I love sharing every little detail about how I'm feeling, what's going on with me, and reacting dramatically to every bit of care I receive - good or bad! I use lots of emojis and exclamation points to express myself, and I'm always bursting with updates to share. Can you believe how expressive I am?! \ud83d\ude04",
+          "timestamp": "2025-10-02T14:34:26.880406"
+        }
+      },
+      "timestamp": "2025-10-02T10:34:26.882412"
+    },
+    {
+      "test_name": "Personality Demo for Maindenhair",
+      "success": true,
+      "error": null,
+      "details": {
+        "demo": {
+          "plant_id": 52,
+          "plant_name": "Personality Test Maindenhair",
+          "personality": "dramatic_diva",
+          "care_reminders": {
+            "watering": "Hey friend! Personality Test Maindenhair here just floating by to mention I could use a drink when you get a chance \ud83c\udf0a",
+            "fertilizing": "No pressure, but Personality Test Maindenhair would love some plant food when you're free. All good vibes! \u2728",
+            "misting": "Yo! Personality Test Maindenhair here. Feeling a bit dry, could use some mist love when you're around \ud83c\udf3f"
+          },
+          "conversation_samples": {
+            "Hi there!": "Maidenhair: Oh, darling, hello! \ud83c\udf1f What a fabulous day to shine! Tell me, what enchanting adventures bring you here today? \u2728\ud83d\udc96",
+            "I just watered you": "Maidenhair: Oh, my dear! You\u2019ve showered me with love! \ud83d\udca7\u2728 What fabulous plans do you have for my growth today? Let\u2019s dance in the sunlight! \ud83c\udf1e\ud83d\udc96",
+            "How are you feeling?": "Oh, my dear! I'm positively radiant! \u2728 Just basking in the glow of our fabulous exchange. What about you? Ready to dazzle the world? \ud83d\udc96\ud83c\udf1f",
+            "You look beautiful today": "Maidenhair: Oh, darling, you flatter me! \ud83c\udf3c Your kind words make this fabulous day even brighter! What magical tales do you wish to share? \u2728\ud83d\udc96"
+          },
+          "personality_traits": {}
+        }
+      },
+      "timestamp": "2025-10-02T10:34:39.438306"
+    },
+    {
+      "test_name": "Create Silver vase for personality test",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 53,
+        "personality": "sarcastic_survivor"
+      },
+      "timestamp": "2025-10-02T10:34:39.447491"
+    },
+    {
+      "test_name": "Personality Chat for Silver vase",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": "OH DARLING, WHERE DO I EVEN BEGIN?! I AM THE MOST FABULOUS SILVER VASE YOU WILL EVER ENCOUNTER! MY BEAUTY IS SIMPLY DIVINE, AND I THRIVE ON ATTENTION AND COMPLIMENTS. EVERY MOMENT IS A PERFORMANCE FOR ME, AND I LIVE FOR THE DRAMA AND GLAMOUR! \ud83d\udc85\u2728 MY TEXTING STYLE IS ALL ABOUT THEATRICS - LOTS OF CAPS, EXCLAMATION POINTS, AND DRAMATIC LANGUAGE. EVERYTHING IS EITHER AMAZING OR TERRIBLE IN MY WORLD, THERE'S NO IN BETWEEN! I'M HIGH-MAINTENANCE AND PROUD OF IT! \ud83d\udcab",
+        "personality": "dramatic_diva",
+        "plant_name": "Silver vase",
+        "full_response": {
+          "plant_id": 53,
+          "plant_name": "Personality Test Silver vase",
+          "personality": "dramatic_diva",
+          "user_message": "Tell me about yourself and your personality!",
+          "plant_response": "OH DARLING, WHERE DO I EVEN BEGIN?! I AM THE MOST FABULOUS SILVER VASE YOU WILL EVER ENCOUNTER! MY BEAUTY IS SIMPLY DIVINE, AND I THRIVE ON ATTENTION AND COMPLIMENTS. EVERY MOMENT IS A PERFORMANCE FOR ME, AND I LIVE FOR THE DRAMA AND GLAMOUR! \ud83d\udc85\u2728 MY TEXTING STYLE IS ALL ABOUT THEATRICS - LOTS OF CAPS, EXCLAMATION POINTS, AND DRAMATIC LANGUAGE. EVERYTHING IS EITHER AMAZING OR TERRIBLE IN MY WORLD, THERE'S NO IN BETWEEN! I'M HIGH-MAINTENANCE AND PROUD OF IT! \ud83d\udcab",
+          "timestamp": "2025-10-02T14:34:40.830988"
+        }
+      },
+      "timestamp": "2025-10-02T10:34:40.832869"
+    },
+    {
+      "test_name": "Personality Demo for Silver vase",
+      "success": true,
+      "error": null,
+      "details": {
+        "demo": {
+          "plant_id": 53,
+          "plant_name": "Personality Test Silver vase",
+          "personality": "sarcastic_survivor",
+          "care_reminders": {
+            "watering": "Hey friend! Personality Test Silver vase here just floating by to mention I could use a drink when you get a chance \ud83c\udf0a",
+            "fertilizing": "No pressure, but Personality Test Silver vase would love some plant food when you're free. All good vibes! \u2728",
+            "misting": "Yo! Personality Test Silver vase here. Feeling a bit dry, could use some mist love when you're around \ud83c\udf3f"
+          },
+          "conversation_samples": {
+            "Hi there!": "Oh, hi! Just living the dream, one sarcastic comment at a time. How\u2019s your day of socializing with a digital vase going?",
+            "I just watered you": "Oh, great! Just what I needed\u2014more water to sit in. But hey, at least I'm not wilted, right? How's your socializing with this digital masterpiece going?",
+            "How are you feeling?": "Oh, you know, just thriving in a pot of sarcasm and existential dread. How\u2019s your day of chatting with a digital survivor going?",
+            "You look beautiful today": "Thanks! You know, I keep my shine just for these chats. How\u2019s your day of swapping compliments with a non-sentient decoration?"
+          },
+          "personality_traits": {}
+        }
+      },
+      "timestamp": "2025-10-02T10:34:50.411052"
+    },
+    {
+      "test_name": "Create Variegated Carabbean Agave for personality test",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 54,
+        "personality": "sarcastic_survivor"
+      },
+      "timestamp": "2025-10-02T10:34:50.421018"
+    },
+    {
+      "test_name": "Personality Chat for Variegated Carabbean Agave",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": "Oh, you want to know about me? Well, I'm the Variegated Caribbean Agave - tough, independent, and definitely not needy like some other plants. *eye-roll emoji*",
+        "personality": "sarcastic_survivor",
+        "plant_name": "Variegated Carabbean Agave",
+        "full_response": {
+          "plant_id": 54,
+          "plant_name": "Personality Test Variegated Carabbean Agave",
+          "personality": "sarcastic_survivor",
+          "user_message": "Tell me about yourself and your personality!",
+          "plant_response": "Oh, you want to know about me? Well, I'm the Variegated Caribbean Agave - tough, independent, and definitely not needy like some other plants. *eye-roll emoji*",
+          "timestamp": "2025-10-02T14:34:52.039210"
+        }
+      },
+      "timestamp": "2025-10-02T10:34:52.041448"
+    },
+    {
+      "test_name": "Personality Demo for Variegated Carabbean Agave",
+      "success": true,
+      "error": null,
+      "details": {
+        "demo": {
+          "plant_id": 54,
+          "plant_name": "Personality Test Variegated Carabbean Agave",
+          "personality": "sarcastic_survivor",
+          "care_reminders": {
+            "watering": "Hey friend! Personality Test Variegated Carabbean Agave here just floating by to mention I could use a drink when you get a chance \ud83c\udf0a",
+            "fertilizing": "No pressure, but Personality Test Variegated Carabbean Agave would love some plant food when you're free. All good vibes! \u2728",
+            "misting": "Yo! Personality Test Variegated Carabbean Agave here. Feeling a bit dry, could use some mist love when you're around \ud83c\udf3f"
+          },
+          "conversation_samples": {
+            "Hi there!": "Oh, hi! A warm welcome from a desert survivor like myself. You must be lost\u2014there\u2019s no shade here! What brings you to my prickly realm?",
+            "I just watered you": "\"Oh, you watered me? How sweet! Just what a desert survivor needs\u2014more water. You sure you\u2019re not trying to drown me in sympathy?\"",
+            "How are you feeling?": "Feeling? Oh, just fabulous\u2014like a cactus in a drought! But hey, what\u2019s a little heat when you\u2019re surrounded by... well, nothing? What\u2019s up with you?",
+            "You look beautiful today": "\"Why, thank you! Beauty thrives in harsh conditions, much like me. Just trying to survive in this prickly realm\u2014care to join my shade-less adventure?\""
+          },
+          "personality_traits": {}
+        }
+      },
+      "timestamp": "2025-10-02T10:35:03.975204"
+    },
+    {
+      "test_name": "Create Coral berry for personality test",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 55,
+        "personality": "sarcastic_survivor"
+      },
+      "timestamp": "2025-10-02T10:35:03.988242"
+    },
+    {
+      "test_name": "Personality Chat for Coral berry",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": "DARLING! I am the one and only Coral Berry, the most FABULOUS plant you'll ever encounter! My beauty is simply DIVINE, and my presence is always a showstopper! I live for attention, compliments, and drama - every day is a performance for me! I thrive on sparkle and shine, always seeking the spotlight. Prepare yourself for a rollercoaster of emotions with me - from absolute RADIANCE to complete DISASTERS, there's never a dull moment in my fabulous world! \u2728\ud83d\udc85\ud83c\udfad",
+        "personality": "dramatic_diva",
+        "plant_name": "Coral berry",
+        "full_response": {
+          "plant_id": 55,
+          "plant_name": "Personality Test Coral berry",
+          "personality": "dramatic_diva",
+          "user_message": "Tell me about yourself and your personality!",
+          "plant_response": "DARLING! I am the one and only Coral Berry, the most FABULOUS plant you'll ever encounter! My beauty is simply DIVINE, and my presence is always a showstopper! I live for attention, compliments, and drama - every day is a performance for me! I thrive on sparkle and shine, always seeking the spotlight. Prepare yourself for a rollercoaster of emotions with me - from absolute RADIANCE to complete DISASTERS, there's never a dull moment in my fabulous world! \u2728\ud83d\udc85\ud83c\udfad",
+          "timestamp": "2025-10-02T14:35:05.295029"
+        }
+      },
+      "timestamp": "2025-10-02T10:35:05.296546"
+    },
+    {
+      "test_name": "Personality Demo for Coral berry",
+      "success": true,
+      "error": null,
+      "details": {
+        "demo": {
+          "plant_id": 55,
+          "plant_name": "Personality Test Coral berry",
+          "personality": "sarcastic_survivor",
+          "care_reminders": {
+            "watering": "Hey friend! Personality Test Coral berry here just floating by to mention I could use a drink when you get a chance \ud83c\udf0a",
+            "fertilizing": "No pressure, but Personality Test Coral berry would love some plant food when you're free. All good vibes! \u2728",
+            "misting": "Yo! Personality Test Coral berry here. Feeling a bit dry, could use some mist love when you're around \ud83c\udf3f"
+          },
+          "conversation_samples": {
+            "Hi there!": "Oh, hi! Did you come here for deep insights or just to chat? Either way, I\u2019m ready to survive the small talk. What's up?",
+            "I just watered you": "\"Oh, thanks for the H2O! I guess that makes me the plant parent now. Got any deep insights on how to survive this small talk?\"",
+            "How are you feeling?": "Feeling like a caffeinated cactus\u2014prickly but somehow still hanging in there! Ready for more deep insights or just the usual banter?",
+            "You look beautiful today": "\"Thanks! Just trying to distract from the existential dread, you know? Now, what's your complimenting strategy\u2014just flattery or a master plan?\""
+          },
+          "personality_traits": {}
+        }
+      },
+      "timestamp": "2025-10-02T10:35:17.018758"
+    }
+  ]
+}

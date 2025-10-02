@@ -1,0 +1,104 @@
+2025-10-02 10:41:25,061 - INFO - ✅ Root Endpoint PASSED
+2025-10-02 10:41:25,063 - INFO - ✅ Health Check PASSED
+2025-10-02 10:41:25,065 - INFO - ✅ OpenAPI Documentation PASSED
+2025-10-02 10:41:25,085 - INFO - ✅ Get Plant Catalog PASSED
+2025-10-02 10:41:25,092 - INFO - ✅ Get Individual Plant PASSED
+2025-10-02 10:41:25,097 - INFO - ✅ Personality Suggestion PASSED
+2025-10-02 10:41:25,101 - INFO - ✅ Invalid Plant ID Handling PASSED
+2025-10-02 10:41:25,110 - INFO - ✅ Create User PASSED
+2025-10-02 10:41:25,113 - INFO - ✅ Get User by ID PASSED
+2025-10-02 10:41:25,116 - INFO - ✅ Find User by Phone PASSED
+2025-10-02 10:41:25,120 - INFO - ✅ Find or Create User PASSED
+2025-10-02 10:41:25,122 - INFO - ✅ Invalid User ID Handling PASSED
+2025-10-02 10:41:25,124 - INFO - ✅ Invalid Phone Lookup PASSED
+2025-10-02 10:41:25,139 - INFO - ✅ Create Plant PASSED
+2025-10-02 10:41:25,142 - INFO - ✅ Get User Plants PASSED
+2025-10-02 10:41:25,150 - ERROR - ❌ User Dashboard FAILED: HTTP 500: Traceback (most recent call last):
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/fastapi/routing.py", line 308, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/fastapi/routing.py", line 221, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/app/api/plants.py", line 110, in get_user_dashboard
+    return UserDashboard(
+        user=user,
+        plants=plants,
+        upcoming_care=upcoming_care
+    )
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for UserDashboard
+plants.0.recent_care
+  Field required [type=missing, input_value=<app.models.plants.UserPl...t object at 0x11aa0ea50>, input_type=UserPlant]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+
+2025-10-02 10:41:25,798 - INFO - ✅ Get Care Schedule PASSED
+2025-10-02 10:41:25,801 - ERROR - ❌ Complete Care Task FAILED: HTTP 422: {"detail":[{"type":"missing","loc":["body","user_plant_id"],"msg":"Field required","input":{"plant_id":56,"task_type":"watering","notes":"Test watering"}}]}
+2025-10-02 10:41:26,326 - INFO - ✅ Care Reminder - watering PASSED
+2025-10-02 10:41:26,345 - INFO - ✅ Care Reminder - fertilizing PASSED
+2025-10-02 10:41:26,356 - INFO - ✅ Care Reminder - misting PASSED
+2025-10-02 10:41:26,368 - INFO - ✅ Care Reminder - pruning PASSED
+2025-10-02 10:41:27,361 - INFO - ✅ Chat - 'Hello!...' PASSED
+2025-10-02 10:41:28,183 - INFO - ✅ Chat - 'How are you feeling ...' PASSED
+2025-10-02 10:41:29,018 - INFO - ✅ Chat - 'Tell me about yourse...' PASSED
+2025-10-02 10:41:29,739 - INFO - ✅ Chat - 'Do you need water?...' PASSED
+2025-10-02 10:41:30,509 - INFO - ✅ Chat - 'What's your personal...' PASSED
+2025-10-02 10:41:31,270 - INFO - ✅ Chat - 'I just watered you...' PASSED
+2025-10-02 10:41:31,785 - INFO - ✅ Chat - 'You look beautiful t...' PASSED
+2025-10-02 10:41:32,917 - INFO - ✅ Chat - 'What do you need fro...' PASSED
+2025-10-02 10:41:43,770 - INFO - ✅ Personality Demo PASSED
+2025-10-02 10:41:43,776 - INFO - ✅ Get All Personalities PASSED
+2025-10-02 10:41:43,793 - INFO - ✅ Database Status PASSED
+2025-10-02 10:41:43,801 - INFO - ✅ Reset Database PASSED
+2025-10-02 10:41:43,806 - INFO - ✅ Init Database PASSED
+2025-10-02 10:41:43,834 - INFO - ✅ Seed Database PASSED
+2025-10-02 10:41:43,837 - INFO - ✅ Edge Case - Empty User Data PASSED
+2025-10-02 10:41:43,840 - INFO - ✅ Edge Case - Invalid JSON PASSED
+2025-10-02 10:41:43,842 - INFO - ✅ Edge Case - Missing Required Fields PASSED
+2025-10-02 10:41:43,844 - INFO - ✅ Edge Case - Invalid Plant ID Chat PASSED
+2025-10-02 10:41:43,846 - INFO - ✅ Edge Case - Empty Chat Message PASSED
+2025-10-02 10:41:43,862 - ERROR - ❌ Edge Case - Invalid Care Type FAILED: Expected error but got success

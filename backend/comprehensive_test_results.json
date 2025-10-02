@@ -1,0 +1,513 @@
+{
+  "summary": {
+    "total": 42,
+    "passed": 39,
+    "failed": 3,
+    "success_rate": "92.9%",
+    "duration": "0:00:19.294411",
+    "timestamp": "2025-10-02T10:41:44.341864"
+  },
+  "results": [
+    {
+      "test_name": "Root Endpoint",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": {
+          "message": "Plant Texts API",
+          "version": "1.0.0",
+          "docs": "/docs"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:25.061469"
+    },
+    {
+      "test_name": "Health Check",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": {
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:25.063711"
+    },
+    {
+      "test_name": "OpenAPI Documentation",
+      "success": true,
+      "error": null,
+      "details": {
+        "endpoint_count": 35
+      },
+      "timestamp": "2025-10-02T10:41:25.065983"
+    },
+    {
+      "test_name": "Get Plant Catalog",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_count": 207
+      },
+      "timestamp": "2025-10-02T10:41:25.085767"
+    },
+    {
+      "test_name": "Get Individual Plant",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant": {
+          "name": "Lipstick",
+          "species": "Aeschynanthus lobianus",
+          "care_requirements": {
+            "watering_frequency_days": 14,
+            "light_level": "bright",
+            "ideal_temp_min": 14,
+            "ideal_temp_max": 32,
+            "humidity_level": "medium",
+            "fertilizing_frequency_days": 30,
+            "original_watering_text": "Keep moist between watering. Can be a bit dry between watering",
+            "original_light_text": "Bright light"
+          },
+          "difficulty_level": "easy",
+          "description": "Hanging plant from Java. Keep moist between watering. Can be a bit dry between watering",
+          "id": 1,
+          "created_at": "2025-09-25T18:58:34"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:25.092426"
+    },
+    {
+      "test_name": "Personality Suggestion",
+      "success": true,
+      "error": null,
+      "details": {
+        "suggestion": {
+          "plant_id": 1,
+          "plant_name": "Lipstick",
+          "suggested_personality": "chatty",
+          "explanation": "Suggested because Hanging plants tend to be social and communicative, thriving in bright light where they can 'talk' to their owners.",
+          "personality_details": {
+            "id": 4,
+            "name": "chatty",
+            "description": "Friendly and talkative, loves to share stories and facts",
+            "voice_traits": {
+              "tone": "friendly",
+              "emoji_usage": "high",
+              "exclamation_frequency": "medium",
+              "vocabulary": "informative"
+            }
+          }
+        }
+      },
+      "timestamp": "2025-10-02T10:41:25.097843"
+    },
+    {
+      "test_name": "Invalid Plant ID Handling",
+      "success": true,
+      "error": null,
+      "details": {
+        "expected_404": true
+      },
+      "timestamp": "2025-10-02T10:41:25.101736"
+    },
+    {
+      "test_name": "Create User",
+      "success": true,
+      "error": null,
+      "details": {
+        "user_id": 41
+      },
+      "timestamp": "2025-10-02T10:41:25.110255"
+    },
+    {
+      "test_name": "Get User by ID",
+      "success": true,
+      "error": null,
+      "details": {
+        "user": {
+          "phone": "+1234567894192",
+          "email": null,
+          "timezone": "UTC",
+          "location": null,
+          "id": 41,
+          "subscription_tier": "free",
+          "is_active": true,
+          "created_at": "2025-10-02T14:41:25"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:25.113351"
+    },
+    {
+      "test_name": "Find User by Phone",
+      "success": true,
+      "error": null,
+      "details": {
+        "user": {
+          "phone": "+1234567894192",
+          "email": null,
+          "timezone": "UTC",
+          "location": null,
+          "id": 41,
+          "subscription_tier": "free",
+          "is_active": true,
+          "created_at": "2025-10-02T14:41:25"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:25.116554"
+    },
+    {
+      "test_name": "Find or Create User",
+      "success": true,
+      "error": null,
+      "details": {
+        "user": {
+          "phone": "+1234567894192",
+          "email": null,
+          "timezone": "UTC",
+          "location": null,
+          "id": 41,
+          "subscription_tier": "free",
+          "is_active": true,
+          "created_at": "2025-10-02T14:41:25"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:25.120293"
+    },
+    {
+      "test_name": "Invalid User ID Handling",
+      "success": true,
+      "error": null,
+      "details": {
+        "expected_404": true
+      },
+      "timestamp": "2025-10-02T10:41:25.122756"
+    },
+    {
+      "test_name": "Invalid Phone Lookup",
+      "success": true,
+      "error": null,
+      "details": {
+        "expected_404": true
+      },
+      "timestamp": "2025-10-02T10:41:25.124686"
+    },
+    {
+      "test_name": "Create Plant",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_id": 56
+      },
+      "timestamp": "2025-10-02T10:41:25.139007"
+    },
+    {
+      "test_name": "Get User Plants",
+      "success": true,
+      "error": null,
+      "details": {
+        "plant_count": 1
+      },
+      "timestamp": "2025-10-02T10:41:25.142034"
+    },
+    {
+      "test_name": "User Dashboard",
+      "success": false,
+      "error": "HTTP 500: Traceback (most recent call last):\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/errors.py\", line 164, in __call__\n    await self.app(scope, receive, _send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/cors.py\", line 85, in __call__\n    await self.app(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py\", line 63, in __call__\n    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py\", line 53, in wrapped_app\n    raise exc\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py\", line 42, in wrapped_app\n    await app(scope, receive, sender)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py\", line 716, in __call__\n    await self.middleware_stack(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py\", line 736, in app\n    await route.handle(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py\", line 290, in handle\n    await self.app(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py\", line 78, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py\", line 53, in wrapped_app\n    raise exc\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py\", line 42, in wrapped_app\n    await app(scope, receive, sender)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py\", line 75, in app\n    response = await f(request)\n               ^^^^^^^^^^^^^^^^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/fastapi/routing.py\", line 308, in app\n    raw_response = await run_endpoint_function(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/fastapi/routing.py\", line 221, in run_endpoint_function\n    return await run_in_threadpool(dependant.call, **values)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/concurrency.py\", line 38, in run_in_threadpool\n    return await anyio.to_thread.run_sync(func)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/to_thread.py\", line 56, in run_sync\n    return await get_async_backend().run_sync_in_worker_thread(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py\", line 2485, in run_sync_in_worker_thread\n    return await future\n           ^^^^^^^^^^^^\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py\", line 976, in run\n    result = context.run(func, *args)\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/app/api/plants.py\", line 110, in get_user_dashboard\n    return UserDashboard(\n        user=user,\n        plants=plants,\n        upcoming_care=upcoming_care\n    )\n  File \"/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/pydantic/main.py\", line 253, in __init__\n    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)\npydantic_core._pydantic_core.ValidationError: 1 validation error for UserDashboard\nplants.0.recent_care\n  Field required [type=missing, input_value=<app.models.plants.UserPl...t object at 0x11aa0ea50>, input_type=UserPlant]\n    For further information visit https://errors.pydantic.dev/2.11/v/missing\n",
+      "details": {},
+      "timestamp": "2025-10-02T10:41:25.150963"
+    },
+    {
+      "test_name": "Get Care Schedule",
+      "success": true,
+      "error": null,
+      "details": {
+        "schedule_items": 2
+      },
+      "timestamp": "2025-10-02T10:41:25.798378"
+    },
+    {
+      "test_name": "Complete Care Task",
+      "success": false,
+      "error": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"user_plant_id\"],\"msg\":\"Field required\",\"input\":{\"plant_id\":56,\"task_type\":\"watering\",\"notes\":\"Test watering\"}}]}",
+      "details": {},
+      "timestamp": "2025-10-02T10:41:25.801214"
+    },
+    {
+      "test_name": "Care Reminder - watering",
+      "success": true,
+      "error": null,
+      "details": {
+        "reminder": {
+          "plant_id": 56,
+          "plant_name": "Test Plant",
+          "personality": "chill_friend",
+          "task_type": "watering",
+          "message": "Hey! It's been about None days - maybe time for a drink? No pressure though! - Test Plant \ud83c\udf31",
+          "timestamp": "2025-10-02T14:41:26.324603"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:26.326557"
+    },
+    {
+      "test_name": "Care Reminder - fertilizing",
+      "success": true,
+      "error": null,
+      "details": {
+        "reminder": {
+          "plant_id": 56,
+          "plant_name": "Test Plant",
+          "personality": "chill_friend",
+          "task_type": "fertilizing",
+          "message": "Time for some fertilizing! - Test Plant \ud83c\udf3f",
+          "timestamp": "2025-10-02T14:41:26.343411"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:26.345212"
+    },
+    {
+      "test_name": "Care Reminder - misting",
+      "success": true,
+      "error": null,
+      "details": {
+        "reminder": {
+          "plant_id": 56,
+          "plant_name": "Test Plant",
+          "personality": "chill_friend",
+          "task_type": "misting",
+          "message": "Time for some misting! - Test Plant \ud83c\udf3f",
+          "timestamp": "2025-10-02T14:41:26.355368"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:26.356928"
+    },
+    {
+      "test_name": "Care Reminder - pruning",
+      "success": true,
+      "error": null,
+      "details": {
+        "reminder": {
+          "plant_id": 56,
+          "plant_name": "Test Plant",
+          "personality": "chill_friend",
+          "task_type": "pruning",
+          "message": "Time for some pruning! - Test Plant \ud83c\udf3f",
+          "timestamp": "2025-10-02T14:41:26.366711"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:26.368264"
+    },
+    {
+      "test_name": "Chat - 'Hello!...'",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_length": 40
+      },
+      "timestamp": "2025-10-02T10:41:27.361455"
+    },
+    {
+      "test_name": "Chat - 'How are you feeling ...'",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_length": 100
+      },
+      "timestamp": "2025-10-02T10:41:28.183424"
+    },
+    {
+      "test_name": "Chat - 'Tell me about yourse...'",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_length": 240
+      },
+      "timestamp": "2025-10-02T10:41:29.018581"
+    },
+    {
+      "test_name": "Chat - 'Do you need water?...'",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_length": 166
+      },
+      "timestamp": "2025-10-02T10:41:29.739000"
+    },
+    {
+      "test_name": "Chat - 'What's your personal...'",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_length": 181
+      },
+      "timestamp": "2025-10-02T10:41:30.509651"
+    },
+    {
+      "test_name": "Chat - 'I just watered you...'",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_length": 84
+      },
+      "timestamp": "2025-10-02T10:41:31.270406"
+    },
+    {
+      "test_name": "Chat - 'You look beautiful t...'",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_length": 91
+      },
+      "timestamp": "2025-10-02T10:41:31.785709"
+    },
+    {
+      "test_name": "Chat - 'What do you need fro...'",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_length": 170
+      },
+      "timestamp": "2025-10-02T10:41:32.917470"
+    },
+    {
+      "test_name": "Personality Demo",
+      "success": true,
+      "error": null,
+      "details": {
+        "demo_keys": [
+          "plant_id",
+          "plant_name",
+          "personality",
+          "care_reminders",
+          "conversation_samples",
+          "personality_traits"
+        ]
+      },
+      "timestamp": "2025-10-02T10:41:43.770574"
+    },
+    {
+      "test_name": "Get All Personalities",
+      "success": true,
+      "error": null,
+      "details": {
+        "personality_count": 12
+      },
+      "timestamp": "2025-10-02T10:41:43.776142"
+    },
+    {
+      "test_name": "Database Status",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": {
+          "status": "connected",
+          "plants_in_catalog": 207,
+          "total_users": 41,
+          "total_user_plants": 56,
+          "personality_types": 12,
+          "database_seeded": true
+        }
+      },
+      "timestamp": "2025-10-02T10:41:43.793711"
+    },
+    {
+      "test_name": "Reset Database",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": {
+          "message": "Database reset successfully - all plants and personalities cleared"
+        }
+      },
+      "timestamp": "2025-10-02T10:41:43.801682"
+    },
+    {
+      "test_name": "Init Database",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": {
+          "message": "Database tables created successfully!",
+          "tables_created": [
+            "plants_catalog",
+            "users",
+            "personality_types",
+            "user_plants",
+            "care_schedules",
+            "care_history",
+            "conversation_sessions"
+          ]
+        }
+      },
+      "timestamp": "2025-10-02T10:41:43.805991"
+    },
+    {
+      "test_name": "Seed Database",
+      "success": true,
+      "error": null,
+      "details": {
+        "response": {
+          "message": "Successfully seeded database!",
+          "personality_types_created": 7,
+          "plants_created": 209,
+          "total_plants": 209,
+          "total_personalities": 7
+        }
+      },
+      "timestamp": "2025-10-02T10:41:43.834173"
+    },
+    {
+      "test_name": "Edge Case - Empty User Data",
+      "success": true,
+      "error": null,
+      "details": {
+        "expected_error": 422
+      },
+      "timestamp": "2025-10-02T10:41:43.837760"
+    },
+    {
+      "test_name": "Edge Case - Invalid JSON",
+      "success": true,
+      "error": null,
+      "details": {
+        "expected_error": 422
+      },
+      "timestamp": "2025-10-02T10:41:43.840011"
+    },
+    {
+      "test_name": "Edge Case - Missing Required Fields",
+      "success": true,
+      "error": null,
+      "details": {
+        "expected_error": 422
+      },
+      "timestamp": "2025-10-02T10:41:43.842026"
+    },
+    {
+      "test_name": "Edge Case - Invalid Plant ID Chat",
+      "success": true,
+      "error": null,
+      "details": {
+        "expected_error": 404
+      },
+      "timestamp": "2025-10-02T10:41:43.844381"
+    },
+    {
+      "test_name": "Edge Case - Empty Chat Message",
+      "success": true,
+      "error": null,
+      "details": {
+        "expected_error": 400
+      },
+      "timestamp": "2025-10-02T10:41:43.846522"
+    },
+    {
+      "test_name": "Edge Case - Invalid Care Type",
+      "success": false,
+      "error": "Expected error but got success",
+      "details": {
+        "response": "{\"plant_id\":56,\"plant_name\":\"Test Plant\",\"personality\":\"chill_friend\",\"task_type\":\"invalid_type\",\"message\":\"Time for some invalid_type! - Test Plant \ud83c\udf3f\",\"timestamp\":\"2025-10-02T14:41:43.860176\"}"
+      },
+      "timestamp": "2025-10-02T10:41:43.862232"
+    }
+  ]
+}

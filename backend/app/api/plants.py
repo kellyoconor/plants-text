@@ -30,9 +30,20 @@ def get_plant_catalog(db: Session = Depends(get_db)):
 
 
 @router.get("/catalog/{plant_id}", response_model=PlantCatalogResponse)
-def get_plant_by_id(plant_id: int, db: Session = Depends(get_db)):
+def get_plant_by_id(plant_id: str, db: Session = Depends(get_db)):
     """Get specific plant from catalog"""
-    plant = db.query(PlantCatalog).filter(PlantCatalog.id == plant_id).first()
+    # Validate plant_id is a valid integer
+    if not plant_id or plant_id.strip() == "":
+        raise HTTPException(status_code=404, detail="Plant not found")
+    
+    try:
+        plant_id_int = int(plant_id)
+        if plant_id_int <= 0:
+            raise HTTPException(status_code=404, detail="Plant not found")
+    except (ValueError, TypeError):
+        raise HTTPException(status_code=404, detail="Plant not found")
+    
+    plant = db.query(PlantCatalog).filter(PlantCatalog.id == plant_id_int).first()
     if not plant:
         raise HTTPException(status_code=404, detail="Plant not found")
     return plant
@@ -55,9 +66,17 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/users/{user_id}", response_model=UserResponse)
-def get_user(user_id: int, db: Session = Depends(get_db)):
+def get_user(user_id: str, db: Session = Depends(get_db)):
     """Get user by ID"""
-    user = db.query(User).filter(User.id == user_id).first()
+    # Validate user_id is a valid integer
+    try:
+        user_id_int = int(user_id)
+        if user_id_int <= 0:
+            raise HTTPException(status_code=404, detail="User not found")
+    except (ValueError, TypeError):
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user = db.query(User).filter(User.id == user_id_int).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
@@ -89,27 +108,66 @@ def find_or_create_user(user: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/users/{user_id}/dashboard", response_model=UserDashboard)
-def get_user_dashboard(user_id: int, db: Session = Depends(get_db)):
+def get_user_dashboard(user_id: str, db: Session = Depends(get_db)):
     """Get user dashboard with plants and upcoming care"""
-    user = db.query(User).filter(User.id == user_id).first()
+    # Validate user_id is a valid integer
+    try:
+        user_id_int = int(user_id)
+        if user_id_int <= 0:
+            raise HTTPException(status_code=404, detail="User not found")
+    except (ValueError, TypeError):
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user = db.query(User).filter(User.id == user_id_int).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
     # Get user plants with relationships
     plants = db.query(UserPlant).filter(
-        UserPlant.user_id == user_id,
+        UserPlant.user_id == user_id_int,
         UserPlant.is_active == True
     ).all()
     
+    # Add recent care data and care schedules to each plant
+    plants_with_care = []
+    for plant in plants:
+        # Get recent care history for this plant
+        recent_care = db.query(CareHistory).filter(
+            CareHistory.user_plant_id == plant.id
+        ).order_by(CareHistory.completed_at.desc()).limit(5).all()
+        
+        # Get care schedules for this plant
+        care_schedules = db.query(CareSchedule).filter(
+            CareSchedule.user_plant_id == plant.id,
+            CareSchedule.is_active == True
+        ).all()
+        
+        # Create a plant dict with recent care and schedules
+        plant_dict = {
+            "id": plant.id,
+            "nickname": plant.nickname,
+            "plant_catalog_id": plant.plant_catalog_id,
+            "user_id": plant.user_id,
+            "personality_type_id": plant.personality_type_id,
+            "qr_code": plant.qr_code,
+            "is_active": plant.is_active,
+            "created_at": plant.created_at,
+            "plant_catalog": plant.plant_catalog,
+            "personality": plant.personality,
+            "recent_care": recent_care,
+            "care_schedules": care_schedules
+        }
+        plants_with_care.append(plant_dict)
+    
     # Get upcoming care tasks
     upcoming_care = db.query(CareSchedule).join(UserPlant).filter(
-        UserPlant.user_id == user_id,
+        UserPlant.user_id == user_id_int,
         CareSchedule.is_active == True
     ).order_by(CareSchedule.next_due).limit(10).all()
     
     return UserDashboard(
         user=user,
-        plants=plants,
+        plants=plants_with_care,
         upcoming_care=upcoming_care
     )
 
@@ -140,7 +198,7 @@ def add_plant_to_user(plant: UserPlantCreate, db: Session = Depends(get_db)):
         }
         personality_type = PersonalityMatcher.suggest_personality(plant_data)
         
-        # Map short names to full database names
+        # Map short names to actual database names (with proper capitalization and spaces)
         personality_map = {
             "dramatic": "Dramatic Diva",
             "sarcastic": "Sarcastic Survivor", 
@@ -156,7 +214,13 @@ def add_plant_to_user(plant: UserPlantCreate, db: Session = Depends(get_db)):
         # Fallback to a default personality if not found
         personality = db.query(PersonalityType).filter(PersonalityType.name == "Chill Friend").first()
         if not personality:
-            raise HTTPException(status_code=500, detail="No personality types found in database")
+            # Try other available personalities as fallback
+            personality = db.query(PersonalityType).filter(PersonalityType.name == "Sarcastic Survivor").first()
+            if not personality:
+                # Final fallback - get any personality
+                personality = db.query(PersonalityType).first()
+                if not personality:
+                    raise HTTPException(status_code=500, detail="No personality types found in database")
     
     # Create user plant with auto-assigned personality
     plant_data = plant.dict()
@@ -187,6 +251,14 @@ def get_user_plants(user_id: int, db: Session = Depends(get_db)):
 @router.post("/care/complete", response_model=CareHistoryResponse)
 def complete_care_task(care: CareHistoryCreate, db: Session = Depends(get_db)):
     """Log completion of a care task"""
+    # Validate task_type
+    valid_task_types = ["watering", "fertilizing", "misting", "pruning", "repotting", "cleaning", "rotating"]
+    if care.task_type not in valid_task_types:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Invalid task type. Must be one of: {', '.join(valid_task_types)}"
+        )
+    
     # Verify plant exists
     plant = db.query(UserPlant).filter(UserPlant.id == care.user_plant_id).first()
     if not plant:

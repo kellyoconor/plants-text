@@ -1,0 +1,187 @@
+{
+  "summary": {
+    "total": 17,
+    "passed": 9,
+    "failed": 8,
+    "success_rate": "52.9%",
+    "duration": "0:00:04.140702",
+    "timestamp": "2025-10-02T10:59:29.425778",
+    "test_users": 0,
+    "test_plants": 0,
+    "conversations": 0
+  },
+  "test_data": {
+    "users": [],
+    "plants": [],
+    "conversations": []
+  },
+  "results": [
+    {
+      "test_name": "User Registration - Format 1",
+      "success": false,
+      "error": "HTTP 400: {\"detail\":\"User with this phone already exists\"}",
+      "details": {
+        "phone_format": "+1234567890",
+        "response": "{\"detail\":\"User with this phone already exists\"}"
+      },
+      "timestamp": "2025-10-02T10:59:25.301611"
+    },
+    {
+      "test_name": "User Registration - Format 2",
+      "success": false,
+      "error": "HTTP 400: {\"detail\":\"User with this phone already exists\"}",
+      "details": {
+        "phone_format": "+1-234-567-8901",
+        "response": "{\"detail\":\"User with this phone already exists\"}"
+      },
+      "timestamp": "2025-10-02T10:59:25.807767"
+    },
+    {
+      "test_name": "User Registration - Format 3",
+      "success": false,
+      "error": "HTTP 400: {\"detail\":\"User with this phone already exists\"}",
+      "details": {
+        "phone_format": "+1 (234) 567-8902",
+        "response": "{\"detail\":\"User with this phone already exists\"}"
+      },
+      "timestamp": "2025-10-02T10:59:26.427885"
+    },
+    {
+      "test_name": "User Registration - Format 4",
+      "success": false,
+      "error": "HTTP 400: {\"detail\":\"User with this phone already exists\"}",
+      "details": {
+        "phone_format": "234-567-8903",
+        "response": "{\"detail\":\"User with this phone already exists\"}"
+      },
+      "timestamp": "2025-10-02T10:59:26.931739"
+    },
+    {
+      "test_name": "User Registration - Format 5",
+      "success": false,
+      "error": "HTTP 400: {\"detail\":\"User with this phone already exists\"}",
+      "details": {
+        "phone_format": "(234) 567-8904",
+        "response": "{\"detail\":\"User with this phone already exists\"}"
+      },
+      "timestamp": "2025-10-02T10:59:27.428764"
+    },
+    {
+      "test_name": "User Registration - Format 6",
+      "success": false,
+      "error": "HTTP 400: {\"detail\":\"User with this phone already exists\"}",
+      "details": {
+        "phone_format": "2345678905",
+        "response": "{\"detail\":\"User with this phone already exists\"}"
+      },
+      "timestamp": "2025-10-02T10:59:27.980217"
+    },
+    {
+      "test_name": "User Registration Edge Case - Empty phone",
+      "success": true,
+      "error": null,
+      "details": {
+        "case": "Empty phone",
+        "proper_error": 400
+      },
+      "timestamp": "2025-10-02T10:59:28.498629"
+    },
+    {
+      "test_name": "User Registration Edge Case - Null phone",
+      "success": true,
+      "error": null,
+      "details": {
+        "case": "Null phone",
+        "proper_error": 422
+      },
+      "timestamp": "2025-10-02T10:59:28.501371"
+    },
+    {
+      "test_name": "User Registration Edge Case - Very long phone",
+      "success": true,
+      "error": null,
+      "details": {
+        "case": "Very long phone",
+        "proper_error": 400
+      },
+      "timestamp": "2025-10-02T10:59:28.503953"
+    },
+    {
+      "test_name": "User Registration Edge Case - Invalid characters",
+      "success": true,
+      "error": null,
+      "details": {
+        "case": "Invalid characters",
+        "proper_error": 400
+      },
+      "timestamp": "2025-10-02T10:59:28.506403"
+    },
+    {
+      "test_name": "User Registration Edge Case - Just numbers",
+      "success": true,
+      "error": null,
+      "details": {
+        "case": "Just numbers",
+        "proper_error": 400
+      },
+      "timestamp": "2025-10-02T10:59:28.509025"
+    },
+    {
+      "test_name": "User Registration Edge Case - International format",
+      "success": true,
+      "error": null,
+      "details": {
+        "case": "International format",
+        "proper_error": 400
+      },
+      "timestamp": "2025-10-02T10:59:28.512103"
+    },
+    {
+      "test_name": "Plant Onboarding Setup",
+      "success": false,
+      "error": "No test users available",
+      "details": {},
+      "timestamp": "2025-10-02T10:59:28.512182"
+    },
+    {
+      "test_name": "Chat Setup",
+      "success": false,
+      "error": "No test plants available",
+      "details": {},
+      "timestamp": "2025-10-02T10:59:28.928580"
+    },
+    {
+      "test_name": "Performance - User Creation",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_time": "0.01s",
+        "rating": "excellent",
+        "endpoint": "/users"
+      },
+      "timestamp": "2025-10-02T10:59:29.409688"
+    },
+    {
+      "test_name": "Performance - Plant Catalog",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_time": "0.01s",
+        "rating": "excellent",
+        "endpoint": "/catalog"
+      },
+      "timestamp": "2025-10-02T10:59:29.421494"
+    },
+    {
+      "test_name": "Performance - Personality List",
+      "success": true,
+      "error": null,
+      "details": {
+        "response_time": "0.00s",
+        "rating": "excellent",
+        "endpoint": "/personalities"
+      },
+      "timestamp": "2025-10-02T10:59:29.425644"
+    }
+  ]
+}

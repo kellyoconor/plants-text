@@ -1,0 +1,447 @@
+2025-10-02 13:07:46,996 - INFO - ✅ Health Check - API Root Endpoint PASSED
+2025-10-02 13:07:47,004 - INFO - ✅ Health Check - Health Check Endpoint PASSED
+2025-10-02 13:07:47,047 - INFO - ✅ Health Check - OpenAPI Documentation PASSED
+2025-10-02 13:07:47,049 - INFO - ✅ Health Check - API Docs UI PASSED
+2025-10-02 13:07:47,051 - INFO - ✅ Health Check - Redoc UI PASSED
+2025-10-02 13:07:47,095 - INFO - ✅ User Creation - Standard US format PASSED
+2025-10-02 13:07:47,099 - INFO - ✅ User Creation - UK format with spaces PASSED
+2025-10-02 13:07:47,107 - INFO - ✅ User Creation - French format PASSED
+2025-10-02 13:07:47,110 - INFO - ✅ User Retrieval - French format PASSED
+2025-10-02 13:07:47,112 - INFO - ✅ Phone Lookup - French format PASSED
+2025-10-02 13:07:47,116 - INFO - ✅ User Creation - German format PASSED
+2025-10-02 13:07:47,119 - INFO - ✅ User Retrieval - German format PASSED
+2025-10-02 13:07:47,124 - INFO - ✅ Phone Lookup - German format PASSED
+2025-10-02 13:07:47,131 - INFO - ✅ User Creation - Japanese format with dashes PASSED
+2025-10-02 13:07:47,134 - INFO - ✅ User Retrieval - Japanese format with dashes PASSED
+2025-10-02 13:07:47,137 - INFO - ✅ Phone Lookup - Japanese format with dashes PASSED
+2025-10-02 13:07:47,141 - INFO - ✅ User Creation - US format with parentheses PASSED
+2025-10-02 13:07:47,144 - INFO - ✅ User Retrieval - US format with parentheses PASSED
+2025-10-02 13:07:47,147 - INFO - ✅ Phone Lookup - US format with parentheses PASSED
+2025-10-02 13:07:47,151 - INFO - ✅ User Creation - US format with dots PASSED
+2025-10-02 13:07:47,154 - INFO - ✅ User Retrieval - US format with dots PASSED
+2025-10-02 13:07:47,157 - INFO - ✅ Phone Lookup - US format with dots PASSED
+2025-10-02 13:07:47,160 - INFO - ✅ User Creation - US format no formatting PASSED
+2025-10-02 13:07:47,162 - INFO - ✅ User Edge Case - Empty Phone PASSED
+2025-10-02 13:07:47,164 - INFO - ✅ User Edge Case - Null Phone PASSED
+2025-10-02 13:07:47,166 - INFO - ✅ User Edge Case - Very Long Phone PASSED
+2025-10-02 13:07:47,169 - INFO - ✅ User Edge Case - Special Characters PASSED
+2025-10-02 13:07:47,173 - INFO - ✅ User Edge Case - Only Letters PASSED
+2025-10-02 13:07:47,177 - INFO - ✅ User Edge Case - Mixed Content PASSED
+2025-10-02 13:07:47,181 - INFO - ✅ User Edge Case - Unicode Characters PASSED
+2025-10-02 13:07:47,185 - INFO - ✅ User Edge Case - SQL Injection Attempt PASSED
+2025-10-02 13:07:47,189 - INFO - ✅ User Edge Case - XSS Attempt PASSED
+2025-10-02 13:07:47,197 - INFO - ✅ Plant Catalog Retrieval PASSED
+2025-10-02 13:07:47,201 - INFO - ✅ Individual Plant Retrieval - Lipstick PASSED
+2025-10-02 13:07:47,206 - INFO - ✅ Personality Suggestion - Lipstick PASSED
+2025-10-02 13:07:47,210 - INFO - ✅ Individual Plant Retrieval - Maindenhair PASSED
+2025-10-02 13:07:47,213 - INFO - ✅ Personality Suggestion - Maindenhair PASSED
+2025-10-02 13:07:47,216 - INFO - ✅ Individual Plant Retrieval - Silver vase PASSED
+2025-10-02 13:07:47,218 - INFO - ✅ Personality Suggestion - Silver vase PASSED
+2025-10-02 13:07:47,221 - INFO - ✅ Individual Plant Retrieval - Variegated Carabbean Agave PASSED
+2025-10-02 13:07:47,223 - INFO - ✅ Personality Suggestion - Variegated Carabbean Agave PASSED
+2025-10-02 13:07:47,225 - INFO - ✅ Individual Plant Retrieval - Coral berry PASSED
+2025-10-02 13:07:47,227 - INFO - ✅ Personality Suggestion - Coral berry PASSED
+2025-10-02 13:07:47,230 - INFO - ✅ Individual Plant Retrieval - Silver vase PASSED
+2025-10-02 13:07:47,232 - INFO - ✅ Personality Suggestion - Silver vase PASSED
+2025-10-02 13:07:47,234 - INFO - ✅ Individual Plant Retrieval - Thread Agave PASSED
+2025-10-02 13:07:47,237 - INFO - ✅ Personality Suggestion - Thread Agave PASSED
+2025-10-02 13:07:47,239 - INFO - ✅ Individual Plant Retrieval - Rosy Maidenhair PASSED
+2025-10-02 13:07:47,242 - INFO - ✅ Personality Suggestion - Rosy Maidenhair PASSED
+2025-10-02 13:07:47,244 - INFO - ✅ Individual Plant Retrieval - Dragon tree Agave PASSED
+2025-10-02 13:07:47,247 - INFO - ✅ Personality Suggestion - Dragon tree Agave PASSED
+2025-10-02 13:07:47,249 - INFO - ✅ Individual Plant Retrieval - Chinese Evergreen PASSED
+2025-10-02 13:07:47,252 - INFO - ✅ Personality Suggestion - Chinese Evergreen PASSED
+2025-10-02 13:07:47,255 - INFO - ✅ Invalid Plant ID Handling - 0 PASSED
+2025-10-02 13:07:47,258 - INFO - ✅ Invalid Plant ID Handling - -1 PASSED
+2025-10-02 13:07:47,260 - INFO - ✅ Invalid Plant ID Handling - 99999 PASSED
+2025-10-02 13:07:47,262 - ERROR - ❌ Invalid Plant ID Handling - invalid FAILED: Expected 404, got 422
+2025-10-02 13:07:47,895 - ERROR - ❌ Invalid Plant ID Handling - None FAILED: Expected 404, got 422
+2025-10-02 13:07:48,420 - ERROR - ❌ Invalid Plant ID Handling - '; DROP TABLE plants; -- FAILED: Expected 404, got 422
+2025-10-02 13:07:48,917 - INFO - ✅ Plant Creation - Basic Plant... PASSED
+2025-10-02 13:07:48,924 - INFO - ✅ Plant Retrieval Validation - Basic Plant... PASSED
+2025-10-02 13:07:48,937 - INFO - ✅ Plant Creation - Plant with Special Characters ... PASSED
+2025-10-02 13:07:48,941 - INFO - ✅ Plant Retrieval Validation - Plant with Special Characters ... PASSED
+2025-10-02 13:07:48,962 - INFO - ✅ Plant Creation - Very Long Plant Name That Goes... PASSED
+2025-10-02 13:07:48,966 - INFO - ✅ Plant Retrieval Validation - Very Long Plant Name That Goes... PASSED
+2025-10-02 13:07:48,973 - INFO - ✅ Plant Creation - Plant123... PASSED
+2025-10-02 13:07:48,977 - INFO - ✅ Plant Retrieval Validation - Plant123... PASSED
+2025-10-02 13:07:48,990 - INFO - ✅ Plant Creation - 植物... PASSED
+2025-10-02 13:07:48,994 - INFO - ✅ Plant Retrieval Validation - 植物... PASSED
+2025-10-02 13:07:49,005 - INFO - ✅ Plant Creation - Plant with Emoji 🌿🌱💚... PASSED
+2025-10-02 13:07:49,010 - INFO - ✅ Plant Retrieval Validation - Plant with Emoji 🌿🌱💚... PASSED
+2025-10-02 13:07:49,019 - INFO - ✅ Plant Creation - Hyphenated-Plant-Name... PASSED
+2025-10-02 13:07:49,024 - INFO - ✅ Plant Retrieval Validation - Hyphenated-Plant-Name... PASSED
+2025-10-02 13:07:49,037 - INFO - ✅ Plant Creation - Plant.with.dots... PASSED
+2025-10-02 13:07:49,042 - INFO - ✅ Plant Retrieval Validation - Plant.with.dots... PASSED
+2025-10-02 13:07:49,058 - INFO - ✅ Plant Creation - Plant (with parentheses)... PASSED
+2025-10-02 13:07:49,063 - INFO - ✅ Plant Retrieval Validation - Plant (with parentheses)... PASSED
+2025-10-02 13:07:49,071 - INFO - ✅ Plant Creation - Plant/with/slashes... PASSED
+2025-10-02 13:07:49,076 - INFO - ✅ Plant Retrieval Validation - Plant/with/slashes... PASSED
+2025-10-02 13:07:49,084 - INFO - ✅ Plant Creation - Plant\with\backslashes... PASSED
+2025-10-02 13:07:49,088 - INFO - ✅ Plant Retrieval Validation - Plant\with\backslashes... PASSED
+2025-10-02 13:07:49,096 - INFO - ✅ Plant Creation - Plant'with'quotes... PASSED
+2025-10-02 13:07:49,101 - INFO - ✅ Plant Retrieval Validation - Plant'with'quotes... PASSED
+2025-10-02 13:07:49,115 - INFO - ✅ Plant Creation - Plant"with"double"quotes... PASSED
+2025-10-02 13:07:49,120 - INFO - ✅ Plant Retrieval Validation - Plant"with"double"quotes... PASSED
+2025-10-02 13:07:49,129 - INFO - ✅ Plant Creation -    Plant with spaces   ... PASSED
+2025-10-02 13:07:49,135 - INFO - ✅ Plant Retrieval Validation -    Plant with spaces   ... PASSED
+2025-10-02 13:07:49,170 - INFO - ✅ Plant Creation - ... PASSED
+2025-10-02 13:07:49,176 - INFO - ✅ Plant Retrieval Validation - ... PASSED
+2025-10-02 13:07:49,183 - INFO - ✅ Plant Creation - Normal Plant... PASSED
+2025-10-02 13:07:49,188 - INFO - ✅ Plant Retrieval Validation - Normal Plant... PASSED
+2025-10-02 13:07:49,233 - INFO - ✅ Concurrent Plant Creation PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard User Data Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 1 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 2 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 3 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 4 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 5 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 6 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 7 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 8 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 9 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 10 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 11 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 12 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 13 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 14 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 15 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 16 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 17 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 18 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 19 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 20 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Plant 21 Validation - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Care Data - User 62 PASSED
+2025-10-02 13:07:49,249 - INFO - ✅ Dashboard Performance - User 62 PASSED
+2025-10-02 13:07:49,253 - INFO - ✅ Dashboard User Data Validation - User 63 PASSED
+2025-10-02 13:07:49,253 - INFO - ✅ Dashboard Care Data - User 63 PASSED
+2025-10-02 13:07:49,253 - INFO - ✅ Dashboard Performance - User 63 PASSED
+2025-10-02 13:07:49,256 - INFO - ✅ Dashboard User Data Validation - User 64 PASSED
+2025-10-02 13:07:49,256 - INFO - ✅ Dashboard Care Data - User 64 PASSED
+2025-10-02 13:07:49,256 - INFO - ✅ Dashboard Performance - User 64 PASSED
+2025-10-02 13:07:51,155 - INFO - ✅ Chat Basic Greetings - Basic Plant - Message 1 PASSED
+2025-10-02 13:07:52,418 - INFO - ✅ Chat Basic Greetings - Basic Plant - Message 2 PASSED
+2025-10-02 13:07:54,100 - INFO - ✅ Chat Basic Greetings - Basic Plant - Message 3 PASSED
+2025-10-02 13:07:54,777 - INFO - ✅ Chat Basic Greetings - Basic Plant - Message 4 PASSED
+2025-10-02 13:07:55,351 - INFO - ✅ Chat Basic Greetings - Basic Plant - Message 5 PASSED
+2025-10-02 13:07:56,276 - INFO - ✅ Chat Basic Greetings - Basic Plant - Message 6 PASSED
+2025-10-02 13:07:56,944 - INFO - ✅ Chat Basic Greetings - Basic Plant - Message 7 PASSED
+2025-10-02 13:07:58,194 - INFO - ✅ Chat Basic Greetings - Basic Plant - Message 8 PASSED
+2025-10-02 13:07:58,800 - INFO - ✅ Chat Basic Greetings - Basic Plant - Message 9 PASSED
+2025-10-02 13:07:59,963 - INFO - ✅ Chat Basic Greetings - Basic Plant - Message 10 PASSED
+2025-10-02 13:08:02,162 - INFO - ✅ Chat Care Questions - Basic Plant - Message 1 PASSED
+2025-10-02 13:08:02,969 - INFO - ✅ Chat Care Questions - Basic Plant - Message 2 PASSED
+2025-10-02 13:08:03,817 - INFO - ✅ Chat Care Questions - Basic Plant - Message 3 PASSED
+2025-10-02 13:08:04,672 - INFO - ✅ Chat Care Questions - Basic Plant - Message 4 PASSED
+2025-10-02 13:08:06,393 - INFO - ✅ Chat Care Questions - Basic Plant - Message 5 PASSED
+2025-10-02 13:08:07,950 - INFO - ✅ Chat Care Questions - Basic Plant - Message 6 PASSED
+2025-10-02 13:08:08,528 - INFO - ✅ Chat Care Questions - Basic Plant - Message 7 PASSED
+2025-10-02 13:08:09,823 - INFO - ✅ Chat Care Questions - Basic Plant - Message 8 PASSED
+2025-10-02 13:08:10,652 - INFO - ✅ Chat Care Questions - Basic Plant - Message 9 PASSED
+2025-10-02 13:08:11,873 - INFO - ✅ Chat Personality Exploration - Basic Plant - Message 1 PASSED
+2025-10-02 13:08:12,779 - INFO - ✅ Chat Personality Exploration - Basic Plant - Message 2 PASSED
+2025-10-02 13:08:14,360 - INFO - ✅ Chat Personality Exploration - Basic Plant - Message 3 PASSED
+2025-10-02 13:08:15,220 - INFO - ✅ Chat Personality Exploration - Basic Plant - Message 4 PASSED
+2025-10-02 13:08:17,271 - INFO - ✅ Chat Personality Exploration - Basic Plant - Message 5 PASSED
+2025-10-02 13:08:18,268 - INFO - ✅ Chat Personality Exploration - Basic Plant - Message 6 PASSED
+2025-10-02 13:08:19,735 - INFO - ✅ Chat Personality Exploration - Basic Plant - Message 7 PASSED
+2025-10-02 13:08:21,466 - INFO - ✅ Chat Personality Exploration - Basic Plant - Message 8 PASSED
+2025-10-02 13:08:22,288 - INFO - ✅ Chat Care Actions - Basic Plant - Message 1 PASSED
+2025-10-02 13:08:23,145 - INFO - ✅ Chat Care Actions - Basic Plant - Message 2 PASSED
+2025-10-02 13:08:23,843 - INFO - ✅ Chat Care Actions - Basic Plant - Message 3 PASSED
+2025-10-02 13:08:24,515 - INFO - ✅ Chat Care Actions - Basic Plant - Message 4 PASSED
+2025-10-02 13:08:25,257 - INFO - ✅ Chat Care Actions - Basic Plant - Message 5 PASSED
+2025-10-02 13:08:25,867 - INFO - ✅ Chat Care Actions - Basic Plant - Message 6 PASSED
+2025-10-02 13:08:26,742 - INFO - ✅ Chat Care Actions - Basic Plant - Message 7 PASSED
+2025-10-02 13:08:27,314 - INFO - ✅ Chat Care Actions - Basic Plant - Message 8 PASSED
+2025-10-02 13:08:28,185 - INFO - ✅ Chat Emotional Support - Basic Plant - Message 1 PASSED
+2025-10-02 13:08:29,083 - INFO - ✅ Chat Emotional Support - Basic Plant - Message 2 PASSED
+2025-10-02 13:08:29,891 - INFO - ✅ Chat Emotional Support - Basic Plant - Message 3 PASSED
+2025-10-02 13:08:30,593 - INFO - ✅ Chat Emotional Support - Basic Plant - Message 4 PASSED
+2025-10-02 13:08:31,141 - INFO - ✅ Chat Emotional Support - Basic Plant - Message 5 PASSED
+2025-10-02 13:08:31,727 - INFO - ✅ Chat Emotional Support - Basic Plant - Message 6 PASSED
+2025-10-02 13:08:32,800 - INFO - ✅ Chat Complex Conversations - Basic Plant - Message 1 PASSED
+2025-10-02 13:08:33,550 - INFO - ✅ Chat Complex Conversations - Basic Plant - Message 2 PASSED
+2025-10-02 13:08:34,810 - INFO - ✅ Chat Complex Conversations - Basic Plant - Message 3 PASSED
+2025-10-02 13:08:35,688 - INFO - ✅ Chat Complex Conversations - Basic Plant - Message 4 PASSED
+2025-10-02 13:08:36,530 - INFO - ✅ Chat Complex Conversations - Basic Plant - Message 5 PASSED
+2025-10-02 13:08:37,338 - INFO - ✅ Chat Complex Conversations - Basic Plant - Message 6 PASSED
+2025-10-02 13:08:38,375 - INFO - ✅ Chat Complex Conversations - Basic Plant - Message 7 PASSED
+2025-10-02 13:08:39,096 - INFO - ✅ Chat Complex Conversations - Basic Plant - Message 8 PASSED
+2025-10-02 13:08:39,201 - INFO - ✅ Chat Edge Cases - Basic Plant - Message 1 PASSED
+2025-10-02 13:08:40,204 - INFO - ✅ Chat Edge Cases - Basic Plant - Message 2 PASSED
+2025-10-02 13:08:40,924 - INFO - ✅ Chat Edge Cases - Basic Plant - Message 3 PASSED
+2025-10-02 13:08:41,843 - INFO - ✅ Chat Edge Cases - Basic Plant - Message 4 PASSED
+2025-10-02 13:08:42,663 - INFO - ✅ Chat Edge Cases - Basic Plant - Message 5 PASSED
+2025-10-02 13:08:43,792 - INFO - ✅ Chat Edge Cases - Basic Plant - Message 6 PASSED
+2025-10-02 13:08:44,815 - INFO - ✅ Chat Edge Cases - Basic Plant - Message 7 PASSED
+2025-10-02 13:08:45,516 - INFO - ✅ Chat Edge Cases - Basic Plant - Message 8 PASSED
+2025-10-02 13:08:46,355 - INFO - ✅ Chat Edge Cases - Basic Plant - Message 9 PASSED
+2025-10-02 13:08:47,378 - INFO - ✅ Chat Edge Cases - Basic Plant - Message 10 PASSED
+2025-10-02 13:08:55,771 - INFO - ✅ Personality Demo - Basic Plant PASSED
+2025-10-02 13:08:56,391 - INFO - ✅ Chat Basic Greetings - Plant with Special Characters !@#$% - Message 1 PASSED
+2025-10-02 13:08:57,211 - INFO - ✅ Chat Basic Greetings - Plant with Special Characters !@#$% - Message 2 PASSED
+2025-10-02 13:08:58,644 - INFO - ✅ Chat Basic Greetings - Plant with Special Characters !@#$% - Message 3 PASSED
+2025-10-02 13:08:59,771 - INFO - ✅ Chat Basic Greetings - Plant with Special Characters !@#$% - Message 4 PASSED
+2025-10-02 13:09:00,842 - INFO - ✅ Chat Basic Greetings - Plant with Special Characters !@#$% - Message 5 PASSED
+2025-10-02 13:09:01,664 - INFO - ✅ Chat Basic Greetings - Plant with Special Characters !@#$% - Message 6 PASSED
+2025-10-02 13:09:02,575 - INFO - ✅ Chat Basic Greetings - Plant with Special Characters !@#$% - Message 7 PASSED
+2025-10-02 13:09:04,376 - INFO - ✅ Chat Basic Greetings - Plant with Special Characters !@#$% - Message 8 PASSED
+2025-10-02 13:09:05,459 - INFO - ✅ Chat Basic Greetings - Plant with Special Characters !@#$% - Message 9 PASSED
+2025-10-02 13:09:06,182 - INFO - ✅ Chat Basic Greetings - Plant with Special Characters !@#$% - Message 10 PASSED
+2025-10-02 13:09:07,797 - INFO - ✅ Chat Care Questions - Plant with Special Characters !@#$% - Message 1 PASSED
+2025-10-02 13:09:08,631 - INFO - ✅ Chat Care Questions - Plant with Special Characters !@#$% - Message 2 PASSED
+2025-10-02 13:09:09,508 - INFO - ✅ Chat Care Questions - Plant with Special Characters !@#$% - Message 3 PASSED
+2025-10-02 13:09:10,544 - INFO - ✅ Chat Care Questions - Plant with Special Characters !@#$% - Message 4 PASSED
+2025-10-02 13:09:11,413 - INFO - ✅ Chat Care Questions - Plant with Special Characters !@#$% - Message 5 PASSED
+2025-10-02 13:09:12,255 - INFO - ✅ Chat Care Questions - Plant with Special Characters !@#$% - Message 6 PASSED
+2025-10-02 13:09:13,180 - INFO - ✅ Chat Care Questions - Plant with Special Characters !@#$% - Message 7 PASSED
+2025-10-02 13:09:14,186 - INFO - ✅ Chat Care Questions - Plant with Special Characters !@#$% - Message 8 PASSED
+2025-10-02 13:09:15,132 - INFO - ✅ Chat Care Questions - Plant with Special Characters !@#$% - Message 9 PASSED
+2025-10-02 13:09:16,320 - INFO - ✅ Chat Personality Exploration - Plant with Special Characters !@#$% - Message 1 PASSED
+2025-10-02 13:09:17,489 - INFO - ✅ Chat Personality Exploration - Plant with Special Characters !@#$% - Message 2 PASSED
+2025-10-02 13:09:18,613 - INFO - ✅ Chat Personality Exploration - Plant with Special Characters !@#$% - Message 3 PASSED
+2025-10-02 13:09:20,248 - INFO - ✅ Chat Personality Exploration - Plant with Special Characters !@#$% - Message 4 PASSED
+2025-10-02 13:09:21,517 - INFO - ✅ Chat Personality Exploration - Plant with Special Characters !@#$% - Message 5 PASSED
+2025-10-02 13:09:22,505 - INFO - ✅ Chat Personality Exploration - Plant with Special Characters !@#$% - Message 6 PASSED
+2025-10-02 13:09:23,371 - INFO - ✅ Chat Personality Exploration - Plant with Special Characters !@#$% - Message 7 PASSED
+2025-10-02 13:09:25,282 - INFO - ✅ Chat Personality Exploration - Plant with Special Characters !@#$% - Message 8 PASSED
+2025-10-02 13:09:26,405 - INFO - ✅ Chat Care Actions - Plant with Special Characters !@#$% - Message 1 PASSED
+2025-10-02 13:09:27,237 - INFO - ✅ Chat Care Actions - Plant with Special Characters !@#$% - Message 2 PASSED
+2025-10-02 13:09:28,266 - INFO - ✅ Chat Care Actions - Plant with Special Characters !@#$% - Message 3 PASSED
+2025-10-02 13:09:29,215 - INFO - ✅ Chat Care Actions - Plant with Special Characters !@#$% - Message 4 PASSED
+2025-10-02 13:09:31,151 - INFO - ✅ Chat Care Actions - Plant with Special Characters !@#$% - Message 5 PASSED
+2025-10-02 13:09:31,921 - INFO - ✅ Chat Care Actions - Plant with Special Characters !@#$% - Message 6 PASSED
+2025-10-02 13:09:33,303 - INFO - ✅ Chat Care Actions - Plant with Special Characters !@#$% - Message 7 PASSED
+2025-10-02 13:09:34,141 - INFO - ✅ Chat Care Actions - Plant with Special Characters !@#$% - Message 8 PASSED
+2025-10-02 13:09:35,611 - INFO - ✅ Chat Emotional Support - Plant with Special Characters !@#$% - Message 1 PASSED
+2025-10-02 13:09:36,634 - INFO - ✅ Chat Emotional Support - Plant with Special Characters !@#$% - Message 2 PASSED
+2025-10-02 13:09:37,346 - INFO - ✅ Chat Emotional Support - Plant with Special Characters !@#$% - Message 3 PASSED
+2025-10-02 13:09:38,355 - INFO - ✅ Chat Emotional Support - Plant with Special Characters !@#$% - Message 4 PASSED
+2025-10-02 13:09:39,291 - INFO - ✅ Chat Emotional Support - Plant with Special Characters !@#$% - Message 5 PASSED
+2025-10-02 13:09:40,082 - INFO - ✅ Chat Emotional Support - Plant with Special Characters !@#$% - Message 6 PASSED
+2025-10-02 13:09:41,735 - INFO - ✅ Chat Complex Conversations - Plant with Special Characters !@#$% - Message 1 PASSED
+2025-10-02 13:09:42,576 - INFO - ✅ Chat Complex Conversations - Plant with Special Characters !@#$% - Message 2 PASSED
+2025-10-02 13:09:44,058 - INFO - ✅ Chat Complex Conversations - Plant with Special Characters !@#$% - Message 3 PASSED
+2025-10-02 13:09:45,287 - INFO - ✅ Chat Complex Conversations - Plant with Special Characters !@#$% - Message 4 PASSED
+2025-10-02 13:09:46,402 - INFO - ✅ Chat Complex Conversations - Plant with Special Characters !@#$% - Message 5 PASSED
+2025-10-02 13:09:47,589 - INFO - ✅ Chat Complex Conversations - Plant with Special Characters !@#$% - Message 6 PASSED
+2025-10-02 13:09:48,921 - INFO - ✅ Chat Complex Conversations - Plant with Special Characters !@#$% - Message 7 PASSED
+2025-10-02 13:09:51,041 - INFO - ✅ Chat Complex Conversations - Plant with Special Characters !@#$% - Message 8 PASSED
+2025-10-02 13:09:51,147 - INFO - ✅ Chat Edge Cases - Plant with Special Characters !@#$% - Message 1 PASSED
+2025-10-02 13:09:51,908 - INFO - ✅ Chat Edge Cases - Plant with Special Characters !@#$% - Message 2 PASSED
+2025-10-02 13:09:53,065 - INFO - ✅ Chat Edge Cases - Plant with Special Characters !@#$% - Message 3 PASSED
+2025-10-02 13:09:54,151 - INFO - ✅ Chat Edge Cases - Plant with Special Characters !@#$% - Message 4 PASSED
+2025-10-02 13:09:56,183 - INFO - ✅ Chat Edge Cases - Plant with Special Characters !@#$% - Message 5 PASSED
+2025-10-02 13:09:57,382 - INFO - ✅ Chat Edge Cases - Plant with Special Characters !@#$% - Message 6 PASSED
+2025-10-02 13:09:58,647 - INFO - ✅ Chat Edge Cases - Plant with Special Characters !@#$% - Message 7 PASSED
+2025-10-02 13:09:59,631 - INFO - ✅ Chat Edge Cases - Plant with Special Characters !@#$% - Message 8 PASSED
+2025-10-02 13:10:00,493 - INFO - ✅ Chat Edge Cases - Plant with Special Characters !@#$% - Message 9 PASSED
+2025-10-02 13:10:01,541 - INFO - ✅ Chat Edge Cases - Plant with Special Characters !@#$% - Message 10 PASSED
+2025-10-02 13:10:12,218 - INFO - ✅ Personality Demo - Plant with Special Characters !@#$% PASSED
+2025-10-02 13:10:13,188 - INFO - ✅ Chat Basic Greetings - Very Long Plant Name That Goes On And On And On And On - Message 1 PASSED
+2025-10-02 13:10:14,208 - INFO - ✅ Chat Basic Greetings - Very Long Plant Name That Goes On And On And On And On - Message 2 PASSED
+2025-10-02 13:10:14,830 - INFO - ✅ Chat Basic Greetings - Very Long Plant Name That Goes On And On And On And On - Message 3 PASSED
+2025-10-02 13:10:15,491 - INFO - ✅ Chat Basic Greetings - Very Long Plant Name That Goes On And On And On And On - Message 4 PASSED
+2025-10-02 13:10:16,163 - INFO - ✅ Chat Basic Greetings - Very Long Plant Name That Goes On And On And On And On - Message 5 PASSED
+2025-10-02 13:10:17,175 - INFO - ✅ Chat Basic Greetings - Very Long Plant Name That Goes On And On And On And On - Message 6 PASSED
+2025-10-02 13:10:18,271 - INFO - ✅ Chat Basic Greetings - Very Long Plant Name That Goes On And On And On And On - Message 7 PASSED
+2025-10-02 13:10:19,612 - INFO - ✅ Chat Basic Greetings - Very Long Plant Name That Goes On And On And On And On - Message 8 PASSED
+2025-10-02 13:10:20,567 - INFO - ✅ Chat Basic Greetings - Very Long Plant Name That Goes On And On And On And On - Message 9 PASSED
+2025-10-02 13:10:21,589 - INFO - ✅ Chat Basic Greetings - Very Long Plant Name That Goes On And On And On And On - Message 10 PASSED
+2025-10-02 13:10:22,458 - INFO - ✅ Chat Care Questions - Very Long Plant Name That Goes On And On And On And On - Message 1 PASSED
+2025-10-02 13:10:23,148 - INFO - ✅ Chat Care Questions - Very Long Plant Name That Goes On And On And On And On - Message 2 PASSED
+2025-10-02 13:10:24,371 - INFO - ✅ Chat Care Questions - Very Long Plant Name That Goes On And On And On And On - Message 3 PASSED
+2025-10-02 13:10:25,785 - INFO - ✅ Chat Care Questions - Very Long Plant Name That Goes On And On And On And On - Message 4 PASSED
+2025-10-02 13:10:26,811 - INFO - ✅ Chat Care Questions - Very Long Plant Name That Goes On And On And On And On - Message 5 PASSED
+2025-10-02 13:10:27,537 - INFO - ✅ Chat Care Questions - Very Long Plant Name That Goes On And On And On And On - Message 6 PASSED
+2025-10-02 13:10:28,294 - INFO - ✅ Chat Care Questions - Very Long Plant Name That Goes On And On And On And On - Message 7 PASSED
+2025-10-02 13:10:29,098 - INFO - ✅ Chat Care Questions - Very Long Plant Name That Goes On And On And On And On - Message 8 PASSED
+2025-10-02 13:10:29,981 - INFO - ✅ Chat Care Questions - Very Long Plant Name That Goes On And On And On And On - Message 9 PASSED
+2025-10-02 13:10:32,541 - INFO - ✅ Chat Personality Exploration - Very Long Plant Name That Goes On And On And On And On - Message 1 PASSED
+2025-10-02 13:10:33,915 - INFO - ✅ Chat Personality Exploration - Very Long Plant Name That Goes On And On And On And On - Message 2 PASSED
+2025-10-02 13:10:34,814 - INFO - ✅ Chat Personality Exploration - Very Long Plant Name That Goes On And On And On And On - Message 3 PASSED
+2025-10-02 13:10:35,697 - INFO - ✅ Chat Personality Exploration - Very Long Plant Name That Goes On And On And On And On - Message 4 PASSED
+2025-10-02 13:10:37,192 - INFO - ✅ Chat Personality Exploration - Very Long Plant Name That Goes On And On And On And On - Message 5 PASSED
+2025-10-02 13:10:38,323 - INFO - ✅ Chat Personality Exploration - Very Long Plant Name That Goes On And On And On And On - Message 6 PASSED
+2025-10-02 13:10:39,318 - INFO - ✅ Chat Personality Exploration - Very Long Plant Name That Goes On And On And On And On - Message 7 PASSED
+2025-10-02 13:10:40,133 - INFO - ✅ Chat Personality Exploration - Very Long Plant Name That Goes On And On And On And On - Message 8 PASSED
+2025-10-02 13:10:41,596 - INFO - ✅ Chat Care Actions - Very Long Plant Name That Goes On And On And On And On - Message 1 PASSED
+2025-10-02 13:10:43,271 - INFO - ✅ Chat Care Actions - Very Long Plant Name That Goes On And On And On And On - Message 2 PASSED
+2025-10-02 13:10:44,527 - INFO - ✅ Chat Care Actions - Very Long Plant Name That Goes On And On And On And On - Message 3 PASSED
+2025-10-02 13:10:45,665 - INFO - ✅ Chat Care Actions - Very Long Plant Name That Goes On And On And On And On - Message 4 PASSED
+2025-10-02 13:10:46,762 - INFO - ✅ Chat Care Actions - Very Long Plant Name That Goes On And On And On And On - Message 5 PASSED
+2025-10-02 13:10:48,123 - INFO - ✅ Chat Care Actions - Very Long Plant Name That Goes On And On And On And On - Message 6 PASSED
+2025-10-02 13:10:49,231 - INFO - ✅ Chat Care Actions - Very Long Plant Name That Goes On And On And On And On - Message 7 PASSED
+2025-10-02 13:10:50,477 - INFO - ✅ Chat Care Actions - Very Long Plant Name That Goes On And On And On And On - Message 8 PASSED
+2025-10-02 13:10:51,591 - INFO - ✅ Chat Emotional Support - Very Long Plant Name That Goes On And On And On And On - Message 1 PASSED
+2025-10-02 13:10:52,761 - INFO - ✅ Chat Emotional Support - Very Long Plant Name That Goes On And On And On And On - Message 2 PASSED
+2025-10-02 13:10:53,735 - INFO - ✅ Chat Emotional Support - Very Long Plant Name That Goes On And On And On And On - Message 3 PASSED
+2025-10-02 13:10:55,082 - INFO - ✅ Chat Emotional Support - Very Long Plant Name That Goes On And On And On And On - Message 4 PASSED
+2025-10-02 13:10:55,846 - INFO - ✅ Chat Emotional Support - Very Long Plant Name That Goes On And On And On And On - Message 5 PASSED
+2025-10-02 13:10:56,774 - INFO - ✅ Chat Emotional Support - Very Long Plant Name That Goes On And On And On And On - Message 6 PASSED
+2025-10-02 13:10:59,080 - INFO - ✅ Chat Complex Conversations - Very Long Plant Name That Goes On And On And On And On - Message 1 PASSED
+2025-10-02 13:11:00,018 - INFO - ✅ Chat Complex Conversations - Very Long Plant Name That Goes On And On And On And On - Message 2 PASSED
+2025-10-02 13:11:01,349 - INFO - ✅ Chat Complex Conversations - Very Long Plant Name That Goes On And On And On And On - Message 3 PASSED
+2025-10-02 13:11:02,342 - INFO - ✅ Chat Complex Conversations - Very Long Plant Name That Goes On And On And On And On - Message 4 PASSED
+2025-10-02 13:11:03,771 - INFO - ✅ Chat Complex Conversations - Very Long Plant Name That Goes On And On And On And On - Message 5 PASSED
+2025-10-02 13:11:04,900 - INFO - ✅ Chat Complex Conversations - Very Long Plant Name That Goes On And On And On And On - Message 6 PASSED
+2025-10-02 13:11:05,743 - INFO - ✅ Chat Complex Conversations - Very Long Plant Name That Goes On And On And On And On - Message 7 PASSED
+2025-10-02 13:11:06,749 - INFO - ✅ Chat Complex Conversations - Very Long Plant Name That Goes On And On And On And On - Message 8 PASSED
+2025-10-02 13:11:06,854 - INFO - ✅ Chat Edge Cases - Very Long Plant Name That Goes On And On And On And On - Message 1 PASSED
+2025-10-02 13:11:08,033 - INFO - ✅ Chat Edge Cases - Very Long Plant Name That Goes On And On And On And On - Message 2 PASSED
+2025-10-02 13:11:09,042 - INFO - ✅ Chat Edge Cases - Very Long Plant Name That Goes On And On And On And On - Message 3 PASSED
+2025-10-02 13:11:09,920 - INFO - ✅ Chat Edge Cases - Very Long Plant Name That Goes On And On And On And On - Message 4 PASSED
+2025-10-02 13:11:12,082 - INFO - ✅ Chat Edge Cases - Very Long Plant Name That Goes On And On And On And On - Message 5 PASSED
+2025-10-02 13:11:13,504 - INFO - ✅ Chat Edge Cases - Very Long Plant Name That Goes On And On And On And On - Message 6 PASSED
+2025-10-02 13:11:15,450 - INFO - ✅ Chat Edge Cases - Very Long Plant Name That Goes On And On And On And On - Message 7 PASSED
+2025-10-02 13:11:16,238 - INFO - ✅ Chat Edge Cases - Very Long Plant Name That Goes On And On And On And On - Message 8 PASSED
+2025-10-02 13:11:17,205 - INFO - ✅ Chat Edge Cases - Very Long Plant Name That Goes On And On And On And On - Message 9 PASSED
+2025-10-02 13:11:18,621 - INFO - ✅ Chat Edge Cases - Very Long Plant Name That Goes On And On And On And On - Message 10 PASSED
+2025-10-02 13:11:30,914 - INFO - ✅ Personality Demo - Very Long Plant Name That Goes On And On And On And On PASSED
+2025-10-02 13:11:31,421 - INFO - ✅ Chat Basic Greetings - Plant123 - Message 1 PASSED
+2025-10-02 13:11:32,984 - INFO - ✅ Chat Basic Greetings - Plant123 - Message 2 PASSED
+2025-10-02 13:11:33,556 - INFO - ✅ Chat Basic Greetings - Plant123 - Message 3 PASSED
+2025-10-02 13:11:34,655 - INFO - ✅ Chat Basic Greetings - Plant123 - Message 4 PASSED
+2025-10-02 13:11:35,271 - INFO - ✅ Chat Basic Greetings - Plant123 - Message 5 PASSED
+2025-10-02 13:11:36,234 - INFO - ✅ Chat Basic Greetings - Plant123 - Message 6 PASSED
+2025-10-02 13:11:37,775 - INFO - ✅ Chat Basic Greetings - Plant123 - Message 7 PASSED
+2025-10-02 13:11:38,757 - INFO - ✅ Chat Basic Greetings - Plant123 - Message 8 PASSED
+2025-10-02 13:11:40,582 - INFO - ✅ Chat Basic Greetings - Plant123 - Message 9 PASSED
+2025-10-02 13:11:41,781 - INFO - ✅ Chat Basic Greetings - Plant123 - Message 10 PASSED
+2025-10-02 13:11:42,899 - INFO - ✅ Chat Care Questions - Plant123 - Message 1 PASSED
+2025-10-02 13:11:43,574 - INFO - ✅ Chat Care Questions - Plant123 - Message 2 PASSED
+2025-10-02 13:11:44,287 - INFO - ✅ Chat Care Questions - Plant123 - Message 3 PASSED
+2025-10-02 13:11:45,144 - INFO - ✅ Chat Care Questions - Plant123 - Message 4 PASSED
+2025-10-02 13:11:46,067 - INFO - ✅ Chat Care Questions - Plant123 - Message 5 PASSED
+2025-10-02 13:11:46,786 - INFO - ✅ Chat Care Questions - Plant123 - Message 6 PASSED
+2025-10-02 13:11:47,566 - INFO - ✅ Chat Care Questions - Plant123 - Message 7 PASSED
+2025-10-02 13:11:48,218 - INFO - ✅ Chat Care Questions - Plant123 - Message 8 PASSED
+2025-10-02 13:11:49,484 - INFO - ✅ Chat Care Questions - Plant123 - Message 9 PASSED
+2025-10-02 13:11:50,275 - INFO - ✅ Chat Personality Exploration - Plant123 - Message 1 PASSED
+2025-10-02 13:11:51,165 - INFO - ✅ Chat Personality Exploration - Plant123 - Message 2 PASSED
+2025-10-02 13:11:51,903 - INFO - ✅ Chat Personality Exploration - Plant123 - Message 3 PASSED
+2025-10-02 13:11:54,051 - INFO - ✅ Chat Personality Exploration - Plant123 - Message 4 PASSED
+2025-10-02 13:11:54,972 - INFO - ✅ Chat Personality Exploration - Plant123 - Message 5 PASSED
+2025-10-02 13:11:55,592 - INFO - ✅ Chat Personality Exploration - Plant123 - Message 6 PASSED
+2025-10-02 13:11:56,198 - INFO - ✅ Chat Personality Exploration - Plant123 - Message 7 PASSED
+2025-10-02 13:11:57,130 - INFO - ✅ Chat Personality Exploration - Plant123 - Message 8 PASSED
+2025-10-02 13:11:57,951 - INFO - ✅ Chat Care Actions - Plant123 - Message 1 PASSED
+2025-10-02 13:11:58,769 - INFO - ✅ Chat Care Actions - Plant123 - Message 2 PASSED
+2025-10-02 13:11:59,377 - INFO - ✅ Chat Care Actions - Plant123 - Message 3 PASSED
+2025-10-02 13:12:00,115 - INFO - ✅ Chat Care Actions - Plant123 - Message 4 PASSED
+2025-10-02 13:12:00,754 - INFO - ✅ Chat Care Actions - Plant123 - Message 5 PASSED
+2025-10-02 13:12:01,326 - INFO - ✅ Chat Care Actions - Plant123 - Message 6 PASSED
+2025-10-02 13:12:02,020 - INFO - ✅ Chat Care Actions - Plant123 - Message 7 PASSED
+2025-10-02 13:12:02,858 - INFO - ✅ Chat Care Actions - Plant123 - Message 8 PASSED
+2025-10-02 13:12:03,477 - INFO - ✅ Chat Emotional Support - Plant123 - Message 1 PASSED
+2025-10-02 13:12:04,132 - INFO - ✅ Chat Emotional Support - Plant123 - Message 2 PASSED
+2025-10-02 13:12:04,861 - INFO - ✅ Chat Emotional Support - Plant123 - Message 3 PASSED
+2025-10-02 13:12:05,496 - INFO - ✅ Chat Emotional Support - Plant123 - Message 4 PASSED
+2025-10-02 13:12:06,121 - INFO - ✅ Chat Emotional Support - Plant123 - Message 5 PASSED
+2025-10-02 13:12:06,626 - INFO - ✅ Chat Emotional Support - Plant123 - Message 6 PASSED
+2025-10-02 13:12:07,267 - INFO - ✅ Chat Complex Conversations - Plant123 - Message 1 PASSED
+2025-10-02 13:12:08,092 - INFO - ✅ Chat Complex Conversations - Plant123 - Message 2 PASSED
+2025-10-02 13:12:08,805 - INFO - ✅ Chat Complex Conversations - Plant123 - Message 3 PASSED
+2025-10-02 13:12:09,522 - INFO - ✅ Chat Complex Conversations - Plant123 - Message 4 PASSED
+2025-10-02 13:12:10,747 - INFO - ✅ Chat Complex Conversations - Plant123 - Message 5 PASSED
+2025-10-02 13:12:12,772 - INFO - ✅ Chat Complex Conversations - Plant123 - Message 6 PASSED
+2025-10-02 13:12:13,637 - INFO - ✅ Chat Complex Conversations - Plant123 - Message 7 PASSED
+2025-10-02 13:12:14,201 - INFO - ✅ Chat Complex Conversations - Plant123 - Message 8 PASSED
+2025-10-02 13:12:14,308 - INFO - ✅ Chat Edge Cases - Plant123 - Message 1 PASSED
+2025-10-02 13:12:15,067 - INFO - ✅ Chat Edge Cases - Plant123 - Message 2 PASSED
+2025-10-02 13:12:15,972 - INFO - ✅ Chat Edge Cases - Plant123 - Message 3 PASSED
+2025-10-02 13:12:16,651 - INFO - ✅ Chat Edge Cases - Plant123 - Message 4 PASSED
+2025-10-02 13:12:17,464 - INFO - ✅ Chat Edge Cases - Plant123 - Message 5 PASSED
+2025-10-02 13:12:18,130 - INFO - ✅ Chat Edge Cases - Plant123 - Message 6 PASSED
+2025-10-02 13:12:18,892 - INFO - ✅ Chat Edge Cases - Plant123 - Message 7 PASSED
+2025-10-02 13:12:19,544 - INFO - ✅ Chat Edge Cases - Plant123 - Message 8 PASSED
+2025-10-02 13:12:20,512 - INFO - ✅ Chat Edge Cases - Plant123 - Message 9 PASSED
+2025-10-02 13:12:21,091 - INFO - ✅ Chat Edge Cases - Plant123 - Message 10 PASSED
+2025-10-02 13:12:34,417 - INFO - ✅ Personality Demo - Plant123 PASSED
+2025-10-02 13:12:34,904 - INFO - ✅ Chat Basic Greetings - 植物 - Message 1 PASSED
+2025-10-02 13:12:35,729 - INFO - ✅ Chat Basic Greetings - 植物 - Message 2 PASSED
+2025-10-02 13:12:36,650 - INFO - ✅ Chat Basic Greetings - 植物 - Message 3 PASSED
+2025-10-02 13:12:37,577 - INFO - ✅ Chat Basic Greetings - 植物 - Message 4 PASSED
+2025-10-02 13:12:38,398 - INFO - ✅ Chat Basic Greetings - 植物 - Message 5 PASSED
+2025-10-02 13:12:39,213 - INFO - ✅ Chat Basic Greetings - 植物 - Message 6 PASSED
+2025-10-02 13:12:39,927 - INFO - ✅ Chat Basic Greetings - 植物 - Message 7 PASSED
+2025-10-02 13:12:40,649 - INFO - ✅ Chat Basic Greetings - 植物 - Message 8 PASSED
+2025-10-02 13:12:41,292 - INFO - ✅ Chat Basic Greetings - 植物 - Message 9 PASSED
+2025-10-02 13:12:42,491 - INFO - ✅ Chat Basic Greetings - 植物 - Message 10 PASSED
+2025-10-02 13:12:44,544 - INFO - ✅ Chat Care Questions - 植物 - Message 1 PASSED
+2025-10-02 13:12:45,320 - INFO - ✅ Chat Care Questions - 植物 - Message 2 PASSED
+2025-10-02 13:12:46,180 - INFO - ✅ Chat Care Questions - 植物 - Message 3 PASSED
+2025-10-02 13:12:47,219 - INFO - ✅ Chat Care Questions - 植物 - Message 4 PASSED
+2025-10-02 13:12:48,324 - INFO - ✅ Chat Care Questions - 植物 - Message 5 PASSED
+2025-10-02 13:12:49,246 - INFO - ✅ Chat Care Questions - 植物 - Message 6 PASSED
+2025-10-02 13:12:50,521 - INFO - ✅ Chat Care Questions - 植物 - Message 7 PASSED
+2025-10-02 13:12:51,401 - INFO - ✅ Chat Care Questions - 植物 - Message 8 PASSED
+2025-10-02 13:12:52,828 - INFO - ✅ Chat Care Questions - 植物 - Message 9 PASSED
+2025-10-02 13:12:54,185 - INFO - ✅ Chat Personality Exploration - 植物 - Message 1 PASSED
+2025-10-02 13:12:55,194 - INFO - ✅ Chat Personality Exploration - 植物 - Message 2 PASSED
+2025-10-02 13:12:56,001 - INFO - ✅ Chat Personality Exploration - 植物 - Message 3 PASSED
+2025-10-02 13:12:56,874 - INFO - ✅ Chat Personality Exploration - 植物 - Message 4 PASSED
+2025-10-02 13:12:58,208 - INFO - ✅ Chat Personality Exploration - 植物 - Message 5 PASSED
+2025-10-02 13:12:59,428 - INFO - ✅ Chat Personality Exploration - 植物 - Message 6 PASSED
+2025-10-02 13:13:00,374 - INFO - ✅ Chat Personality Exploration - 植物 - Message 7 PASSED
+2025-10-02 13:13:01,407 - INFO - ✅ Chat Personality Exploration - 植物 - Message 8 PASSED
+2025-10-02 13:13:02,664 - INFO - ✅ Chat Care Actions - 植物 - Message 1 PASSED
+2025-10-02 13:13:03,981 - INFO - ✅ Chat Care Actions - 植物 - Message 2 PASSED
+2025-10-02 13:13:04,917 - INFO - ✅ Chat Care Actions - 植物 - Message 3 PASSED
+2025-10-02 13:13:06,166 - INFO - ✅ Chat Care Actions - 植物 - Message 4 PASSED
+2025-10-02 13:13:07,846 - INFO - ✅ Chat Care Actions - 植物 - Message 5 PASSED
+2025-10-02 13:13:08,991 - INFO - ✅ Chat Care Actions - 植物 - Message 6 PASSED
+2025-10-02 13:13:09,984 - INFO - ✅ Chat Care Actions - 植物 - Message 7 PASSED
+2025-10-02 13:13:10,889 - INFO - ✅ Chat Care Actions - 植物 - Message 8 PASSED
+2025-10-02 13:13:11,573 - INFO - ✅ Chat Emotional Support - 植物 - Message 1 PASSED
+2025-10-02 13:13:12,406 - INFO - ✅ Chat Emotional Support - 植物 - Message 2 PASSED
+2025-10-02 13:13:13,222 - INFO - ✅ Chat Emotional Support - 植物 - Message 3 PASSED
+2025-10-02 13:13:13,827 - INFO - ✅ Chat Emotional Support - 植物 - Message 4 PASSED
+2025-10-02 13:13:14,645 - INFO - ✅ Chat Emotional Support - 植物 - Message 5 PASSED
+2025-10-02 13:13:15,396 - INFO - ✅ Chat Emotional Support - 植物 - Message 6 PASSED
+2025-10-02 13:13:17,202 - INFO - ✅ Chat Complex Conversations - 植物 - Message 1 PASSED
+2025-10-02 13:13:17,997 - INFO - ✅ Chat Complex Conversations - 植物 - Message 2 PASSED
+2025-10-02 13:13:19,205 - INFO - ✅ Chat Complex Conversations - 植物 - Message 3 PASSED
+2025-10-02 13:13:20,097 - INFO - ✅ Chat Complex Conversations - 植物 - Message 4 PASSED
+2025-10-02 13:13:21,145 - INFO - ✅ Chat Complex Conversations - 植物 - Message 5 PASSED
+2025-10-02 13:13:22,672 - INFO - ✅ Chat Complex Conversations - 植物 - Message 6 PASSED
+2025-10-02 13:13:23,693 - INFO - ✅ Chat Complex Conversations - 植物 - Message 7 PASSED
+2025-10-02 13:13:24,522 - INFO - ✅ Chat Complex Conversations - 植物 - Message 8 PASSED
+2025-10-02 13:13:24,627 - INFO - ✅ Chat Edge Cases - 植物 - Message 1 PASSED
+2025-10-02 13:13:25,532 - INFO - ✅ Chat Edge Cases - 植物 - Message 2 PASSED
+2025-10-02 13:13:26,539 - INFO - ✅ Chat Edge Cases - 植物 - Message 3 PASSED
+2025-10-02 13:13:27,240 - INFO - ✅ Chat Edge Cases - 植物 - Message 4 PASSED
+2025-10-02 13:13:28,772 - INFO - ✅ Chat Edge Cases - 植物 - Message 5 PASSED
+2025-10-02 13:13:30,009 - INFO - ✅ Chat Edge Cases - 植物 - Message 6 PASSED
+2025-10-02 13:13:31,320 - INFO - ✅ Chat Edge Cases - 植物 - Message 7 PASSED
+2025-10-02 13:13:32,179 - INFO - ✅ Chat Edge Cases - 植物 - Message 8 PASSED
+2025-10-02 13:13:33,225 - INFO - ✅ Chat Edge Cases - 植物 - Message 9 PASSED
+2025-10-02 13:13:34,575 - INFO - ✅ Chat Edge Cases - 植物 - Message 10 PASSED
+2025-10-02 13:13:48,138 - INFO - ✅ Personality Demo - 植物 PASSED
+2025-10-02 13:13:48,146 - INFO - ✅ Care Schedule Retrieval PASSED
+2025-10-02 13:13:48,154 - INFO - ✅ Care Completion - watering PASSED
+2025-10-02 13:13:48,159 - INFO - ✅ Care Completion - fertilizing PASSED
+2025-10-02 13:13:48,163 - INFO - ✅ Care Completion - misting PASSED
+2025-10-02 13:13:48,168 - INFO - ✅ Care Completion - pruning PASSED
+2025-10-02 13:13:48,172 - INFO - ✅ Care Completion - repotting PASSED
+2025-10-02 13:13:48,176 - INFO - ✅ Care Completion - cleaning PASSED
+2025-10-02 13:13:48,185 - INFO - ✅ Care Completion - rotating PASSED
+2025-10-02 13:13:48,191 - INFO - ✅ Care Completion - watering PASSED
+2025-10-02 13:13:48,196 - INFO - ✅ Care Completion - watering PASSED
+2025-10-02 13:13:48,201 - INFO - ✅ Care Completion - custom_care PASSED
+2025-10-02 13:13:48,219 - INFO - ✅ Care Reminder - watering PASSED
+2025-10-02 13:13:48,230 - INFO - ✅ Care Reminder - fertilizing PASSED
+2025-10-02 13:13:48,241 - INFO - ✅ Care Reminder - misting PASSED
+2025-10-02 13:13:48,252 - INFO - ✅ Care Reminder - pruning PASSED
+2025-10-02 13:13:48,264 - INFO - ✅ Care Reminder - repotting PASSED
+2025-10-02 13:13:48,279 - INFO - ✅ Care Reminder - cleaning PASSED
+2025-10-02 13:13:48,289 - INFO - ✅ Care Reminder Invalid Type PASSED
+2025-10-02 13:13:48,309 - INFO - ✅ User Data Consistency - User 62 PASSED
+2025-10-02 13:13:48,309 - INFO - ✅ Plants Count Consistency - User 62 PASSED
+2025-10-02 13:13:48,316 - INFO - ✅ User Data Consistency - User 63 PASSED
+2025-10-02 13:13:48,316 - INFO - ✅ Plants Count Consistency - User 63 PASSED
+2025-10-02 13:13:48,316 - INFO - ✅ Performance Analysis - Slow Operations PASSED
+2025-10-02 13:13:48,316 - INFO - ✅ Performance Analysis - Fast Operations PASSED
+2025-10-02 13:13:55,203 - INFO - ✅ Rapid Sequential Requests PASSED

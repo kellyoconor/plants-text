@@ -1,0 +1,55 @@
+2025-10-02 10:56:03,401 - ERROR - ❌ User Registration - Format 1 FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:56:04,135 - INFO - ✅ User Registration - Format 2 PASSED
+2025-10-02 10:56:04,146 - INFO - ✅ User Registration - Format 3 PASSED
+2025-10-02 10:56:04,157 - INFO - ✅ User Registration - Format 4 PASSED
+2025-10-02 10:56:04,180 - INFO - ✅ User Registration - Format 5 PASSED
+2025-10-02 10:56:04,192 - INFO - ✅ User Registration - Format 6 PASSED
+2025-10-02 10:56:04,198 - INFO - ✅ User Registration Edge Case - Empty phone PASSED
+2025-10-02 10:56:04,202 - INFO - ✅ User Registration Edge Case - Null phone PASSED
+2025-10-02 10:56:04,211 - INFO - ✅ User Registration Edge Case - Very long phone PASSED
+2025-10-02 10:56:04,222 - INFO - ✅ User Registration Edge Case - Invalid characters PASSED
+2025-10-02 10:56:04,227 - INFO - ✅ User Registration Edge Case - Just numbers PASSED
+2025-10-02 10:56:04,236 - INFO - ✅ User Registration Edge Case - International format PASSED
+2025-10-02 10:56:04,250 - INFO - ✅ Plant Catalog Access PASSED
+2025-10-02 10:56:04,258 - ERROR - ❌ Plant Creation - My First Plant... FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:56:04,908 - ERROR - ❌ Plant Creation - Kitchen Herb... FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:56:05,460 - ERROR - ❌ Plant Creation - Bedroom Beauty... FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:56:06,099 - ERROR - ❌ Plant Creation - Office Companion... FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:56:06,819 - ERROR - ❌ Plant Creation - Bathroom Plant... FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:56:07,358 - ERROR - ❌ Plant Creation - Plant with Emoji 🌿... FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:56:07,838 - ERROR - ❌ Plant Creation - Very Long Plant Name... FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:56:08,343 - ERROR - ❌ Plant Creation - Plant123... FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:56:08,793 - INFO - ✅ Dashboard User Data - User 42 PASSED
+2025-10-02 10:56:08,793 - INFO - ✅ Dashboard Plants Data - User 42 PASSED
+2025-10-02 10:56:08,793 - INFO - ✅ Dashboard Care Data - User 42 PASSED
+2025-10-02 10:56:08,799 - INFO - ✅ Dashboard User Data - User 43 PASSED
+2025-10-02 10:56:08,799 - INFO - ✅ Dashboard Plants Data - User 43 PASSED
+2025-10-02 10:56:08,799 - INFO - ✅ Dashboard Care Data - User 43 PASSED
+2025-10-02 10:56:08,804 - INFO - ✅ Dashboard User Data - User 44 PASSED
+2025-10-02 10:56:08,804 - INFO - ✅ Dashboard Plants Data - User 44 PASSED
+2025-10-02 10:56:08,805 - INFO - ✅ Dashboard Care Data - User 44 PASSED
+2025-10-02 10:56:08,805 - ERROR - ❌ Chat Setup FAILED: No test plants available
+2025-10-02 10:56:10,878 - INFO - ✅ User Data Consistency - User 42 PASSED
+2025-10-02 10:56:12,392 - INFO - ✅ User Data Consistency - User 43 PASSED
+2025-10-02 10:56:12,398 - INFO - ✅ Performance - User Creation PASSED
+2025-10-02 10:56:12,405 - INFO - ✅ Performance - Plant Catalog PASSED
+2025-10-02 10:56:12,408 - INFO - ✅ Performance - Personality List PASSED
+2025-10-02 10:56:12,411 - INFO - ✅ Performance - User Dashboard PASSED
+2025-10-02 10:56:12,413 - INFO - ✅ Performance - User Plants PASSED
+2025-10-02 10:59:25,301 - ERROR - ❌ User Registration - Format 1 FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:59:25,807 - ERROR - ❌ User Registration - Format 2 FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:59:26,427 - ERROR - ❌ User Registration - Format 3 FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:59:26,931 - ERROR - ❌ User Registration - Format 4 FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:59:27,428 - ERROR - ❌ User Registration - Format 5 FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:59:27,980 - ERROR - ❌ User Registration - Format 6 FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:59:28,498 - INFO - ✅ User Registration Edge Case - Empty phone PASSED
+2025-10-02 10:59:28,501 - INFO - ✅ User Registration Edge Case - Null phone PASSED
+2025-10-02 10:59:28,503 - INFO - ✅ User Registration Edge Case - Very long phone PASSED
+2025-10-02 10:59:28,506 - INFO - ✅ User Registration Edge Case - Invalid characters PASSED
+2025-10-02 10:59:28,509 - INFO - ✅ User Registration Edge Case - Just numbers PASSED
+2025-10-02 10:59:28,512 - INFO - ✅ User Registration Edge Case - International format PASSED
+2025-10-02 10:59:28,512 - ERROR - ❌ Plant Onboarding Setup FAILED: No test users available
+2025-10-02 10:59:28,928 - ERROR - ❌ Chat Setup FAILED: No test plants available
+2025-10-02 10:59:29,409 - INFO - ✅ Performance - User Creation PASSED
+2025-10-02 10:59:29,421 - INFO - ✅ Performance - Plant Catalog PASSED
+2025-10-02 10:59:29,425 - INFO - ✅ Performance - Personality List PASSED

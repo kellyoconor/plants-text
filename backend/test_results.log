@@ -1,0 +1,207 @@
+2025-10-02 10:07:53,392 - ERROR - ❌ Create snake_plant FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:53,598 - ERROR - ❌ Create fiddle_leaf_fig FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:53,748 - ERROR - ❌ Create pothos FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:53,932 - ERROR - ❌ Create monstera FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:54,093 - ERROR - ❌ User Onboarding FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:54,257 - ERROR - ❌ Create plant for personality test (snake_plant) FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:54,432 - ERROR - ❌ Create plant for personality test (fiddle_leaf_fig) FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:54,568 - ERROR - ❌ Create plant for personality test (pothos) FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:54,722 - ERROR - ❌ Create plant for personality test (monstera) FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:54,890 - ERROR - ❌ Create plant for personality test (peace_lily) FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:55,042 - ERROR - ❌ Create plant for personality test (rubber_plant) FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:55,194 - ERROR - ❌ Create plant for personality test (spider_plant) FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:07:55,363 - ERROR - ❌ Create plant for personality test (aloe_vera) FAILED: HTTP 404: {"detail":"Not Found"}
+2025-10-02 10:14:18,620 - ERROR - ❌ Create Test User FAILED: HTTP 422: {"detail":[{"type":"missing","loc":["body","phone"],"msg":"Field required","input":{"phone_number":"+1234567890","name":"Test User"}}]}
+2025-10-02 10:14:18,872 - ERROR - ❌ User Creation FAILED: HTTP 422: {"detail":[{"type":"missing","loc":["body","phone"],"msg":"Field required","input":{"phone_number":"+1234567891","name":"Flow Test User"}}]}
+2025-10-02 10:14:19,028 - ERROR - ❌ Create Personality Test User FAILED: HTTP 422: {"detail":[{"type":"missing","loc":["body","phone"],"msg":"Field required","input":{"phone_number":"+1234567892","name":"Personality Test User"}}]}
+2025-10-02 10:15:28,450 - ERROR - ❌ Create Test User FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:15:28,697 - ERROR - ❌ User Creation FAILED: HTTP 200: {"phone":"+1234567891","email":null,"timezone":"UTC","location":null,"id":31,"subscription_tier":"free","is_active":true,"created_at":"2025-10-02T14:15:28"}
+2025-10-02 10:15:28,897 - ERROR - ❌ Create Personality Test User FAILED: HTTP 200: {"phone":"+1234567892","email":null,"timezone":"UTC","location":null,"id":32,"subscription_tier":"free","is_active":true,"created_at":"2025-10-02T14:15:28"}
+2025-10-02 10:17:06,849 - INFO - ✅ Create Test User (retry) PASSED
+2025-10-02 10:17:06,859 - INFO - ✅ Get Plant Catalog PASSED
+2025-10-02 10:17:06,865 - ERROR - ❌ Create My Snake Plant FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:17:07,064 - ERROR - ❌ Create My Fiddle Leaf Fig FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:17:07,254 - ERROR - ❌ Create My Pothos FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:17:07,418 - ERROR - ❌ Create My Monstera FAILED: HTTP 500: {"detail":"No personality types found in database"}
+2025-10-02 10:17:07,618 - ERROR - ❌ User Creation FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:17:07,824 - ERROR - ❌ Create Personality Test User FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:18:23,234 - INFO - ✅ Create Test User (retry) PASSED
+2025-10-02 10:18:23,241 - INFO - ✅ Get Plant Catalog PASSED
+2025-10-02 10:18:23,254 - ERROR - ❌ Create My Snake Plant FAILED: HTTP 200: {"nickname":"My Snake Plant","plant_catalog_id":1,"id":32,"user_id":34,"personality_type_id":6,"qr_code":null,"is_active":true,"created_at":"2025-10-02T14:18:23","plant_catalog":{"name":"Lipstick","species":"Aeschynanthus lobianus","care_requirements":{"watering_frequency_days":14,"light_level":"bright","ideal_temp_min":14,"ideal_temp_max":32,"humidity_level":"medium","fertilizing_frequency_days":30,"original_watering_text":"Keep moist between watering. Can be a bit dry between watering","original_light_text":"Bright light"},"difficulty_level":"easy","description":"Hanging plant from Java. Keep moist between watering. Can be a bit dry between watering","id":1,"created_at":"2025-09-25T18:58:34"},"personality":{"name":"sarcastic_survivor","description":"Auto-created sarcastic_survivor personality","prompt_template":"Basic template","voice_traits":{},"id":6,"created_at":"2025-10-01T17:57:35"}}
+2025-10-02 10:18:23,476 - ERROR - ❌ Create My Fiddle Leaf Fig FAILED: HTTP 200: {"nickname":"My Fiddle Leaf Fig","plant_catalog_id":2,"id":33,"user_id":34,"personality_type_id":7,"qr_code":null,"is_active":true,"created_at":"2025-10-02T14:18:23","plant_catalog":{"name":"Maindenhair","species":"Adiantum raddianum","care_requirements":{"watering_frequency_days":14,"light_level":"medium","ideal_temp_min":12,"ideal_temp_max":30,"humidity_level":"medium","fertilizing_frequency_days":30,"original_watering_text":"Keep moist between watering. Must not be dry between watering","original_light_text":"Bright light"},"difficulty_level":"hard","description":"Fern plant from Brazil. Keep moist between watering. Must not be dry between watering","id":2,"created_at":"2025-09-25T18:58:34"},"personality":{"name":"dramatic_diva","description":"Auto-created dramatic_diva personality","prompt_template":"Basic template","voice_traits":{},"id":7,"created_at":"2025-10-01T17:57:35"}}
+2025-10-02 10:18:23,666 - ERROR - ❌ Create My Pothos FAILED: HTTP 200: {"nickname":"My Pothos","plant_catalog_id":3,"id":34,"user_id":34,"personality_type_id":6,"qr_code":null,"is_active":true,"created_at":"2025-10-02T14:18:23","plant_catalog":{"name":"Silver vase","species":"Aechmea fatsiata","care_requirements":{"watering_frequency_days":14,"light_level":"medium","ideal_temp_min":12,"ideal_temp_max":30,"humidity_level":"medium","fertilizing_frequency_days":30,"original_watering_text":"Water when soil is half dry. Change water in the vase regularly.","original_light_text":"Bright light"},"difficulty_level":"easy","description":"Bromeliad plant from Brazil. Water when soil is half dry. Change water in the vase regularly.","id":3,"created_at":"2025-09-25T18:58:34"},"personality":{"name":"sarcastic_survivor","description":"Auto-created sarcastic_survivor personality","prompt_template":"Basic template","voice_traits":{},"id":6,"created_at":"2025-10-01T17:57:35"}}
+2025-10-02 10:18:23,894 - ERROR - ❌ Create My Monstera FAILED: HTTP 200: {"nickname":"My Monstera","plant_catalog_id":4,"id":35,"user_id":34,"personality_type_id":7,"qr_code":null,"is_active":true,"created_at":"2025-10-02T14:18:23","plant_catalog":{"name":"Variegated Carabbean Agave","species":"Agave angustilolia Marginata","care_requirements":{"watering_frequency_days":14,"light_level":"bright","ideal_temp_min":5,"ideal_temp_max":35,"humidity_level":"medium","fertilizing_frequency_days":30,"original_watering_text":"Water only when the soil is dry. Must be dry between watering","original_light_text":"6 or more hours of direct sunlight per day."},"difficulty_level":"easy","description":"Cactus And Succulent plant from  India. Water only when the soil is dry. Must be dry between watering","id":4,"created_at":"2025-09-25T18:58:34"},"personality":{"name":"dramatic_diva","description":"Auto-created dramatic_diva personality","prompt_template":"Basic template","voice_traits":{},"id":7,"created_at":"2025-10-01T17:57:35"}}
+2025-10-02 10:18:24,116 - ERROR - ❌ User Creation FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:18:24,389 - ERROR - ❌ Create Personality Test User FAILED: HTTP 400: {"detail":"User with this phone already exists"}
+2025-10-02 10:20:41,263 - INFO - ✅ Create Test User (retry) PASSED
+2025-10-02 10:20:41,271 - INFO - ✅ Get Plant Catalog PASSED
+2025-10-02 10:20:41,280 - INFO - ✅ Create My Snake Plant PASSED
+2025-10-02 10:20:41,287 - INFO - ✅ Create My Fiddle Leaf Fig PASSED
+2025-10-02 10:20:41,295 - INFO - ✅ Create My Pothos PASSED
+2025-10-02 10:20:41,301 - INFO - ✅ Create My Monstera PASSED
+2025-10-02 10:20:41,305 - INFO - ✅ User Creation PASSED
+2025-10-02 10:20:41,321 - INFO - ✅ Plant Addition PASSED
+2025-10-02 10:20:41,336 - ERROR - ❌ Dashboard Access FAILED: HTTP 500: Traceback (most recent call last):
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/fastapi/routing.py", line 308, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/fastapi/routing.py", line 221, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/app/api/plants.py", line 110, in get_user_dashboard
+    return UserDashboard(
+        user=user,
+        plants=plants,
+        upcoming_care=upcoming_care
+    )
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for UserDashboard
+plants.0.recent_care
+  Field required [type=missing, input_value=<app.models.plants.UserPl...t object at 0x110e89f50>, input_type=UserPlant]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+
+2025-10-02 10:20:41,591 - INFO - ✅ Create Lipstick for personality test PASSED
+2025-10-02 10:20:44,137 - INFO - ✅ Personality Chat for Lipstick PASSED
+2025-10-02 10:20:59,228 - INFO - ✅ Personality Demo for Lipstick PASSED
+2025-10-02 10:20:59,251 - INFO - ✅ Create Maindenhair for personality test PASSED
+2025-10-02 10:21:01,240 - INFO - ✅ Personality Chat for Maindenhair PASSED
+2025-10-02 10:21:10,717 - INFO - ✅ Personality Demo for Maindenhair PASSED
+2025-10-02 10:21:10,732 - INFO - ✅ Create Silver vase for personality test PASSED
+2025-10-02 10:21:12,046 - INFO - ✅ Personality Chat for Silver vase PASSED
+2025-10-02 10:21:21,804 - INFO - ✅ Personality Demo for Silver vase PASSED
+2025-10-02 10:21:21,811 - INFO - ✅ Create Variegated Carabbean Agave for personality test PASSED
+2025-10-02 10:21:22,530 - INFO - ✅ Personality Chat for Variegated Carabbean Agave PASSED
+2025-10-02 10:21:33,922 - INFO - ✅ Personality Demo for Variegated Carabbean Agave PASSED
+2025-10-02 10:21:33,945 - INFO - ✅ Create Coral berry for personality test PASSED
+2025-10-02 10:21:35,082 - INFO - ✅ Personality Chat for Coral berry PASSED
+2025-10-02 10:21:45,666 - INFO - ✅ Personality Demo for Coral berry PASSED
+2025-10-02 10:34:10,042 - INFO - ✅ Create Test User (retry) PASSED
+2025-10-02 10:34:10,051 - INFO - ✅ Get Plant Catalog PASSED
+2025-10-02 10:34:10,068 - INFO - ✅ Create My Snake Plant PASSED
+2025-10-02 10:34:10,076 - INFO - ✅ Create My Fiddle Leaf Fig PASSED
+2025-10-02 10:34:10,084 - INFO - ✅ Create My Pothos PASSED
+2025-10-02 10:34:10,092 - INFO - ✅ Create My Monstera PASSED
+2025-10-02 10:34:10,101 - INFO - ✅ User Creation PASSED
+2025-10-02 10:34:10,116 - INFO - ✅ Plant Addition PASSED
+2025-10-02 10:34:10,138 - ERROR - ❌ Dashboard Access FAILED: HTTP 500: Traceback (most recent call last):
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/fastapi/routing.py", line 308, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/fastapi/routing.py", line 221, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/app/api/plants.py", line 110, in get_user_dashboard
+    return UserDashboard(
+        user=user,
+        plants=plants,
+        upcoming_care=upcoming_care
+    )
+  File "/Users/kocono760@cable.comcast.com/plants-texts/backend/venv/lib/python3.13/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for UserDashboard
+plants.0.recent_care
+  Field required [type=missing, input_value=<app.models.plants.UserPl...t object at 0x118d93770>, input_type=UserPlant]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+
+2025-10-02 10:34:10,836 - INFO - ✅ Create Lipstick for personality test PASSED
+2025-10-02 10:34:12,574 - INFO - ✅ Personality Chat for Lipstick PASSED
+2025-10-02 10:34:24,607 - INFO - ✅ Personality Demo for Lipstick PASSED
+2025-10-02 10:34:24,626 - INFO - ✅ Create Maindenhair for personality test PASSED
+2025-10-02 10:34:26,882 - INFO - ✅ Personality Chat for Maindenhair PASSED
+2025-10-02 10:34:39,438 - INFO - ✅ Personality Demo for Maindenhair PASSED
+2025-10-02 10:34:39,447 - INFO - ✅ Create Silver vase for personality test PASSED
+2025-10-02 10:34:40,832 - INFO - ✅ Personality Chat for Silver vase PASSED
+2025-10-02 10:34:50,411 - INFO - ✅ Personality Demo for Silver vase PASSED
+2025-10-02 10:34:50,421 - INFO - ✅ Create Variegated Carabbean Agave for personality test PASSED
+2025-10-02 10:34:52,041 - INFO - ✅ Personality Chat for Variegated Carabbean Agave PASSED
+2025-10-02 10:35:03,975 - INFO - ✅ Personality Demo for Variegated Carabbean Agave PASSED
+2025-10-02 10:35:03,988 - INFO - ✅ Create Coral berry for personality test PASSED
+2025-10-02 10:35:05,296 - INFO - ✅ Personality Chat for Coral berry PASSED
+2025-10-02 10:35:17,018 - INFO - ✅ Personality Demo for Coral berry PASSED

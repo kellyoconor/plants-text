@@ -1,0 +1,13 @@
+{
+  "summary": {
+    "duration": 16.857770919799805,
+    "total_issues": 0,
+    "critical_failures": 0,
+    "performance_issues": 0,
+    "edge_case_failures": 0,
+    "data_corruption_issues": 0,
+    "security_issues": 0,
+    "timestamp": "2025-10-02T13:18:21.724175"
+  },
+  "all_issues": []
+}

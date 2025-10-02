@@ -1,0 +1,38 @@
+{
+  "timestamp": "2025-10-02T13:37:00.766048",
+  "passed": 5,
+  "failed": 0,
+  "success_rate": "100.0%",
+  "tests": [
+    {
+      "test": "Invalid Plant IDs Return 404",
+      "success": true,
+      "details": "All invalid plant IDs correctly return 404",
+      "timestamp": "2025-10-02T13:36:59.857347"
+    },
+    {
+      "test": "Invalid User IDs Return 404",
+      "success": true,
+      "details": "All invalid user IDs correctly return 404",
+      "timestamp": "2025-10-02T13:36:59.863715"
+    },
+    {
+      "test": "Invalid Dashboard User IDs Return 404",
+      "success": true,
+      "details": "All invalid dashboard user IDs correctly return 404",
+      "timestamp": "2025-10-02T13:36:59.866750"
+    },
+    {
+      "test": "Invalid Care Types Rejected",
+      "success": true,
+      "details": "Invalid care types properly return 400",
+      "timestamp": "2025-10-02T13:36:59.897089"
+    },
+    {
+      "test": "All Valid Operations Work",
+      "success": true,
+      "details": "Catalog, users, plants, dashboard, care, and chat all working",
+      "timestamp": "2025-10-02T13:37:00.765742"
+    }
+  ]
+}

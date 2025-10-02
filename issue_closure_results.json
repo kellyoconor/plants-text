@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-10-02T13:44:30.532620",
+  "closed_issues": [
+    {
+      "number": 26,
+      "title": "FINAL TEST FAILURE: Invalid Plant ID Handling - '; DROP TABLE plants; --",
+      "url": "https://github.com/kellyoconor/plants-text/issues/26"
+    }
+  ],
+  "failed_closures": [],
+  "total_closed": 1,
+  "total_failed": 0
+}
