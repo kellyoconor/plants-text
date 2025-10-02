@@ -279,6 +279,22 @@ def get_care_reminder(plant_id: int, task_type: str, db: Session = Depends(get_d
     }
 
 
+@router.get("/admin/reset-database") 
+def reset_database(db: Session = Depends(get_db)):
+    """Reset database - clear all plant and personality data (admin endpoint)"""
+    try:
+        # Delete all data
+        db.query(PlantCatalog).delete()
+        db.query(PersonalityType).delete()
+        db.commit()
+        
+        return {"message": "Database reset successfully - all plants and personalities cleared"}
+        
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Failed to reset database: {str(e)}")
+
+
 @router.get("/admin/init-database")
 def init_database(db: Session = Depends(get_db)):
     """Initialize database tables (admin endpoint)"""
@@ -377,6 +393,15 @@ def seed_database(db: Session = Depends(get_db)):
         # Create PlantCatalog entries
         plants_created = 0
         for plant_data in plants_data:
+            # Extract common name (use first one if it's a list)
+            common_names = plant_data.get("common", [])
+            if isinstance(common_names, list) and common_names:
+                common_name = common_names[0]
+            elif isinstance(common_names, str):
+                common_name = common_names
+            else:
+                common_name = "Unknown Plant"
+            
             # Create care requirements dict
             care_requirements = {
                 "watering_frequency_days": plant_data.get("watering_frequency_days", 7),
@@ -386,15 +411,18 @@ def seed_database(db: Session = Depends(get_db)):
                 "humidity_level": plant_data.get("humidity", "medium"),
                 "fertilizing_frequency_days": plant_data.get("fertilizing_frequency_days", 30),
                 "original_watering_text": plant_data.get("watering", ""),
-                "original_light_text": plant_data.get("light", "")
+                "original_light_text": plant_data.get("light", ""),
+                "climate": plant_data.get("climate", ""),
+                "category": plant_data.get("category", ""),
+                "family": plant_data.get("family", "")
             }
             
             plant = PlantCatalog(
-                name=plant_data.get("common_name", "Unknown Plant"),
-                species=plant_data.get("latin_name", "Unknown Species"),
+                name=common_name,
+                species=plant_data.get("latin", "Unknown Species"),
                 care_requirements=care_requirements,
                 difficulty_level=plant_data.get("difficulty", "medium"),
-                description=plant_data.get("description", "")
+                description=plant_data.get("description", f"{common_name} from the {plant_data.get('family', 'Unknown')} family")
             )
             
             db.add(plant)
