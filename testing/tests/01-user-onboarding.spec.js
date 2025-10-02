@@ -6,14 +6,26 @@ test.describe('User Onboarding Flow', () => {
   });
 
   test('should display onboarding form', async ({ page }) => {
-    // Check if welcome step is visible first
+    // Check if welcome step is visible first - this is the actual first screen
     await expect(page.locator('h1').filter({ hasText: 'PlantTexts' })).toBeVisible();
+    await expect(page.locator('text=Chat with your plants. Keep them happy.')).toBeVisible();
     await expect(page.locator('button').filter({ hasText: 'Start Growing' })).toBeVisible();
     
-    // Click to go to phone step
+    // Check that the welcome step shows the process explanation
+    await expect(page.locator('text=Share your number')).toBeVisible();
+    await expect(page.locator('text=Add your plants')).toBeVisible();
+    await expect(page.locator('text=Start chatting')).toBeVisible();
+  });
+
+  test('should navigate from welcome to phone step', async ({ page }) => {
+    // Start on welcome step
+    await expect(page.locator('h1').filter({ hasText: 'PlantTexts' })).toBeVisible();
+    
+    // Click Start Growing button
     await page.locator('button').filter({ hasText: 'Start Growing' }).click();
     
-    // Now check if phone input is visible
+    // Should now be on phone step
+    await expect(page.locator('h2').filter({ hasText: "What's your number?" })).toBeVisible();
     await expect(page.locator('input[type="tel"]')).toBeVisible();
     await expect(page.locator('button').filter({ hasText: 'Continue' })).toBeVisible();
   });
