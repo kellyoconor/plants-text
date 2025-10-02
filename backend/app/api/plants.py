@@ -450,19 +450,28 @@ def get_database_status(db: Session = Depends(get_db)):
         plant_count = db.query(PlantCatalog).count()
         user_count = db.query(User).count()
         user_plant_count = db.query(UserPlant).count()
+        personality_count = db.query(PersonalityType).count()
         
         return {
             "status": "connected",
             "plants_in_catalog": plant_count,
             "total_users": user_count,
             "total_user_plants": user_plant_count,
-            "database_seeded": plant_count > 0
+            "personality_types": personality_count,
+            "database_seeded": plant_count > 0 and personality_count > 0
         }
     except Exception as e:
         return {
             "status": "error", 
             "error": str(e)
         }
+
+
+@router.get("/personalities", response_model=List[PersonalityTypeResponse])
+def get_personalities(db: Session = Depends(get_db)):
+    """Get all personality types"""
+    personalities = db.query(PersonalityType).all()
+    return personalities
 
 
 @router.post("/plants/{plant_id}/chat")
