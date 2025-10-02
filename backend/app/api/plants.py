@@ -281,18 +281,42 @@ def get_care_reminder(plant_id: int, task_type: str, db: Session = Depends(get_d
 
 @router.post("/admin/seed-database")
 def seed_database(db: Session = Depends(get_db)):
-    """Seed the database with plant catalog data (admin endpoint)"""
+    """Seed the database with complete plant system data (admin endpoint)"""
     try:
-        # Check if plants already exist
-        existing_count = db.query(PlantCatalog).count()
-        if existing_count > 0:
-            return {"message": f"Database already seeded with {existing_count} plants"}
+        # Check if already seeded
+        existing_plants = db.query(PlantCatalog).count()
+        existing_personalities = db.query(PersonalityType).count()
         
-        # Load plant data from JSON file
+        if existing_plants > 0 and existing_personalities > 0:
+            return {
+                "message": f"Database already seeded with {existing_plants} plants and {existing_personalities} personality types"
+            }
+        
+        # Step 1: Seed Personality Types first
+        personality_types = [
+            {"name": "Sarcastic Survivor", "description": "Dry humor, low-maintenance attitude", "traits": ["sarcastic", "independent", "resilient"]},
+            {"name": "Dramatic Diva", "description": "High-maintenance, attention-seeking", "traits": ["dramatic", "needy", "expressive"]},
+            {"name": "Chill Friend", "description": "Laid-back, easygoing companion", "traits": ["relaxed", "friendly", "adaptable"]},
+            {"name": "High Maintenance Diva", "description": "Demanding, particular about care", "traits": ["demanding", "precise", "luxurious"]},
+            {"name": "Steady Reliable", "description": "Consistent, dependable presence", "traits": ["reliable", "consistent", "stable"]},
+            {"name": "Independent Survivor", "description": "Self-sufficient, low-maintenance", "traits": ["independent", "hardy", "resilient"]},
+            {"name": "Dramatic Communicator", "description": "Expressive, communicative about needs", "traits": ["expressive", "communicative", "emotional"]}
+        ]
+        
+        personalities_created = 0
+        for personality_data in personality_types:
+            existing = db.query(PersonalityType).filter(PersonalityType.name == personality_data["name"]).first()
+            if not existing:
+                personality = PersonalityType(**personality_data)
+                db.add(personality)
+                personalities_created += 1
+        
+        db.commit()
+        
+        # Step 2: Load and seed plant catalog
         json_path = os.path.join(os.path.dirname(__file__), "..", "..", "house_plants.json")
-        
         if not os.path.exists(json_path):
-            raise HTTPException(status_code=500, detail="Plant data file not found")
+            raise HTTPException(status_code=500, detail=f"Plant data file not found at {json_path}")
         
         with open(json_path, 'r') as f:
             plants_data = json.load(f)
@@ -326,8 +350,11 @@ def seed_database(db: Session = Depends(get_db)):
         db.commit()
         
         return {
-            "message": f"Successfully seeded database with {plants_created} plants",
-            "plants_created": plants_created
+            "message": f"Successfully seeded database!",
+            "personality_types_created": personalities_created,
+            "plants_created": plants_created,
+            "total_plants": plants_created,
+            "total_personalities": personalities_created
         }
         
     except Exception as e:
