@@ -72,6 +72,7 @@ const ProgressSteps: React.FC<{ currentStep: string }> = ({ currentStep }) => {
 };
 
 const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
+  console.log('PlantOnboarding component mounted');
   const [step, setStep] = useState<'welcome' | 'phone' | 'plants' | 'complete'>('welcome');
   const [phone, setPhone] = useState('');
   const [user, setUser] = useState<User | null>(null);

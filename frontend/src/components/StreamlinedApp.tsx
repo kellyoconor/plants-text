@@ -26,6 +26,12 @@ const StreamlinedApp: React.FC = () => {
     if (existingUserId) {
       // Load user data and go to dashboard
       // For now, we'll just start with onboarding
+      // TODO: Load user data from API and set to dashboard
+    }
+    
+    // Ensure we start with onboarding if no existing user
+    if (!existingUserId) {
+      setAppState('onboarding');
     }
   }, []);
 
@@ -48,6 +54,7 @@ const StreamlinedApp: React.FC = () => {
   }
 
   if (appState === 'onboarding') {
+    console.log('Rendering PlantOnboarding component');
     return <PlantOnboarding onComplete={handleOnboardingComplete} />;
   }
 
