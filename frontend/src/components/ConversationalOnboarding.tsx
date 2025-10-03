@@ -351,7 +351,7 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
                     What's your {selectedPlant.name}'s name?
                   </h2>
                   <p className="text-gray-600 font-body">
-                    This is how your plant will introduce itself in messages.
+                    What do you call them when no one's listening?
                   </p>
                 </div>
               </div>
