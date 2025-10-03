@@ -70,6 +70,16 @@ export const getUserPlants = async (userId: number): Promise<UserPlant[]> => {
   return response.data;
 };
 
+export const updatePlant = async (plantId: number, updates: { nickname?: string }): Promise<UserPlant> => {
+  const response = await api.patch(`/plants/${plantId}`, updates);
+  return response.data;
+};
+
+export const deletePlant = async (plantId: number): Promise<{ success: boolean; message: string }> => {
+  const response = await api.delete(`/plants/${plantId}`);
+  return response.data;
+};
+
 // Plant Conversation API
 export const getCareReminder = async (plantId: number, taskType: string) => {
   const response = await api.post(`/plants/${plantId}/remind/${taskType}`);

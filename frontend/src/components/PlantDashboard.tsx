@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Leaf, Phone, Plus, MessageCircle, Send, Settings, Edit, Trash2 } from 'lucide-react';
-import { getUserPlants, chatWithPlant, getCareReminder } from '../api';
+import { getUserPlants, chatWithPlant, getCareReminder, updatePlant, deletePlant } from '../api';
 import { User, UserPlant } from '../types';
 
 interface PlantDashboardProps {
@@ -16,6 +16,8 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
   const [chatMessages, setChatMessages] = useState<any[]>([]);
   const [messageInput, setMessageInput] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false);
+  const [editingPlantId, setEditingPlantId] = useState<number | null>(null);
+  const [editingNickname, setEditingNickname] = useState('');
 
   useEffect(() => {
     const loadUserData = async () => {
@@ -88,6 +90,58 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
       setChatMessages(prev => [...prev, reminderMessage]);
     } catch (error) {
       console.error('Failed to get care reminder:', error);
+    }
+  };
+
+  const handleStartRename = (plant: UserPlant) => {
+    setEditingPlantId(plant.id);
+    setEditingNickname(plant.nickname);
+  };
+
+  const handleSaveRename = async (plantId: number) => {
+    if (!editingNickname.trim()) return;
+    
+    try {
+      await updatePlant(plantId, { nickname: editingNickname });
+      // Reload plants to get updated data
+      const plants = await getUserPlants(user.id);
+      setUserPlants(plants);
+      setEditingPlantId(null);
+      setEditingNickname('');
+      
+      // Update selected plant if it was renamed
+      if (selectedPlant?.id === plantId) {
+        const updatedPlant = plants.find(p => p.id === plantId);
+        if (updatedPlant) setSelectedPlant(updatedPlant);
+      }
+    } catch (error) {
+      console.error('Failed to rename plant:', error);
+      alert('Failed to rename plant. Please try again.');
+    }
+  };
+
+  const handleCancelRename = () => {
+    setEditingPlantId(null);
+    setEditingNickname('');
+  };
+
+  const handleDeletePlant = async (plantId: number) => {
+    if (!confirm('Are you sure you want to delete this plant?')) return;
+    
+    try {
+      await deletePlant(plantId);
+      // Reload plants to get updated data
+      const plants = await getUserPlants(user.id);
+      setUserPlants(plants);
+      
+      // Clear selected plant if it was deleted
+      if (selectedPlant?.id === plantId) {
+        setSelectedPlant(null);
+        setChatMessages([]);
+      }
+    } catch (error) {
+      console.error('Failed to delete plant:', error);
+      alert('Failed to delete plant. Please try again.');
     }
   };
 
@@ -207,7 +261,22 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
                           <span className="text-lg">{getPersonalityEmoji(userPlant.personality.name)}</span>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-gray-900 font-body truncate">{userPlant.nickname}</h3>
+                          {editingPlantId === userPlant.id ? (
+                            <input
+                              type="text"
+                              value={editingNickname}
+                              onChange={(e) => setEditingNickname(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') handleSaveRename(userPlant.id);
+                                if (e.key === 'Escape') handleCancelRename();
+                              }}
+                              onClick={(e) => e.stopPropagation()}
+                              className="font-semibold text-gray-900 font-body border border-green-500 rounded px-2 py-1 w-full"
+                              autoFocus
+                            />
+                          ) : (
+                            <h3 className="font-semibold text-gray-900 font-body truncate">{userPlant.nickname}</h3>
+                          )}
                           <p className="text-sm text-gray-600 font-body truncate">{userPlant.plant_catalog.name}</p>
                           <div className="flex items-center space-x-1 mt-1">
                             <span className={`px-2 py-0.5 rounded text-xs font-medium ${getPersonalityColor(userPlant.personality.name)} font-body`}>
@@ -216,12 +285,53 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
                           </div>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <button className="p-1 text-gray-400 hover:text-gray-600 rounded">
-                            <Edit className="w-4 h-4" />
-                          </button>
-                          <button className="p-1 text-gray-400 hover:text-red-600 rounded">
-                            <Trash2 className="w-4 h-4" />
-                          </button>
+                          {editingPlantId === userPlant.id ? (
+                            <>
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleSaveRename(userPlant.id);
+                                }}
+                                className="p-1 text-green-600 hover:text-green-700 rounded"
+                                title="Save"
+                              >
+                                ✓
+                              </button>
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleCancelRename();
+                                }}
+                                className="p-1 text-gray-400 hover:text-gray-600 rounded"
+                                title="Cancel"
+                              >
+                                ✕
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleStartRename(userPlant);
+                                }}
+                                className="p-1 text-gray-400 hover:text-gray-600 rounded"
+                                title="Rename"
+                              >
+                                <Edit className="w-4 h-4" />
+                              </button>
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeletePlant(userPlant.id);
+                                }}
+                                className="p-1 text-gray-400 hover:text-red-600 rounded"
+                                title="Delete"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>

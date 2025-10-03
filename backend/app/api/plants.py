@@ -8,7 +8,7 @@ from ..core.database import get_db
 from ..models.plants import PlantCatalog, User, UserPlant, CareSchedule, CareHistory, PersonalityType
 from ..schemas.plants import (
     PlantCatalogResponse, UserCreate, UserResponse, UserPlantCreate, 
-    UserPlantResponse, CareScheduleCreate, CareScheduleResponse,
+    UserPlantResponse, UserPlantUpdate, CareScheduleCreate, CareScheduleResponse,
     CareHistoryCreate, CareHistoryResponse, UserDashboard,
     PersonalityTypeResponse
 )
@@ -175,6 +175,7 @@ def get_user_dashboard(user_id: str, db: Session = Depends(get_db)):
 # User Plant endpoints
 @router.post("/plants", response_model=UserPlantResponse)
 def add_plant_to_user(plant: UserPlantCreate, db: Session = Depends(get_db)):
+    print(f"DEBUG: Received plant data: {plant.dict()}")
     """Add a plant to user's collection"""
     # Verify user exists
     user = db.query(User).filter(User.id == plant.user_id).first()
@@ -225,6 +226,16 @@ def add_plant_to_user(plant: UserPlantCreate, db: Session = Depends(get_db)):
     # Create user plant with auto-assigned personality
     plant_data = plant.dict()
     plant_data['personality_type_id'] = personality.id
+    
+    # Ensure plant_catalog_id is valid
+    if not plant_data.get('plant_catalog_id'):
+        # Default to first plant in catalog if none specified
+        first_plant = db.query(PlantCatalog).first()
+        if first_plant:
+            plant_data['plant_catalog_id'] = first_plant.id
+        else:
+            raise HTTPException(status_code=400, detail="No plants available in catalog")
+    
     db_plant = UserPlant(**plant_data)
     db.add(db_plant)
     db.commit()
@@ -254,6 +265,38 @@ def get_user_plants(user_id: int, db: Session = Depends(get_db)):
         UserPlant.is_active == True
     ).all()
     return plants
+
+
+@router.patch("/plants/{plant_id}", response_model=UserPlantResponse)
+def update_plant(plant_id: int, plant_update: UserPlantUpdate, db: Session = Depends(get_db)):
+    """Update a plant's information (e.g., rename)"""
+    # Get the plant
+    plant = db.query(UserPlant).filter(UserPlant.id == plant_id).first()
+    if not plant:
+        raise HTTPException(status_code=404, detail="Plant not found")
+    
+    # Update the plant
+    if plant_update.nickname is not None:
+        plant.nickname = plant_update.nickname
+    
+    db.commit()
+    db.refresh(plant)
+    return plant
+
+
+@router.delete("/plants/{plant_id}")
+def delete_plant(plant_id: int, db: Session = Depends(get_db)):
+    """Delete a plant (soft delete by setting is_active to False)"""
+    # Get the plant
+    plant = db.query(UserPlant).filter(UserPlant.id == plant_id).first()
+    if not plant:
+        raise HTTPException(status_code=404, detail="Plant not found")
+    
+    # Soft delete by setting is_active to False
+    plant.is_active = False
+    db.commit()
+    
+    return {"success": True, "message": f"Plant {plant.nickname} deleted successfully"}
 
 
 # Care endpoints

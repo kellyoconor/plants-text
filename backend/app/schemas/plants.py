@@ -79,6 +79,10 @@ class UserPlantCreate(UserPlantBase):
     # personality_type_id is now auto-assigned, not user-selectable
 
 
+class UserPlantUpdate(BaseModel):
+    nickname: Optional[str] = None
+
+
 class UserPlantResponse(UserPlantBase):
     id: int
     user_id: int
