@@ -431,10 +431,10 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
             </div>
 
             <p className="text-lg text-gray-800 font-body leading-relaxed mb-4">
-              🌱 Hey! I'm {nickname}, your new {selectedPlant?.name.toLowerCase()}. Thanks for bringing me into your life.
+              🌱 Hey! I'm {nickname}, your {selectedPlant?.name.toLowerCase()}.
             </p>
             <p className="text-base text-gray-700 font-body leading-relaxed">
-              I'll send you reminders when I need care, and you can chat with me anytime. Let's grow together!
+              I'll text you when I need water or care. You can also message me anytime to check in.
             </p>
           </div>
 
