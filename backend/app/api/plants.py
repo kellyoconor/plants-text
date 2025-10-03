@@ -241,9 +241,13 @@ def add_plant_to_user(plant: UserPlantCreate, db: Session = Depends(get_db)):
     ).count()
     
     if user_plant_count == 1:  # This is their first plant
-        from ..services.verification_service import VerificationService
-        verification_service = VerificationService(db)
-        welcome_result = verification_service.send_welcome_message(plant.user_id)
+        # Send welcome message directly via Twilio
+        from ..services.twilio_client import twilio_client
+        welcome_message = f"🌱 Hi! I'm {plant.nickname}, your new plant friend! I'll send you care reminders. Reply to this message to start chatting!"
+        welcome_result = twilio_client.send_sms(
+            to_phone=user.phone,
+            message=welcome_message
+        )
         print(f"Welcome message sent to user {plant.user_id}: {welcome_result}")
     
     return db_plant
