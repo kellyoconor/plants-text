@@ -234,21 +234,14 @@ def add_plant_to_user(plant: UserPlantCreate, db: Session = Depends(get_db)):
     care_service = PlantCareService(db)
     care_service.create_initial_schedule(db_plant.id)
     
-    # Check if this is the user's first plant and send welcome message
-    user_plant_count = db.query(UserPlant).filter(
-        UserPlant.user_id == plant.user_id,
-        UserPlant.is_active == True
-    ).count()
-    
-    if user_plant_count == 1:  # This is their first plant
-        # Send welcome message via SMS manager
-        from ..services.sms_manager import sms_manager
-        welcome_message = f"🌱 Hi! I'm {plant.nickname}, your new plant friend! I'll send you care reminders. Reply to this message to start chatting!"
-        welcome_result = sms_manager.send_sms(
-            to_phone=user.phone,
-            message=welcome_message
-        )
-        print(f"Welcome message sent to user {plant.user_id}: {welcome_result.status} via {welcome_result.provider}")
+    # Send welcome message for new plant
+    from ..services.sms_manager import sms_manager
+    welcome_message = f"🌱 Hi! I'm {plant.nickname}, your new plant friend! I'll send you care reminders. Reply to this message to start chatting!"
+    welcome_result = sms_manager.send_sms(
+        to_phone=user.phone,
+        message=welcome_message
+    )
+    print(f"Welcome message sent to user {plant.user_id}: {welcome_result.status} via {welcome_result.provider}")
     
     return db_plant
 
