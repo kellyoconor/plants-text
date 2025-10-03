@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight, Leaf, Check, ArrowLeft } from 'lucide-react';
 import { getPlantCatalog, addPlantToUser, findOrCreateUser } from '../api';
 import { Plant, User } from '../types';
+import { getPlantImage } from '../utils/plantImageMapping';
 
 interface ConversationalOnboardingProps {
   onComplete: (user: User) => void;
@@ -292,32 +293,43 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
               {/* Search Results */}
               {filteredPlants.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                  {filteredPlants.map((plant) => (
-                    <button
-                      key={plant.id}
-                      onClick={() => {
-                        setSelectedPlant(plant);
-                        setSearchTerm('');
-                      }}
-                      className="group bg-white border-2 border-gray-200 rounded-2xl p-5 hover:border-green-500 hover:shadow-lg transition-all duration-200 text-left"
-                    >
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
-                          <Leaf className="w-7 h-7 text-green-500" />
+                  {filteredPlants.map((plant) => {
+                    const plantImage = getPlantImage(plant);
+                    return (
+                      <button
+                        key={plant.id}
+                        onClick={() => {
+                          setSelectedPlant(plant);
+                          setSearchTerm('');
+                        }}
+                        className="group bg-white border-2 border-gray-200 rounded-2xl p-5 hover:border-green-500 hover:shadow-lg transition-all duration-200 text-left"
+                      >
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center overflow-hidden">
+                            {plantImage ? (
+                              <img 
+                                src={plantImage} 
+                                alt={plant.name}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <Leaf className="w-7 h-7 text-green-500" />
+                            )}
+                          </div>
+                          <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-green-500 transition-colors" />
                         </div>
-                        <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-green-500 transition-colors" />
-                      </div>
-                      <h3 className="font-semibold text-gray-900 font-body mb-1 group-hover:text-green-700 transition-colors">
-                        {plant.name}
-                      </h3>
-                      <p className="text-sm text-gray-500 font-body mb-2">
-                        {plant.species}
-                      </p>
-                      <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 font-body">
-                        {plant.difficulty_level}
-                      </span>
-                    </button>
-                  ))}
+                        <h3 className="font-semibold text-gray-900 font-body mb-1 group-hover:text-green-700 transition-colors">
+                          {plant.name}
+                        </h3>
+                        <p className="text-sm text-gray-500 font-body mb-2">
+                          {plant.species}
+                        </p>
+                        <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 font-body">
+                          {plant.difficulty_level}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               )}
 

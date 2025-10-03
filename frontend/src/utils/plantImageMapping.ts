@@ -9,9 +9,10 @@ export const PLANT_IMAGE_MAP: Record<string, string> = {
   'monstera': '/images/plants/monstera.jpg',
   'monstera deliciosa': '/images/plants/monstera.jpg',
   
-  'snake plant': '/images/plants/snake_plant.svg',
+  'snake plant': '/images/plants/snake_plant.jpg',
   'sansevieria': '/images/plants/snake_plant.jpg',
   'sanseviera': '/images/plants/snake_plant.jpg',
+  'sansevieria trifasciata': '/images/plants/snake_plant.jpg',
   
   'pothos': '/images/plants/pothos.jpg',
   'golden pothos': '/images/plants/pothos.jpg',

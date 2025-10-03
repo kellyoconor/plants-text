@@ -124,35 +124,46 @@ const SimplePlantCatalog: React.FC<SimplePlantCatalogProps> = ({ userId, onPlant
                   
                   {filteredPlants.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {filteredPlants.map((plant) => (
-                        <button
-                          key={plant.id}
-                          onClick={() => handleSelectPlant(plant)}
-                          className="group relative bg-white border-2 border-gray-200 rounded-2xl p-4 hover:border-green-500 hover:shadow-lg transition-all duration-200 text-left"
-                        >
-                          <div className="flex items-center space-x-4">
-                            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center flex-shrink-0">
-                              <Leaf className="w-8 h-8 text-green-500" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <h3 className="font-semibold text-gray-900 font-body mb-1 group-hover:text-green-700 transition-colors">
-                                {plant.name}
-                              </h3>
-                              <p className="text-sm text-gray-500 font-body truncate">
-                                {plant.species}
-                              </p>
-                              <div className="flex items-center space-x-2 mt-2">
-                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 font-body">
-                                  {plant.difficulty_level}
-                                </span>
+                      {filteredPlants.map((plant) => {
+                        const plantImage = getPlantImage(plant);
+                        return (
+                          <button
+                            key={plant.id}
+                            onClick={() => handleSelectPlant(plant)}
+                            className="group relative bg-white border-2 border-gray-200 rounded-2xl p-4 hover:border-green-500 hover:shadow-lg transition-all duration-200 text-left"
+                          >
+                            <div className="flex items-center space-x-4">
+                              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                {plantImage ? (
+                                  <img 
+                                    src={plantImage} 
+                                    alt={plant.name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <Leaf className="w-8 h-8 text-green-500" />
+                                )}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h3 className="font-semibold text-gray-900 font-body mb-1 group-hover:text-green-700 transition-colors">
+                                  {plant.name}
+                                </h3>
+                                <p className="text-sm text-gray-500 font-body truncate">
+                                  {plant.species}
+                                </p>
+                                <div className="flex items-center space-x-2 mt-2">
+                                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 font-body">
+                                    {plant.difficulty_level}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="text-gray-300 group-hover:text-green-500 transition-colors">
+                                <ArrowLeft className="w-5 h-5 rotate-180" />
                               </div>
                             </div>
-                            <div className="text-gray-300 group-hover:text-green-500 transition-colors">
-                              <ArrowLeft className="w-5 h-5 rotate-180" />
-                            </div>
-                          </div>
-                        </button>
-                      ))}
+                          </button>
+                        );
+                      })}
                     </div>
                   ) : (
                     <div className="text-center py-12">
