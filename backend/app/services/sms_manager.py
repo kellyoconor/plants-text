@@ -7,6 +7,7 @@ from typing import Optional
 from .sms_provider import SMSProvider, SMSResult
 from .twilio_client import TwilioProvider
 from .plivo_provider import PlivoProvider
+from .demo_provider import DemoProvider
 from ..core.config import settings
 
 logger = logging.getLogger(__name__)
@@ -21,7 +22,12 @@ class SMSManager:
     
     def _initialize_providers(self):
         """Initialize available SMS providers"""
-        # Add Plivo as primary (no A2P 10DLC issues)
+        # Add Demo provider as primary (always works)
+        demo_provider = DemoProvider()
+        self.providers.append(demo_provider)
+        logger.info("Demo provider initialized - messages will be logged")
+        
+        # Add Plivo as secondary (no A2P 10DLC issues)
         plivo_provider = PlivoProvider()
         if plivo_provider.is_configured():
             self.providers.append(plivo_provider)
@@ -36,9 +42,6 @@ class SMSManager:
             logger.info("Twilio provider initialized")
         else:
             logger.warning("Twilio not configured")
-        
-        if not self.providers:
-            logger.warning("No SMS providers configured - messages will be logged only")
     
     def send_sms(self, to_phone: str, message: str, from_phone: Optional[str] = None) -> SMSResult:
         """

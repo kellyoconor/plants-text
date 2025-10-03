@@ -15,8 +15,8 @@ def test_sms_abstraction():
     print("🧪 Testing SMS Abstraction Layer")
     print("=" * 50)
     
-    # Test phone number (use a test number)
-    test_phone = "+1234567890"  # Replace with your test number
+    # Test phone number (demo mode - any number works)
+    test_phone = "+1234567890"  # Demo mode - this will be logged
     test_message = "🌱 Test message from Plant Texts SMS abstraction layer!"
     
     print(f"📱 Testing SMS to: {test_phone}")
