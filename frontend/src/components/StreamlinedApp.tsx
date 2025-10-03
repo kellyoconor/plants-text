@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User } from '../types';
+import { getUser, getUserPlants } from '../api';
 import PlantOnboarding from './PlantOnboarding';
 import PlantDashboard from './PlantDashboard';
 import PlantCatalog from './PlantCatalog';
@@ -11,28 +12,43 @@ const StreamlinedApp: React.FC = () => {
   const [appState, setAppState] = useState<AppState>('onboarding');
   const [user, setUser] = useState<User | null>(null);
 
-  // Check if user is already logged in (in a real app, this would check localStorage/session)
   useEffect(() => {
-    // Check for personality tester URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('test') === 'personalities') {
-      setAppState('personalityTester');
-      return;
-    }
+    const loadExistingUser = async () => {
+      // Check for personality tester URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('test') === 'personalities') {
+        setAppState('personalityTester');
+        return;
+      }
 
-    // For demo purposes, assume user ID 1 exists if they've been through onboarding
-    // In production, you'd check localStorage or a session token
-    const existingUserId = localStorage.getItem('plantTextsUserId');
-    if (existingUserId) {
-      // Load user data and go to dashboard
-      // For now, we'll just start with onboarding
-      // TODO: Load user data from API and set to dashboard
-    }
-    
-    // Ensure we start with onboarding if no existing user
-    if (!existingUserId) {
-      setAppState('onboarding');
-    }
+      // Check if user is already logged in
+      const existingUserId = localStorage.getItem('plantTextsUserId');
+      if (existingUserId) {
+        try {
+          // Load user data from API
+          const userData = await getUser(parseInt(existingUserId));
+          const userPlants = await getUserPlants(parseInt(existingUserId));
+          
+          setUser(userData);
+          
+          // If user has plants, go to dashboard. Otherwise, go to onboarding
+          if (userPlants && userPlants.length > 0) {
+            setAppState('dashboard');
+          } else {
+            setAppState('onboarding');
+          }
+        } catch (error) {
+          console.error('Error loading user:', error);
+          // If error, clear localStorage and go to onboarding
+          localStorage.removeItem('plantTextsUserId');
+          setAppState('onboarding');
+        }
+      } else {
+        setAppState('onboarding');
+      }
+    };
+
+    loadExistingUser();
   }, []);
 
   const handleOnboardingComplete = (newUser: User) => {
@@ -77,4 +93,3 @@ const StreamlinedApp: React.FC = () => {
 };
 
 export default StreamlinedApp;
-
