@@ -126,7 +126,7 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
   };
 
   const handleDeletePlant = async (plantId: number) => {
-    if (!confirm('Are you sure you want to delete this plant?')) return;
+    if (!window.confirm('Are you sure you want to delete this plant?')) return;
     
     try {
       await deletePlant(plantId);
