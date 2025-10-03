@@ -11,4 +11,5 @@ python-multipart==0.0.10
 openai>=1.0.0
 braintrust>=0.2.0
 twilio>=8.0.0
+plivo>=4.0.0
 gunicorn==23.0.0

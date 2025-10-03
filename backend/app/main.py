@@ -28,9 +28,6 @@ app.add_middleware(
 app.include_router(plants.router, prefix=settings.api_v1_prefix, tags=["plants"])
 app.include_router(evaluations.router, prefix=f"{settings.api_v1_prefix}/evaluations", tags=["evaluations"])
 app.include_router(sms.router, prefix=f"{settings.api_v1_prefix}/sms", tags=["sms"])
-app.include_router(admin.router, prefix=f"{settings.api_v1_prefix}/admin", tags=["admin"])
-app.include_router(migrate.router, prefix=f"{settings.api_v1_prefix}/migrate", tags=["migrate"])
-app.include_router(one_time_migration.router, prefix=f"{settings.api_v1_prefix}/fix", tags=["fix"])
 
 @app.get("/")
 def read_root():

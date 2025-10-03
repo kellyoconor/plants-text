@@ -12,11 +12,12 @@ from twilio.base.exceptions import TwilioException
 from typing import Optional, Dict, Any
 import logging
 from ..core.config import settings
+from .sms_provider import SMSProvider, SMSResult
 
 logger = logging.getLogger(__name__)
 
-class TwilioClient:
-    """Twilio SMS client with error handling"""
+class TwilioProvider(SMSProvider):
+    """Twilio SMS provider implementation"""
     
     def __init__(self):
         self.client = None
@@ -43,7 +44,7 @@ class TwilioClient:
             logger.error(f"Failed to initialize Twilio client: {str(e)}")
             self.client = None
     
-    def send_sms(self, to_phone: str, message: str, from_phone: Optional[str] = None) -> Dict[str, Any]:
+    def send_sms(self, to_phone: str, message: str, from_phone: Optional[str] = None) -> SMSResult:
         """
         Send SMS message via Twilio
         
@@ -53,7 +54,7 @@ class TwilioClient:
             from_phone: Sender phone number (uses default if not provided)
             
         Returns:
-            Dict with send status and message details
+            SMSResult with status and details
         """
         try:
             # Use default phone number if not provided
@@ -63,12 +64,11 @@ class TwilioClient:
             if not self.client or not from_phone:
                 # Fallback: log message instead of sending
                 logger.info(f"SMS (Twilio not configured): To: {to_phone}, Message: {message}")
-                return {
-                    "status": "logged",
-                    "to": to_phone,
-                    "message": message,
-                    "error": "Twilio not configured - message logged only"
-                }
+                return SMSResult(
+                    status="logged",
+                    error="Twilio not configured - message logged only",
+                    provider="twilio"
+                )
             
             # Send SMS via Twilio
             message_obj = self.client.messages.create(
@@ -79,35 +79,27 @@ class TwilioClient:
             
             logger.info(f"SMS sent successfully: SID {message_obj.sid} to {to_phone}")
             
-            return {
-                "status": "sent",
-                "sid": message_obj.sid,
-                "to": to_phone,
-                "from": from_phone,
-                "message": message,
-                "status_twilio": message_obj.status,
-                "price": message_obj.price,
-                "price_unit": message_obj.price_unit
-            }
+            return SMSResult(
+                status="sent",
+                message_id=message_obj.sid,
+                provider="twilio"
+            )
             
         except TwilioException as e:
             logger.error(f"Twilio error sending SMS to {to_phone}: {str(e)}")
-            return {
-                "status": "failed",
-                "to": to_phone,
-                "message": message,
-                "error": f"Twilio error: {str(e)}",
-                "error_code": getattr(e, 'code', None)
-            }
+            return SMSResult(
+                status="failed",
+                error=str(e),
+                provider="twilio"
+            )
             
         except Exception as e:
             logger.error(f"Unexpected error sending SMS to {to_phone}: {str(e)}")
-            return {
-                "status": "failed",
-                "to": to_phone,
-                "message": message,
-                "error": f"Unexpected error: {str(e)}"
-            }
+            return SMSResult(
+                status="failed",
+                error=str(e),
+                provider="twilio"
+            )
     
     def get_message_status(self, message_sid: str) -> Dict[str, Any]:
         """
@@ -161,6 +153,10 @@ class TwilioClient:
     def get_phone_number(self) -> Optional[str]:
         """Get the configured Twilio phone number"""
         return self.phone_number
+    
+    def get_provider_name(self) -> str:
+        """Get the provider name"""
+        return "twilio"
 
 # Global Twilio client instance
-twilio_client = TwilioClient()
+twilio_client = TwilioProvider()

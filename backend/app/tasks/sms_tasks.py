@@ -15,7 +15,7 @@ import logging
 from ..core.celery_app import celery_app
 from ..core.config import settings
 from ..services.sms_processor import SMSProcessor
-from ..services.twilio_client import twilio_client
+from ..services.sms_manager import sms_manager
 
 logger = logging.getLogger(__name__)
 
@@ -39,32 +39,32 @@ def send_care_reminder_sms(
         urgency: Urgency level (low, medium, high, critical)
     """
     try:
-        # Send SMS via Twilio
-        sms_result = twilio_client.send_sms(
+        # Send SMS via SMS manager
+        sms_result = sms_manager.send_sms(
             to_phone=user_phone,
             message=message
         )
         
         # Log the result
-        if sms_result["status"] == "sent":
-            logger.info(f"SMS sent successfully to {user_phone} for {plant_name} (SID: {sms_result.get('sid', 'N/A')})")
-        elif sms_result["status"] == "logged":
-            logger.info(f"SMS logged (Twilio not configured) to {user_phone}: {message}")
+        if sms_result.status == "sent":
+            logger.info(f"SMS sent successfully to {user_phone} for {plant_name} via {sms_result.provider} (ID: {sms_result.message_id})")
+        elif sms_result.status == "logged":
+            logger.info(f"SMS logged (No providers configured) to {user_phone}: {message}")
         else:
-            logger.error(f"SMS failed to {user_phone}: {sms_result.get('error', 'Unknown error')}")
+            logger.error(f"SMS failed to {user_phone}: {sms_result.error}")
         
-        # Return result with Twilio details
+        # Return result with provider details
         result = {
-            "status": sms_result["status"],
+            "status": sms_result.status,
             "phone": user_phone,
             "plant_name": plant_name,
             "care_type": care_type,
             "message": message,
             "urgency": urgency,
             "timestamp": datetime.now().isoformat(),
-            "twilio_sid": sms_result.get("sid"),
-            "twilio_status": sms_result.get("status_twilio"),
-            "error": sms_result.get("error")
+            "message_id": sms_result.message_id,
+            "provider": sms_result.provider,
+            "error": sms_result.error
         }
         
         return result
@@ -108,30 +108,30 @@ def send_thank_you_sms(self, user_phone: str, plant_name: str, care_type: str):
         
         message = thank_you_messages.get(care_type, f"Thanks for taking care of me! 💚 - {plant_name}")
         
-        # Send thank you SMS via Twilio
-        sms_result = twilio_client.send_sms(
+        # Send thank you SMS via SMS manager
+        sms_result = sms_manager.send_sms(
             to_phone=user_phone,
             message=message
         )
         
         # Log the result
-        if sms_result["status"] == "sent":
-            logger.info(f"Thank you SMS sent to {user_phone} for {plant_name} (SID: {sms_result.get('sid', 'N/A')})")
-        elif sms_result["status"] == "logged":
-            logger.info(f"Thank you SMS logged (Twilio not configured) to {user_phone}: {message}")
+        if sms_result.status == "sent":
+            logger.info(f"Thank you SMS sent to {user_phone} for {plant_name} via {sms_result.provider} (ID: {sms_result.message_id})")
+        elif sms_result.status == "logged":
+            logger.info(f"Thank you SMS logged (No providers configured) to {user_phone}: {message}")
         else:
-            logger.error(f"Thank you SMS failed to {user_phone}: {sms_result.get('error', 'Unknown error')}")
+            logger.error(f"Thank you SMS failed to {user_phone}: {sms_result.error}")
         
         return {
-            "status": sms_result["status"],
+            "status": sms_result.status,
             "phone": user_phone,
             "plant_name": plant_name,
             "care_type": care_type,
             "message": message,
             "timestamp": datetime.now().isoformat(),
-            "twilio_sid": sms_result.get("sid"),
-            "twilio_status": sms_result.get("status_twilio"),
-            "error": sms_result.get("error")
+            "message_id": sms_result.message_id,
+            "provider": sms_result.provider,
+            "error": sms_result.error
         }
         
     except Exception as exc:
