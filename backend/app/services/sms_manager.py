@@ -6,7 +6,6 @@ import logging
 from typing import Optional
 from .sms_provider import SMSProvider, SMSResult
 from .twilio_client import TwilioProvider
-from .plivo_provider import PlivoProvider
 from .demo_provider import DemoProvider
 from ..core.config import settings
 
@@ -27,13 +26,7 @@ class SMSManager:
         self.providers.append(demo_provider)
         logger.info("Demo provider initialized - messages will be logged")
         
-        # Add Plivo as secondary (no A2P 10DLC issues)
-        plivo_provider = PlivoProvider()
-        if plivo_provider.is_configured():
-            self.providers.append(plivo_provider)
-            logger.info("Plivo provider initialized")
-        else:
-            logger.warning("Plivo not configured")
+        # Plivo removed - using demo mode instead
         
         # Add Twilio as fallback
         twilio_provider = TwilioProvider()

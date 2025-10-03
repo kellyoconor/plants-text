@@ -19,10 +19,7 @@ class Settings(BaseSettings):
     twilio_auth_token: Optional[str] = None
     twilio_phone_number: Optional[str] = None
     
-    # Plivo settings
-    plivo_auth_id: Optional[str] = None
-    plivo_auth_token: Optional[str] = None
-    plivo_phone_number: Optional[str] = None
+    # Plivo settings removed - using demo mode
     
     # Production settings
     allowed_hosts: list = ["*"]  # Configure for production
