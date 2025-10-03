@@ -61,8 +61,8 @@ class SMSManager:
                 logger.info(f"Attempting to send SMS via {provider.get_provider_name()}")
                 result = provider.send_sms(to_phone, message, from_phone)
                 
-                if result.status == "sent":
-                    logger.info(f"SMS sent successfully via {provider.get_provider_name()}")
+                if result.status in ["sent", "logged"]:
+                    logger.info(f"SMS {'sent' if result.status == 'sent' else 'logged'} successfully via {provider.get_provider_name()}")
                     return result
                 else:
                     logger.warning(f"SMS failed via {provider.get_provider_name()}: {result.error}")
