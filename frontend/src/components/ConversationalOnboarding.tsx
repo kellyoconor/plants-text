@@ -348,10 +348,10 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
                 </div>
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold text-gray-900 mb-2 font-body">
-                    What should we call your {selectedPlant.name}?
+                    What's your {selectedPlant.name}'s name?
                   </h2>
                   <p className="text-gray-600 font-body">
-                    Give it a name with personality. This is how your plant will introduce itself.
+                    This is how your plant will introduce itself in messages.
                   </p>
                 </div>
               </div>
