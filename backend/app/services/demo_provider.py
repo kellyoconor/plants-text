@@ -4,6 +4,7 @@ Perfect for development and testing
 """
 
 import logging
+import os
 from typing import Optional
 from datetime import datetime
 from .sms_provider import SMSProvider, SMSResult
@@ -16,6 +17,7 @@ class DemoProvider(SMSProvider):
     
     def __init__(self):
         self.message_count = 0
+        self.log_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sms_logs.txt")
         logger.info("Demo SMS Provider initialized - messages will be logged")
     
     def send_sms(self, to_phone: str, message: str, from_phone: Optional[str] = None) -> SMSResult:
@@ -37,6 +39,9 @@ class DemoProvider(SMSProvider):
         print(f"💬 Message: {message}")
         print("="*60)
         
+        # Write to logs file
+        self._write_to_log_file(to_phone, from_phone or 'Demo Plant', message, timestamp)
+        
         return SMSResult(
             status="logged",
             message_id=f"demo-{self.message_count}-{timestamp.replace(':', '-')}",
@@ -54,3 +59,19 @@ class DemoProvider(SMSProvider):
     def get_message_count(self) -> int:
         """Get total number of messages logged"""
         return self.message_count
+    
+    def _write_to_log_file(self, to_phone: str, from_phone: str, message: str, timestamp: str):
+        """Write SMS message to logs file"""
+        try:
+            log_entry = f"""
+🌱 DEMO SMS #{self.message_count} [{timestamp}]
+📱 To: {to_phone}
+📤 From: {from_phone}
+💬 Message: {message}
+============================================================
+
+"""
+            with open(self.log_file, "a", encoding="utf-8") as f:
+                f.write(log_entry)
+        except Exception as e:
+            logger.error(f"Failed to write to log file: {e}")

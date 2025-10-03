@@ -1,0 +1,12 @@
+# Plant Texts SMS Logs
+# Demo Mode - Messages are logged instead of sent
+
+## SMS Log Format:
+# 🌱 DEMO SMS #[number] [timestamp]
+# 📱 To: [phone_number]
+# 📤 From: [sender_name]
+# 💬 Message: [message_content]
+# ============================================================
+
+## Recent SMS Messages:
+
