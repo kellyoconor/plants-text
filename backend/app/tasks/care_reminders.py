@@ -34,8 +34,11 @@ def check_all_plants_daily(self):
     try:
         db = SessionLocal()
         
-        # Get all active users
-        active_users = db.query(User).filter(User.is_active == True).all()
+        # Get all active and verified users
+        active_users = db.query(User).filter(
+            User.is_active == True,
+            User.phone_verified == True
+        ).all()
         
         total_reminders = 0
         total_users = len(active_users)

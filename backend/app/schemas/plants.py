@@ -40,6 +40,8 @@ class UserResponse(UserBase):
     id: int
     subscription_tier: str
     is_active: bool
+    phone_verified: bool
+    verified_at: Optional[datetime] = None
     created_at: datetime
 
     class Config:

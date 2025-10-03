@@ -15,6 +15,7 @@ import logging
 from ..core.celery_app import celery_app
 from ..core.config import settings
 from ..services.sms_processor import SMSProcessor
+from ..services.twilio_client import twilio_client
 
 logger = logging.getLogger(__name__)
 
@@ -38,29 +39,34 @@ def send_care_reminder_sms(
         urgency: Urgency level (low, medium, high, critical)
     """
     try:
-        # For now, just log the message (we'll add Twilio integration next)
-        logger.info(f"SMS to {user_phone}: {message}")
+        # Send SMS via Twilio
+        sms_result = twilio_client.send_sms(
+            to_phone=user_phone,
+            message=message
+        )
         
-        # TODO: Add Twilio integration here
-        # twilio_client = get_twilio_client()
-        # twilio_client.messages.create(
-        #     body=message,
-        #     from_=settings.twilio_phone_number,
-        #     to=user_phone
-        # )
+        # Log the result
+        if sms_result["status"] == "sent":
+            logger.info(f"SMS sent successfully to {user_phone} for {plant_name} (SID: {sms_result.get('sid', 'N/A')})")
+        elif sms_result["status"] == "logged":
+            logger.info(f"SMS logged (Twilio not configured) to {user_phone}: {message}")
+        else:
+            logger.error(f"SMS failed to {user_phone}: {sms_result.get('error', 'Unknown error')}")
         
-        # Simulate SMS sending for now
+        # Return result with Twilio details
         result = {
-            "status": "sent",
+            "status": sms_result["status"],
             "phone": user_phone,
             "plant_name": plant_name,
             "care_type": care_type,
             "message": message,
             "urgency": urgency,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
+            "twilio_sid": sms_result.get("sid"),
+            "twilio_status": sms_result.get("status_twilio"),
+            "error": sms_result.get("error")
         }
         
-        logger.info(f"SMS sent successfully to {user_phone} for {plant_name}")
         return result
         
     except Exception as exc:
@@ -102,18 +108,30 @@ def send_thank_you_sms(self, user_phone: str, plant_name: str, care_type: str):
         
         message = thank_you_messages.get(care_type, f"Thanks for taking care of me! 💚 - {plant_name}")
         
-        # For now, just log (will add Twilio integration)
-        logger.info(f"Thank you SMS to {user_phone}: {message}")
+        # Send thank you SMS via Twilio
+        sms_result = twilio_client.send_sms(
+            to_phone=user_phone,
+            message=message
+        )
         
-        # TODO: Add Twilio integration
+        # Log the result
+        if sms_result["status"] == "sent":
+            logger.info(f"Thank you SMS sent to {user_phone} for {plant_name} (SID: {sms_result.get('sid', 'N/A')})")
+        elif sms_result["status"] == "logged":
+            logger.info(f"Thank you SMS logged (Twilio not configured) to {user_phone}: {message}")
+        else:
+            logger.error(f"Thank you SMS failed to {user_phone}: {sms_result.get('error', 'Unknown error')}")
         
         return {
-            "status": "sent",
+            "status": sms_result["status"],
             "phone": user_phone,
             "plant_name": plant_name,
             "care_type": care_type,
             "message": message,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
+            "twilio_sid": sms_result.get("sid"),
+            "twilio_status": sms_result.get("status_twilio"),
+            "error": sms_result.get("error")
         }
         
     except Exception as exc:

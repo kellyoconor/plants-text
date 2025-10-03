@@ -234,6 +234,18 @@ def add_plant_to_user(plant: UserPlantCreate, db: Session = Depends(get_db)):
     care_service = PlantCareService(db)
     care_service.create_initial_schedule(db_plant.id)
     
+    # Check if this is the user's first plant and send welcome message
+    user_plant_count = db.query(UserPlant).filter(
+        UserPlant.user_id == plant.user_id,
+        UserPlant.is_active == True
+    ).count()
+    
+    if user_plant_count == 1:  # This is their first plant
+        from ..services.verification_service import VerificationService
+        verification_service = VerificationService(db)
+        welcome_result = verification_service.send_welcome_message(plant.user_id)
+        print(f"Welcome message sent to user {plant.user_id}: {welcome_result}")
+    
     return db_plant
 
 

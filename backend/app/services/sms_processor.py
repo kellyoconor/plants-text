@@ -15,6 +15,7 @@ from sqlalchemy.orm import Session
 from ..core.database import SessionLocal
 from ..models.plants import User, UserPlant, CareHistory
 from ..services.care_scheduler import CareScheduleEngine
+from ..services.verification_service import VerificationService
 
 class SMSProcessor:
     """Service for processing incoming SMS messages"""
@@ -241,6 +242,28 @@ class SMSProcessor:
                 "phone": phone_number,
                 "message": "User not found for this phone number"
             }
+        
+        # Check if this is a verification response
+        if not user.phone_verified:
+            # This is likely a verification response
+            verification_service = VerificationService()
+            verification_result = verification_service.verify_phone(phone_number)
+            
+            if verification_result["status"] == "verified":
+                return {
+                    "status": "phone_verified",
+                    "phone": phone_number,
+                    "user_id": user.id,
+                    "message": "Phone number verified! You'll now receive care reminders from your plants.",
+                    "contact_card_sent": True
+                }
+            else:
+                return {
+                    "status": "verification_failed",
+                    "phone": phone_number,
+                    "user_id": user.id,
+                    "message": "Verification failed. Please try again."
+                }
         
         # Get user's plants
         user_plants = self.get_user_plants(user)

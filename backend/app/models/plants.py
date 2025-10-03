@@ -31,6 +31,8 @@ class User(Base):
     timezone = Column(String(50), default="UTC")
     location = Column(String(100))  # For environmental adjustments
     is_active = Column(Boolean, default=True)
+    phone_verified = Column(Boolean, default=False)  # Phone verification status
+    verified_at = Column(DateTime(timezone=True), nullable=True)  # When phone was verified
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
