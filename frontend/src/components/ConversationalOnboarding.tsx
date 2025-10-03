@@ -256,10 +256,10 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
                   </div>
                   <div className="flex-1">
                     <h2 className="text-2xl font-bold text-gray-900 mb-2 font-body">
-                      Who's in your plant family?
+                      What type of plant do you have?
                     </h2>
                     <p className="text-gray-600 font-body">
-                      Search for your plant to get started.
+                      Search for the plant species you own (e.g., Snake Plant, Monstera).
                     </p>
                   </div>
                 </div>
