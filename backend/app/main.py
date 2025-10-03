@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .core.config import settings
-from .api import plants, evaluations, sms, admin, migrate
+from .api import plants, evaluations, sms, admin, migrate, one_time_migration
 
 # Create FastAPI instance
 app = FastAPI(
@@ -30,6 +30,7 @@ app.include_router(evaluations.router, prefix=f"{settings.api_v1_prefix}/evaluat
 app.include_router(sms.router, prefix=f"{settings.api_v1_prefix}/sms", tags=["sms"])
 app.include_router(admin.router, prefix=f"{settings.api_v1_prefix}/admin", tags=["admin"])
 app.include_router(migrate.router, prefix=f"{settings.api_v1_prefix}/migrate", tags=["migrate"])
+app.include_router(one_time_migration.router, prefix=f"{settings.api_v1_prefix}/fix", tags=["fix"])
 
 @app.get("/")
 def read_root():

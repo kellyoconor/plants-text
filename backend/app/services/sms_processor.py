@@ -15,7 +15,7 @@ from sqlalchemy.orm import Session
 from ..core.database import SessionLocal
 from ..models.plants import User, UserPlant, CareHistory
 from ..services.care_scheduler import CareScheduleEngine
-from ..services.verification_service import VerificationService
+# from ..services.verification_service import VerificationService  # Removed
 
 class SMSProcessor:
     """Service for processing incoming SMS messages"""
