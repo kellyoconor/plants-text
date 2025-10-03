@@ -45,6 +45,8 @@ export interface UserPlant {
   created_at: string;
   plant_catalog: Plant;
   personality: PersonalityType;
+  welcome_message?: string;
+  sms_status?: string;
 }
 
 export interface User {

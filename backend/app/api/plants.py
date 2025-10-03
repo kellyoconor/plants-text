@@ -254,6 +254,10 @@ def add_plant_to_user(plant: UserPlantCreate, db: Session = Depends(get_db)):
     )
     print(f"Welcome message sent to user {plant.user_id}: {welcome_result.status} via {welcome_result.provider}")
     
+    # Add welcome message to response for demo purposes
+    db_plant.welcome_message = welcome_message
+    db_plant.sms_status = welcome_result.status
+    
     return db_plant
 
 

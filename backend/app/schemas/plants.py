@@ -90,6 +90,8 @@ class UserPlantResponse(UserPlantBase):
     qr_code: Optional[str]
     is_active: bool
     created_at: datetime
+    welcome_message: Optional[str] = None  # For demo purposes
+    sms_status: Optional[str] = None  # For demo purposes
     
     # Nested relationships
     plant_catalog: PlantCatalogResponse

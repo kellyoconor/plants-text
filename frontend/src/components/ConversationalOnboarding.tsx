@@ -3,6 +3,7 @@ import { ArrowRight, Leaf, Check, ArrowLeft, ChevronDown } from 'lucide-react';
 import { getPlantCatalog, addPlantToUser, findOrCreateUser } from '../api';
 import { Plant, User } from '../types';
 import { getPlantImage } from '../utils/plantImageMapping';
+import MockSMSModal from './MockSMSModal';
 
 interface ConversationalOnboardingProps {
   onComplete: (user: User) => void;
@@ -54,6 +55,8 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
   const [loading, setLoading] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [expandedPlantGroup, setExpandedPlantGroup] = useState<string | null>(null);
+  const [showMockSMS, setShowMockSMS] = useState(false);
+  const [welcomeMessage, setWelcomeMessage] = useState('');
 
   // Fade in animation on step change
   useEffect(() => {
@@ -140,11 +143,17 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
 
     setLoading(true);
     try {
-      await addPlantToUser({
+      const response = await addPlantToUser({
         user_id: user.id,
         nickname: nickname.trim(),
         plant_catalog_id: selectedPlant.id,
       });
+      
+      // Show mock SMS if welcome message is available
+      if (response.welcome_message) {
+        setWelcomeMessage(response.welcome_message);
+        setShowMockSMS(true);
+      }
       
       setStep('firstHello');
     } catch (error) {
@@ -571,7 +580,17 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
     );
   }
 
-  return null;
+  return (
+    <>
+      <MockSMSModal
+        isOpen={showMockSMS}
+        onClose={() => setShowMockSMS(false)}
+        plantName={nickname}
+        message={welcomeMessage}
+        phoneNumber={phone}
+      />
+    </>
+  );
 };
 
 export default ConversationalOnboarding;
