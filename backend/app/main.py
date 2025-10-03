@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .core.config import settings
-from .api import plants, evaluations, sms, admin, migrate, one_time_migration
+from .api import plants, evaluations, sms
 
 # Create FastAPI instance
 app = FastAPI(
