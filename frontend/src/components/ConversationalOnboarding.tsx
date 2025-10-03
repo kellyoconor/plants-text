@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Leaf, Check } from 'lucide-react';
+import { ArrowRight, Leaf, Check, ArrowLeft } from 'lucide-react';
 import { getPlantCatalog, addPlantToUser, findOrCreateUser } from '../api';
 import { Plant, User } from '../types';
 
@@ -202,40 +202,34 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
               autoFocus
             />
 
-            {/* Preview message mockup */}
-            {phone.length >= 10 && (
-              <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-4 animate-fade-in">
-                <p className="text-xs text-blue-600 font-medium mb-2 font-body">PREVIEW MESSAGE</p>
-                <div className="bg-white rounded-xl p-3 shadow-sm">
-                  <p className="text-sm text-gray-800 font-body">
-                    🌿 <em>Hi! Don't forget to water me today. I'm getting a little thirsty! – Your Snake Plant</em>
-                  </p>
-                </div>
-                <p className="text-xs text-blue-600 mt-2 font-body">
-                  This is what you'll get from your plants ↑
-                </p>
-              </div>
-            )}
-
             <p className="text-xs text-gray-400 font-body">
               🔒 Your number is safe. We only use it for plant messages.
             </p>
           </div>
 
-          <button
-            onClick={handlePhoneSubmit}
-            disabled={!phone.trim() || loading}
-            className="w-full bg-green-700 hover:bg-green-800 disabled:bg-gray-300 text-white py-4 px-6 rounded-2xl font-medium text-lg shadow-lg hover:shadow-xl disabled:shadow-none transform hover:scale-[1.02] disabled:scale-100 transition-all duration-200 font-body flex items-center justify-center space-x-2"
-          >
-            {loading ? (
-              <span>Setting up...</span>
-            ) : (
-              <>
-                <span>Continue</span>
-                <ArrowRight className="w-5 h-5" />
-              </>
-            )}
-          </button>
+          <div className="flex space-x-3">
+            <button
+              onClick={() => setStep('welcome')}
+              className="py-4 px-6 border border-gray-300 text-gray-700 rounded-2xl font-medium hover:bg-gray-50 transition-all duration-200 font-body flex items-center justify-center space-x-2"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              <span>Back</span>
+            </button>
+            <button
+              onClick={handlePhoneSubmit}
+              disabled={!phone.trim() || loading}
+              className="flex-1 bg-green-700 hover:bg-green-800 disabled:bg-gray-300 text-white py-4 px-6 rounded-2xl font-medium text-lg shadow-lg hover:shadow-xl disabled:shadow-none transform hover:scale-[1.02] disabled:scale-100 transition-all duration-200 font-body flex items-center justify-center space-x-2"
+            >
+              {loading ? (
+                <span>Setting up...</span>
+              ) : (
+                <>
+                  <span>Continue</span>
+                  <ArrowRight className="w-5 h-5" />
+                </>
+              )}
+            </button>
+          </div>
 
           <div className="mt-8">
             <GrowthProgress currentStep={step} />
@@ -333,6 +327,15 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
                   <p className="text-sm text-gray-400 mt-2">Try a different search term</p>
                 </div>
               )}
+
+              {/* Back button for plant search */}
+              <button
+                onClick={() => setStep('phone')}
+                className="py-3 px-6 border border-gray-300 text-gray-700 rounded-2xl font-medium hover:bg-gray-50 transition-all duration-200 font-body flex items-center justify-center space-x-2 w-full sm:w-auto"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                <span>Back</span>
+              </button>
             </>
           ) : (
             // Selected plant - give it a name
