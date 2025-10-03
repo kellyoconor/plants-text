@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Leaf, Check, ArrowLeft } from 'lucide-react';
+import { ArrowRight, Leaf, Check, ArrowLeft, ChevronDown } from 'lucide-react';
 import { getPlantCatalog, addPlantToUser, findOrCreateUser } from '../api';
 import { Plant, User } from '../types';
 import { getPlantImage } from '../utils/plantImageMapping';
@@ -48,10 +48,12 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
   const [plants, setPlants] = useState<Plant[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPlants, setFilteredPlants] = useState<Plant[]>([]);
+  const [groupedResults, setGroupedResults] = useState<Array<{baseName: string; primary: Plant; varieties: Plant[]; hasMultiple: boolean}>>([]);
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
   const [nickname, setNickname] = useState('');
   const [loading, setLoading] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [expandedPlantGroup, setExpandedPlantGroup] = useState<string | null>(null);
 
   // Fade in animation on step change
   useEffect(() => {
@@ -69,14 +71,44 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
   useEffect(() => {
     if (searchTerm.trim() === '') {
       setFilteredPlants([]);
+      setGroupedResults([]);
     } else {
+      const searchLower = searchTerm.toLowerCase();
       const filtered = plants.filter(plant => 
-        plant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        plant.species.toLowerCase().includes(searchTerm.toLowerCase())
+        plant.name.toLowerCase().includes(searchLower) ||
+        plant.species.toLowerCase().includes(searchLower)
       );
-      setFilteredPlants(filtered.slice(0, 6));
+      
+      // Group plants by base name (e.g., "Snake plant" varieties together)
+      const grouped = groupPlantsByBaseName(filtered);
+      setGroupedResults(grouped.slice(0, 6));
+      
+      // For backward compatibility, also set filteredPlants
+      setFilteredPlants(grouped.map(g => g.primary).slice(0, 6));
     }
   }, [searchTerm, plants]);
+  
+  // Group plants by base name
+  const groupPlantsByBaseName = (plantList: Plant[]) => {
+    const groups = new Map<string, Plant[]>();
+    
+    plantList.forEach(plant => {
+      // Extract base name (e.g., "Snake plant" from "Snake plant (Sansevieria trifasciata Laurentii)")
+      const baseName = plant.name.toLowerCase().trim();
+      
+      if (!groups.has(baseName)) {
+        groups.set(baseName, []);
+      }
+      groups.get(baseName)!.push(plant);
+    });
+    
+    return Array.from(groups.entries()).map(([baseName, varieties]) => ({
+      baseName,
+      primary: varieties[0], // Use first as primary
+      varieties,
+      hasMultiple: varieties.length > 1
+    }));
+  };
 
   const loadPlants = async () => {
     try {
@@ -290,47 +322,118 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
                 )}
               </div>
 
-              {/* Search Results */}
-              {filteredPlants.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                  {filteredPlants.map((plant) => {
-                    const plantImage = getPlantImage(plant);
-                    return (
-                      <button
-                        key={plant.id}
-                        onClick={() => {
-                          setSelectedPlant(plant);
-                          setSearchTerm('');
-                        }}
-                        className="group bg-white border-2 border-gray-200 rounded-2xl p-5 hover:border-green-500 hover:shadow-lg transition-all duration-200 text-left"
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center overflow-hidden">
-                            {plantImage ? (
-                              <img 
-                                src={plantImage} 
-                                alt={plant.name}
-                                className="w-full h-full object-cover"
-                              />
-                            ) : (
-                              <Leaf className="w-7 h-7 text-green-500" />
-                            )}
-                          </div>
-                          <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-green-500 transition-colors" />
+              {/* Search Results - Grouped by plant type */}
+              {groupedResults.length > 0 && (
+                <>
+                  <div className="space-y-4 mb-4">
+                    {groupedResults.map((group) => {
+                      const plant = group.primary;
+                      const plantImage = getPlantImage(plant);
+                      const wateringFreq = plant.care_requirements.watering_frequency_days;
+                      const waterLevel = wateringFreq >= 10 ? 'Low water' : wateringFreq >= 5 ? 'Medium water' : 'High water';
+                      const lightLevel = plant.care_requirements.light_level;
+                      const lightText = lightLevel === 'low' ? 'Low light' : lightLevel === 'high' ? 'Bright light' : 'Medium light';
+                      const difficultyText = plant.difficulty_level === 'easy' ? 'Beginner-friendly' : 
+                                            plant.difficulty_level === 'medium' ? 'Intermediate' : 'Advanced';
+                      const isExpanded = expandedPlantGroup === group.baseName;
+                      
+                      return (
+                        <div key={group.baseName} className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden">
+                          {/* Primary Plant Card */}
+                          <button
+                            onClick={() => {
+                              setSelectedPlant(plant);
+                              setSearchTerm('');
+                            }}
+                            className="group w-full p-5 hover:bg-gray-50 transition-all duration-200 text-left"
+                          >
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="flex items-center space-x-3">
+                                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center overflow-hidden flex-shrink-0">
+                                  {plantImage ? (
+                                    <img 
+                                      src={plantImage} 
+                                      alt={plant.name}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  ) : (
+                                    <Leaf className="w-7 h-7 text-green-500" />
+                                  )}
+                                </div>
+                                <div>
+                                  <h3 className="font-semibold text-gray-900 font-body group-hover:text-green-700 transition-colors">
+                                    {plant.name}
+                                  </h3>
+                                  <p className="text-xs text-gray-400 font-body">
+                                    {plant.species.split(' ').slice(0, 2).join(' ')}
+                                  </p>
+                                </div>
+                              </div>
+                              <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-green-500 transition-colors flex-shrink-0" />
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
+                              <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-600 font-body">
+                                {waterLevel}
+                              </span>
+                              <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-yellow-50 text-yellow-600 font-body">
+                                {lightText}
+                              </span>
+                              <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-green-50 text-green-600 font-body">
+                                {difficultyText}
+                              </span>
+                            </div>
+                          </button>
+                          
+                          {/* Varieties Expansion */}
+                          {group.hasMultiple && (
+                            <>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setExpandedPlantGroup(isExpanded ? null : group.baseName);
+                                }}
+                                className="w-full px-5 py-2 border-t border-gray-200 text-sm text-gray-600 hover:bg-gray-50 transition-colors flex items-center justify-center space-x-1"
+                              >
+                                <span className="font-medium">See varieties ({group.varieties.length})</span>
+                                <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                              </button>
+                              
+                              {isExpanded && (
+                                <div className="border-t border-gray-200 bg-gray-50 p-3 space-y-2">
+                                  {group.varieties.map((variety) => (
+                                    <button
+                                      key={variety.id}
+                                      onClick={() => {
+                                        setSelectedPlant(variety);
+                                        setSearchTerm('');
+                                      }}
+                                      className="w-full text-left px-3 py-2 bg-white rounded-lg hover:bg-green-50 hover:border-green-200 border border-gray-200 transition-colors"
+                                    >
+                                      <div className="flex items-center justify-between">
+                                        <div>
+                                          <p className="text-sm font-medium text-gray-900">{variety.name}</p>
+                                          <p className="text-xs text-gray-500">{variety.species}</p>
+                                        </div>
+                                        <ArrowRight className="w-4 h-4 text-gray-400" />
+                                      </div>
+                                    </button>
+                                  ))}
+                                </div>
+                              )}
+                            </>
+                          )}
                         </div>
-                        <h3 className="font-semibold text-gray-900 font-body mb-1 group-hover:text-green-700 transition-colors">
-                          {plant.name}
-                        </h3>
-                        <p className="text-sm text-gray-500 font-body mb-2">
-                          {plant.species}
-                        </p>
-                        <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 font-body">
-                          {plant.difficulty_level}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                      );
+                    })}
+                  </div>
+                  
+                  {/* Helper text */}
+                  {searchTerm && (
+                    <p className="text-sm text-gray-500 font-body text-center mb-6">
+                      Not sure? Choose "{groupedResults[0]?.primary.name}." You can refine later.
+                    </p>
+                  )}
+                </>
               )}
 
               {searchTerm && filteredPlants.length === 0 && (
@@ -363,7 +466,7 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
                     What's your {selectedPlant.name}'s name?
                   </h2>
                   <p className="text-gray-600 font-body">
-                    What do you call them when no one's listening?
+                    You know, the one you use when no one's listening...
                   </p>
                 </div>
               </div>
