@@ -138,13 +138,13 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
             <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white border-b border-r border-gray-100 rotate-45"></div>
             
             <h1 className="text-3xl font-bold text-gray-900 mb-3 font-body">
-              Your plants miss you.
+              Bring your plants to life.
             </h1>
             <p className="text-lg text-gray-600 font-body leading-relaxed mb-4">
-              Give them a voice. They'll remind you when they need care, chat when you're curious, and become your leafy friends.
+              Give them a voice. They'll remind you when they need care, answer your questions, and become part of your daily rhythm.
             </p>
             <p className="text-sm text-gray-500 font-body">
-              Takes about 90 seconds to set up.
+              Setup takes about a minute.
             </p>
           </div>
 
@@ -152,7 +152,7 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
             onClick={() => setStep('phone')}
             className="w-full bg-green-700 hover:bg-green-800 text-white py-4 px-6 rounded-2xl font-medium text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 font-body flex items-center justify-center space-x-2"
           >
-            <span>Let's grow together</span>
+            <span>Bring Them to Life</span>
             <ArrowRight className="w-5 h-5" />
           </button>
 
