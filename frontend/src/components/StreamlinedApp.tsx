@@ -3,7 +3,7 @@ import { User } from '../types';
 import { getUser, getUserPlants } from '../api';
 import PlantOnboarding from './PlantOnboarding';
 import PlantDashboard from './PlantDashboard';
-import PlantCatalog from './PlantCatalog';
+import SimplePlantCatalog from './SimplePlantCatalog';
 import PersonalityTester from './PersonalityTester';
 
 type AppState = 'onboarding' | 'dashboard' | 'addPlants' | 'personalityTester';
@@ -82,7 +82,7 @@ const StreamlinedApp: React.FC = () => {
 
   if (appState === 'addPlants' && user) {
     return (
-      <PlantCatalog 
+      <SimplePlantCatalog 
         userId={user.id} 
         onPlantAdded={handlePlantsAdded}
         onBack={() => setAppState('dashboard')}
