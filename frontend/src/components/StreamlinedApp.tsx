@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { User } from '../types';
 import { getUser, getUserPlants } from '../api';
-import PlantOnboarding from './PlantOnboarding';
+import ConversationalOnboarding from './ConversationalOnboarding';
 import PlantDashboard from './PlantDashboard';
 import SimplePlantCatalog from './SimplePlantCatalog';
 import PersonalityTester from './PersonalityTester';
@@ -76,8 +76,8 @@ const StreamlinedApp: React.FC = () => {
   }
 
   if (appState === 'onboarding') {
-    console.log('Rendering PlantOnboarding component');
-    return <PlantOnboarding onComplete={handleOnboardingComplete} />;
+    console.log('Rendering ConversationalOnboarding component');
+    return <ConversationalOnboarding onComplete={handleOnboardingComplete} />;
   }
 
   if (appState === 'addPlants' && user) {
@@ -95,7 +95,7 @@ const StreamlinedApp: React.FC = () => {
   }
 
   // Fallback
-  return <PlantOnboarding onComplete={handleOnboardingComplete} />;
+  return <ConversationalOnboarding onComplete={handleOnboardingComplete} />;
 };
 
 export default StreamlinedApp;
