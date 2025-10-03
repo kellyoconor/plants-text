@@ -15,8 +15,11 @@ logger = logging.getLogger(__name__)
 class DemoProvider(SMSProvider):
     """Demo SMS provider that logs messages instead of sending"""
     
+    # Class-level list to store messages in memory (persists across requests)
+    _messages = []
+    
     def __init__(self):
-        self.message_count = 0
+        self.message_count = len(DemoProvider._messages)
         self.log_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sms_logs.txt")
         logger.info("Demo SMS Provider initialized - messages will be logged")
     
@@ -26,6 +29,17 @@ class DemoProvider(SMSProvider):
         
         # Log the message with timestamp
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Store in memory (class-level list)
+        message_data = {
+            "number": self.message_count,
+            "timestamp": timestamp,
+            "to": to_phone,
+            "from": from_phone or 'Demo Plant',
+            "message": message
+        }
+        DemoProvider._messages.append(message_data)
+        
         logger.info(f"📱 DEMO SMS #{self.message_count} [{timestamp}]")
         logger.info(f"   To: {to_phone}")
         logger.info(f"   From: {from_phone or 'Demo Plant'}")
@@ -39,7 +53,7 @@ class DemoProvider(SMSProvider):
         print(f"💬 Message: {message}")
         print("="*60)
         
-        # Write to logs file
+        # Write to logs file (still do this for local development)
         self._write_to_log_file(to_phone, from_phone or 'Demo Plant', message, timestamp)
         
         return SMSResult(
@@ -58,7 +72,17 @@ class DemoProvider(SMSProvider):
     
     def get_message_count(self) -> int:
         """Get total number of messages logged"""
-        return self.message_count
+        return len(DemoProvider._messages)
+    
+    @classmethod
+    def get_all_messages(cls):
+        """Get all messages from memory"""
+        return cls._messages
+    
+    @classmethod
+    def clear_messages(cls):
+        """Clear all messages from memory"""
+        cls._messages = []
     
     def _write_to_log_file(self, to_phone: str, from_phone: str, message: str, timestamp: str):
         """Write SMS message to logs file"""
