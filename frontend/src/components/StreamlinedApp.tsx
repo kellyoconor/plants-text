@@ -65,6 +65,12 @@ const StreamlinedApp: React.FC = () => {
     setAppState('dashboard');
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('plantTextsUserId');
+    setUser(null);
+    setAppState('onboarding');
+  };
+
   if (appState === 'personalityTester') {
     return <PersonalityTester />;
   }
@@ -85,7 +91,7 @@ const StreamlinedApp: React.FC = () => {
   }
 
   if (appState === 'dashboard' && user) {
-    return <PlantDashboard user={user} onAddMorePlants={handleAddMorePlants} />;
+    return <PlantDashboard user={user} onAddMorePlants={handleAddMorePlants} onLogout={handleLogout} />;
   }
 
   // Fallback

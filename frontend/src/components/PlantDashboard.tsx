@@ -6,9 +6,10 @@ import { User, UserPlant } from '../types';
 interface PlantDashboardProps {
   user: User;
   onAddMorePlants: () => void;
+  onLogout?: () => void;
 }
 
-const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants }) => {
+const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, onLogout }) => {
   const [userPlants, setUserPlants] = useState<UserPlant[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPlant, setSelectedPlant] = useState<UserPlant | null>(null);
@@ -137,12 +138,20 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants }
             </div>
           </div>
           
-          {/* Settings dropdown */}
-          <div className="relative">
+          {/* Settings and Logout */}
+          <div className="flex items-center space-x-2">
             <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
               <Settings className="w-4 h-4" />
               <span className="text-sm font-body">{user.phone}</span>
             </button>
+            {onLogout && (
+              <button 
+                onClick={onLogout}
+                className="text-sm text-gray-600 hover:text-gray-900 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors font-body"
+              >
+                Logout
+              </button>
+            )}
           </div>
         </div>
       </div>
