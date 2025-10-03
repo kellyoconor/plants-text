@@ -409,136 +409,183 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
             )}
 
             {!selectedPlant ? (
-              <div>
-                <div className="relative mb-6">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Search plants (e.g., Snake Plant, Monstera)"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    autoFocus
-                  />
-                </div>
-
-                {!searchTerm && (
-                  <div className="text-center py-8 text-gray-500">
-                    <p className="font-body">Search above to add more leafy friends 🌱</p>
-                  </div>
-                )}
-
-                {filteredPlants.length > 0 && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {filteredPlants.map((plant) => {
-                      const imageUrl = getPlantImage(plant);
-                      return (
-                        <div
-                          key={plant.id}
-                          onClick={() => handleSelectPlant(plant)}
-                          className="border border-gray-200 rounded-lg overflow-hidden cursor-pointer hover:border-green-300 hover:shadow-md transition-all"
-                        >
-                          {/* Plant Image */}
-                          <div className="h-32 w-full bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
-                            {imageUrl ? (
-                              <img
-                                src={imageUrl}
-                                alt={plant.name}
-                                className="w-full h-full object-cover"
-                                onError={(e) => {
-                                  e.currentTarget.style.display = 'none';
-                                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                                }}
-                              />
-                            ) : null}
-                            <div className={`flex items-center justify-center ${imageUrl ? 'hidden' : ''}`}>
-                              <Leaf className="w-8 h-8 text-green-500" />
-                            </div>
-                          </div>
-                          
-                          <div className="p-4">
-                            <h3 className="font-semibold text-gray-900">{plant.name}</h3>
-                            <p className="text-sm text-gray-600 italic">{plant.species}</p>
-                            <div className="mt-2">
-                              <span className="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-                                {plant.difficulty_level} care
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-
-                {searchTerm && filteredPlants.length === 0 && (
-                  <div className="text-center py-12 text-gray-400">
-                    <p className="font-body">No results for "{searchTerm}"</p>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div>
-                <div className="border border-green-200 rounded-lg overflow-hidden mb-4 bg-green-50">
-                  {/* Selected Plant Image */}
-                  <div className="h-40 w-full bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
-                    {(() => {
-                      const imageUrl = getPlantImage(selectedPlant);
-                      return imageUrl ? (
-                        <img
-                          src={imageUrl}
-                          alt={selectedPlant.name}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                          }}
-                        />
-                      ) : (
-                        <Leaf className="w-12 h-12 text-green-500" />
-                      );
-                    })()}
-                    <div className="hidden flex items-center justify-center">
-                      <Leaf className="w-12 h-12 text-green-500" />
-                    </div>
-                  </div>
-                  
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900">{selectedPlant.name}</h3>
-                    <p className="text-sm text-gray-600 italic">{selectedPlant.species}</p>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      What do you call this plant?
-                    </label>
+              <>
+                {/* Search Box */}
+                <div className="mb-6">
+                  <div className="relative">
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <input
                       type="text"
-                      value={currentNickname}
-                      onChange={(e) => setCurrentNickname(e.target.value)}
-                      placeholder="e.g., Fernanda, My Snake Plant, Green Friend"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      autoFocus
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      placeholder="Search for a plant (e.g., Snake Plant, Monstera)"
+                      className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-base font-body transition-all duration-200"
                     />
                   </div>
+                </div>
 
-                  <div className="flex space-x-3">
+                {/* Search Results */}
+                {searchTerm.trim() && (
+                  <div>
+                    <p className="text-sm text-gray-500 mb-4 font-body">
+                      Found {filteredPlants.length} plant{filteredPlants.length !== 1 ? 's' : ''} matching "{searchTerm}"
+                    </p>
+                    
+                    {filteredPlants.length > 0 ? (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {filteredPlants.map((plant) => (
+                          <button
+                            key={plant.id}
+                            onClick={() => handleSelectPlant(plant)}
+                            className="group relative bg-white border-2 border-gray-200 rounded-2xl p-4 hover:border-green-500 hover:shadow-lg transition-all duration-200 text-left"
+                          >
+                            <div className="flex items-center space-x-4">
+                              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center flex-shrink-0">
+                                <Leaf className="w-8 h-8 text-green-500" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h3 className="font-semibold text-gray-900 font-body mb-1 group-hover:text-green-700 transition-colors">
+                                  {plant.name}
+                                </h3>
+                                <p className="text-sm text-gray-500 font-body truncate">
+                                  {plant.species}
+                                </p>
+                                <div className="flex items-center space-x-2 mt-2">
+                                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 font-body">
+                                    {plant.difficulty_level}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="text-gray-300 group-hover:text-green-500 transition-colors">
+                                <ArrowRight className="w-5 h-5" />
+                              </div>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-12">
+                        <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                          <Search className="w-8 h-8 text-gray-400" />
+                        </div>
+                        <p className="text-gray-500 font-body">
+                          No plants found matching "{searchTerm}"
+                        </p>
+                        <p className="text-sm text-gray-400 font-body mt-2">
+                          Try a different search term
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Initial State */}
+                {!searchTerm.trim() && (
+                  <div className="text-center py-12">
+                    <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-50 to-emerald-100 rounded-full flex items-center justify-center">
+                      <Search className="w-10 h-10 text-green-600" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2 font-body">
+                      Search for your plant
+                    </h3>
+                    <p className="text-gray-500 font-body">
+                      Start typing to find your plant in our catalog
+                    </p>
+                    <div className="mt-6 flex flex-wrap justify-center gap-2">
+                      {['Snake Plant', 'Monstera', 'Pothos', 'Peace Lily'].map((suggestion) => (
+                        <button
+                          key={suggestion}
+                          onClick={() => setSearchTerm(suggestion)}
+                          className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-full text-sm font-medium font-body transition-colors"
+                        >
+                          {suggestion}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              // Selected Plant - Give it a nickname
+              <div>
+                <div className="mb-6 pb-6 border-b border-gray-100">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center flex-shrink-0">
+                      <Leaf className="w-10 h-10 text-green-500" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-gray-900 font-body mb-1">
+                        {selectedPlant.name}
+                      </h3>
+                      <p className="text-gray-600 font-body">
+                        {selectedPlant.species}
+                      </p>
+                      <div className="flex items-center space-x-2 mt-2">
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 font-body">
+                          {selectedPlant.difficulty_level}
+                        </span>
+                      </div>
+                    </div>
                     <button
-                      onClick={handleAddPlant}
-                      disabled={!currentNickname.trim() || loading}
-                      className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                      onClick={() => {
+                        setSelectedPlant(null);
+                        setCurrentNickname('');
+                      }}
+                      className="text-gray-400 hover:text-gray-600"
                     >
-                      {loading ? 'Adding...' : 'Add Plant'}
-                    </button>
-                    <button
-                      onClick={() => setSelectedPlant(null)}
-                      className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      Cancel
+                      <ArrowLeft className="w-5 h-5" />
                     </button>
                   </div>
+                </div>
+
+                {/* Nickname Input */}
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2 font-body">
+                    Give your plant a name
+                  </label>
+                  <input
+                    type="text"
+                    value={currentNickname}
+                    onChange={(e) => setCurrentNickname(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && currentNickname.trim()) {
+                        handleAddPlant();
+                      }
+                    }}
+                    placeholder="e.g., Sneaky Steve, Monstera Lisa"
+                    className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-base font-body transition-all duration-200"
+                    autoFocus
+                  />
+                  <p className="mt-2 text-sm text-gray-500 font-body">
+                    Give it a fun name! Your plant will introduce itself with this name.
+                  </p>
+                </div>
+
+                {/* Add Button */}
+                <div className="flex space-x-3">
+                  <button
+                    onClick={() => {
+                      setSelectedPlant(null);
+                      setCurrentNickname('');
+                    }}
+                    className="flex-1 py-4 px-6 border border-gray-300 text-gray-700 rounded-2xl font-medium hover:bg-gray-50 transition-all duration-200 font-body"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleAddPlant}
+                    disabled={!currentNickname.trim() || loading}
+                    className="flex-1 py-4 px-6 bg-green-700 hover:bg-green-800 disabled:bg-gray-300 text-white rounded-2xl font-medium shadow-lg hover:shadow-xl disabled:shadow-none transform hover:scale-[1.02] disabled:scale-100 transition-all duration-200 font-body flex items-center justify-center space-x-2"
+                  >
+                    {loading ? (
+                      <span>Adding...</span>
+                    ) : (
+                      <>
+                        <Check className="w-5 h-5" />
+                        <span>Add Plant</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
             )}
