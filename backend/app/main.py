@@ -21,13 +21,10 @@ def startup_event():
     Base.metadata.create_all(bind=engine)
 
 # CORS middleware for frontend development and production
+# Origins are configured via CORS_ORIGINS environment variable
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000", 
-        "http://localhost:5173",
-        "https://front-end-plants-text-production.up.railway.app"
-    ],
+    allow_origins=settings.get_cors_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
