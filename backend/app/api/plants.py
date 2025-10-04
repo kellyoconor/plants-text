@@ -245,9 +245,24 @@ def add_plant_to_user(plant: UserPlantCreate, db: Session = Depends(get_db)):
     care_service = PlantCareService(db)
     care_service.create_initial_schedule(db_plant.id)
     
-    # Send welcome message for new plant
+    # Generate AI-powered welcome message using plant's personality
     from ..services.sms_manager import sms_manager
-    welcome_message = f"🌱 Hi! I'm {plant.nickname}, your new plant friend! I'll send you care reminders. Reply to this message to start chatting!"
+    from ..services.ai_chat import PlantAIChat
+    
+    ai_chat = PlantAIChat()
+    
+    # Generate a personality-driven welcome message
+    welcome_prompt = f"You've just been adopted! Introduce yourself to your new plant parent. Be excited, in character, and mention that you'll be texting them care reminders. Keep it under 160 characters."
+    welcome_message = ai_chat.generate_chat_response(
+        plant_id=db_plant.id,
+        user_message=welcome_prompt,
+        conversation_history=[]
+    )
+    
+    # Fallback to simple message if AI fails
+    if not welcome_message or len(welcome_message) > 200:
+        welcome_message = f"🌱 Hi! I'm {plant.nickname}, your new plant friend! I'll send you care reminders. Reply to this message to start chatting!"
+    
     welcome_result = sms_manager.send_sms(
         to_phone=user.phone,
         message=welcome_message
