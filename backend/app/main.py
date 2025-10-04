@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .core.config import settings
 from .api import plants, evaluations, sms, sms_demo
+from .core.database import engine, Base
 
 # Create FastAPI instance
 app = FastAPI(
@@ -10,6 +11,14 @@ app = FastAPI(
     description="Plant Texts API - Give your plants a personality!",
     debug=settings.debug
 )
+
+# Create database tables on startup
+@app.on_event("startup")
+def startup_event():
+    """Create database tables if they don't exist"""
+    # Import all models so they're registered with Base
+    from .models import sms_log
+    Base.metadata.create_all(bind=engine)
 
 # CORS middleware for frontend development and production
 app.add_middleware(
