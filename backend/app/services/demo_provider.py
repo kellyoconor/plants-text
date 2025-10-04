@@ -40,6 +40,24 @@ class DemoProvider(SMSProvider):
         }
         DemoProvider._messages.append(message_data)
         
+        # Also save to database for persistence across workers
+        try:
+            from ..core.database import SessionLocal
+            from ..models.sms_log import SMSLog
+            
+            db = SessionLocal()
+            sms_log = SMSLog(
+                to_phone=to_phone,
+                from_phone=from_phone or 'Demo Plant',
+                message=message,
+                status="logged"
+            )
+            db.add(sms_log)
+            db.commit()
+            db.close()
+        except Exception as e:
+            logger.error(f"Failed to save SMS to database: {e}")
+        
         logger.info(f"📱 DEMO SMS #{self.message_count} [{timestamp}]")
         logger.info(f"   To: {to_phone}")
         logger.info(f"   From: {from_phone or 'Demo Plant'}")
