@@ -124,7 +124,16 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
     
     setLoading(true);
     try {
-      const newUser = await findOrCreateUser({ phone: phone.trim() });
+      // Format phone number to E.164 format (+1XXXXXXXXXX)
+      let formattedPhone = phone.trim().replace(/\D/g, ''); // Remove non-digits
+      
+      // Add +1 prefix if not present (assuming US numbers)
+      if (!formattedPhone.startsWith('1')) {
+        formattedPhone = '1' + formattedPhone;
+      }
+      formattedPhone = '+' + formattedPhone;
+      
+      const newUser = await findOrCreateUser({ phone: formattedPhone });
       setUser(newUser);
       setStep('plants');
     } catch (error) {
@@ -224,13 +233,20 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
             <input
               type="tel"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => {
+                let value = e.target.value;
+                // If user is typing and there's no +1, add it
+                if (value && !value.startsWith('+1')) {
+                  value = '+1 ' + value.replace(/^\+?1?\s*/, '');
+                }
+                setPhone(value);
+              }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && phone.trim()) {
                   handlePhoneSubmit();
                 }
               }}
-              placeholder="(555) 123-4567"
+              placeholder="+1 (555) 123-4567"
               className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-lg font-body transition-all duration-200 mb-4"
               autoFocus
             />

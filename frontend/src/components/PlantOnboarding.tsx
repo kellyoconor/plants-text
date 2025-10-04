@@ -117,7 +117,16 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
     
     setLoading(true);
     try {
-      const user = await findOrCreateUser({ phone: phone.trim() });
+      // Format phone number to E.164 format (+1XXXXXXXXXX)
+      let formattedPhone = phone.trim().replace(/\D/g, ''); // Remove non-digits
+      
+      // Add +1 prefix if not present (assuming US numbers)
+      if (!formattedPhone.startsWith('1')) {
+        formattedPhone = '1' + formattedPhone;
+      }
+      formattedPhone = '+' + formattedPhone;
+      
+      const user = await findOrCreateUser({ phone: formattedPhone });
       setUser(user);
       setStep('plants');
     } catch (error) {
@@ -316,8 +325,15 @@ const PlantOnboarding: React.FC<PlantOnboardingProps> = ({ onComplete }) => {
                   <input
                     type="tel"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="(555) 123-4567"
+                    onChange={(e) => {
+                      let value = e.target.value;
+                      // If user is typing and there's no +1, add it
+                      if (value && !value.startsWith('+1')) {
+                        value = '+1 ' + value.replace(/^\+?1?\s*/, '');
+                      }
+                      setPhone(value);
+                    }}
+                    placeholder="+1 (555) 123-4567"
                     className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl text-lg focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-200 bg-white/50 font-body"
                     autoFocus
                   />
