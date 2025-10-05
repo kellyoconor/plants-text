@@ -216,7 +216,7 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
             <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white border-b border-r border-gray-100 rotate-45"></div>
             
             <h1 className="text-3xl font-bold text-gray-900 mb-3 font-body">
-              Give your plants a voice.
+              Your plants have something to say.
             </h1>
             <p className="text-lg text-gray-600 font-body leading-relaxed mb-4">
               They already brighten your space — now they're part of your group chat.
