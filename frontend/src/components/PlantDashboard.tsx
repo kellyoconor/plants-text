@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Leaf, Phone, Plus, MessageCircle, Send, Settings, Edit, Trash2 } from 'lucide-react';
 import { getUserPlants, chatWithPlant, getCareReminder, updatePlant, deletePlant } from '../api';
 import { User, UserPlant } from '../types';
+import { messages } from '../utils/messages';
 
 interface PlantDashboardProps {
   user: User;
@@ -67,7 +68,7 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
       const errorMessage = {
         id: (Date.now() + 1).toString(),
         type: 'plant',
-        message: "Sorry, I'm having trouble responding right now. Try again in a moment!",
+        message: messages.errors.chatFailed.message,
         timestamp: new Date().toISOString()
       };
       setChatMessages(prev => [...prev, errorMessage]);
@@ -233,13 +234,17 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
                   <Leaf className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 font-body">No plants yet</h3>
-                <p className="text-gray-500 text-sm font-body mb-4">Add your first plant to get started</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 font-body">
+                  {messages.emptyStates.noPlants.title}
+                </h3>
+                <p className="text-gray-500 text-sm font-body mb-4">
+                  {messages.emptyStates.noPlants.description}
+                </p>
                 <button
                   onClick={onAddMorePlants}
                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-body transition-colors"
                 >
-                  Add Plant
+                  {messages.emptyStates.noPlants.cta}
                 </button>
               </div>
             ) : (

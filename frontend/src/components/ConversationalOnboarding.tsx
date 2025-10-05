@@ -3,6 +3,7 @@ import { ArrowRight, Leaf, Check, ArrowLeft, ChevronDown } from 'lucide-react';
 import { getPlantCatalog, addPlantToUser, findOrCreateUser } from '../api';
 import { Plant, User } from '../types';
 import { getPlantImage } from '../utils/plantImageMapping';
+import { messages, getLoadingMessage } from '../utils/messages';
 
 interface ConversationalOnboardingProps {
   onComplete: (user: User) => void;
@@ -54,6 +55,7 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
   const [loading, setLoading] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [expandedPlantGroup, setExpandedPlantGroup] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string>('');
 
   // Fade in animation on step change
   useEffect(() => {
@@ -119,8 +121,41 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
     }
   };
 
+  const validatePhone = (phoneNumber: string): { valid: boolean; error?: string } => {
+    const digitsOnly = phoneNumber.replace(/\D/g, '');
+    
+    // Check if it's empty
+    if (!digitsOnly) {
+      return { valid: false, error: messages.errors.phoneInvalid.message };
+    }
+    
+    // Remove leading 1 if present for US numbers
+    const numberWithoutCountry = digitsOnly.startsWith('1') ? digitsOnly.slice(1) : digitsOnly;
+    
+    // Check length
+    if (numberWithoutCountry.length < 10) {
+      return { valid: false, error: messages.errors.phoneTooShort.message };
+    }
+    
+    if (numberWithoutCountry.length > 10) {
+      return { valid: false, error: messages.errors.phoneTooLong.message };
+    }
+    
+    return { valid: true };
+  };
+
   const handlePhoneSubmit = async () => {
     if (!phone.trim()) return;
+    
+    // Clear previous error
+    setPhoneError('');
+    
+    // Validate phone number
+    const validation = validatePhone(phone);
+    if (!validation.valid) {
+      setPhoneError(validation.error || messages.errors.phoneInvalid.message);
+      return;
+    }
     
     setLoading(true);
     try {
@@ -138,7 +173,7 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
       setStep('plants');
     } catch (error) {
       console.error('Failed to create user:', error);
-      alert('Hmm, something went wrong. Mind trying again?');
+      setPhoneError('Hmm, something went wrong. Mind trying again?');
     } finally {
       setLoading(false);
     }
@@ -240,6 +275,8 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
                   value = '+1 ' + value.replace(/^\+?1?\s*/, '');
                 }
                 setPhone(value);
+                // Clear error when user starts typing
+                if (phoneError) setPhoneError('');
               }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && phone.trim()) {
@@ -247,9 +284,17 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
                 }
               }}
               placeholder="+1 (555) 123-4567"
-              className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-lg font-body transition-all duration-200 mb-4"
+              className={`w-full px-4 py-4 bg-gray-50 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-lg font-body transition-all duration-200 ${
+                phoneError ? 'border-red-300 mb-2' : 'border-gray-200 mb-4'
+              }`}
               autoFocus
             />
+            
+            {phoneError && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl">
+                <p className="text-sm text-red-700 font-body">{phoneError}</p>
+              </div>
+            )}
 
             <p className="text-xs text-gray-400 font-body">
               🔒 Your number is safe. We only use it for plant messages.
@@ -270,7 +315,7 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
               className="flex-1 bg-green-700 hover:bg-green-800 disabled:bg-gray-300 text-white py-4 px-6 rounded-2xl font-medium text-lg shadow-lg hover:shadow-xl disabled:shadow-none transform hover:scale-[1.02] disabled:scale-100 transition-all duration-200 font-body flex items-center justify-center space-x-2"
             >
               {loading ? (
-                <span>Setting up...</span>
+                <span>{getLoadingMessage('generalLoading')}</span>
               ) : (
                 <>
                   <span>Continue</span>
@@ -517,7 +562,7 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
                   className="flex-1 py-3 px-6 bg-green-700 hover:bg-green-800 disabled:bg-gray-300 text-white rounded-2xl font-medium shadow-lg hover:shadow-xl disabled:shadow-none transform hover:scale-[1.02] disabled:scale-100 transition-all duration-200 font-body flex items-center justify-center space-x-2"
                 >
                   {loading ? (
-                    <span>Adding...</span>
+                    <span>{getLoadingMessage('addingPlant')}</span>
                   ) : (
                     <>
                       <span>Meet {nickname || 'my plant'}</span>
