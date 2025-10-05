@@ -180,13 +180,13 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
             <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white border-b border-r border-gray-100 rotate-45"></div>
             
             <h1 className="text-3xl font-bold text-gray-900 mb-3 font-body">
-              Bring your plants to life.
+              Let your plants speak for themselves.
             </h1>
             <p className="text-lg text-gray-600 font-body leading-relaxed mb-4">
-              Give them a voice. They'll remind you when they need care, answer your questions, and become part of your daily rhythm.
+              They already brighten your space — now they'll brighten your inbox too.
             </p>
             <p className="text-sm text-gray-500 font-body">
-              Setup takes about a minute.
+              Setup takes less than a minute.
             </p>
           </div>
 
@@ -222,10 +222,10 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2 font-body">
-                  Where should we text you?
+                  Where should your plants text you?
                 </h2>
                 <p className="text-gray-600 font-body">
-                  Your plants will send you care reminders and messages here.
+                  This is where their notes, nudges, and reminders will arrive.
                 </p>
               </div>
             </div>
