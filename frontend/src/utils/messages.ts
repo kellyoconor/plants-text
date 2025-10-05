@@ -57,7 +57,7 @@ export const messages = {
   errors: {
     addPlantFailed: {
       title: "Oops, something went wrong",
-      message: "Couldn't add your plant right now. Maybe try again?",
+      message: "We couldn't add your plant just now. Give it another try?",
       cta: "Try again"
     },
     chatFailed: {

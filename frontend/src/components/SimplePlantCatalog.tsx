@@ -3,6 +3,7 @@ import { Search, ArrowLeft, Leaf, Check } from 'lucide-react';
 import { getPlantCatalog, addPlantToUser } from '../api';
 import { Plant } from '../types';
 import { getPlantImage } from '../utils/plantImageMapping';
+import { messages, getLoadingMessage } from '../utils/messages';
 
 interface SimplePlantCatalogProps {
   userId: number;
@@ -17,6 +18,7 @@ const SimplePlantCatalog: React.FC<SimplePlantCatalogProps> = ({ userId, onPlant
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
   const [nickname, setNickname] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     loadPlants();
@@ -52,6 +54,7 @@ const SimplePlantCatalog: React.FC<SimplePlantCatalogProps> = ({ userId, onPlant
   const handleAddPlant = async () => {
     if (!selectedPlant || !nickname.trim()) return;
 
+    setError('');
     setLoading(true);
     try {
       await addPlantToUser({
@@ -64,7 +67,7 @@ const SimplePlantCatalog: React.FC<SimplePlantCatalogProps> = ({ userId, onPlant
       onPlantAdded();
     } catch (error) {
       console.error('Failed to add plant:', error);
-      alert('Failed to add plant. Please try again.');
+      setError(messages.errors.addPlantFailed.message);
     } finally {
       setLoading(false);
     }
@@ -170,11 +173,11 @@ const SimplePlantCatalog: React.FC<SimplePlantCatalogProps> = ({ userId, onPlant
                       <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
                         <Search className="w-8 h-8 text-gray-400" />
                       </div>
-                      <p className="text-gray-500 font-body">
-                        No plants found matching "{searchTerm}"
+                      <p className="text-gray-700 font-medium font-body mb-1">
+                        No matches for "{searchTerm}"
                       </p>
-                      <p className="text-sm text-gray-400 font-body mt-2">
-                        Try a different search term
+                      <p className="text-sm text-gray-500 font-body">
+                        Try another name or browse our suggestions above
                       </p>
                     </div>
                   )}
@@ -263,6 +266,13 @@ const SimplePlantCatalog: React.FC<SimplePlantCatalogProps> = ({ userId, onPlant
                 </p>
               </div>
 
+              {/* Error Message */}
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl">
+                  <p className="text-sm text-red-700 font-body">{error}</p>
+                </div>
+              )}
+
               {/* Add Button */}
               <div className="flex space-x-3">
                 <button
@@ -280,7 +290,7 @@ const SimplePlantCatalog: React.FC<SimplePlantCatalogProps> = ({ userId, onPlant
                   className="flex-1 py-4 px-6 bg-green-700 hover:bg-green-800 disabled:bg-gray-300 text-white rounded-2xl font-medium shadow-lg hover:shadow-xl disabled:shadow-none transform hover:scale-[1.02] disabled:scale-100 transition-all duration-200 font-body flex items-center justify-center space-x-2"
                 >
                   {loading ? (
-                    <span>Adding...</span>
+                    <span>{getLoadingMessage('addingPlant')}</span>
                   ) : (
                     <>
                       <Check className="w-5 h-5" />
