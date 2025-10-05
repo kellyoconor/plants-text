@@ -126,9 +126,9 @@ export const messages = {
   // Onboarding
   onboarding: {
     welcome: {
-      title: "Let your plants speak for themselves.",
-      subtitle: "They already brighten your space — now they'll brighten your inbox too.",
-      subtext: "Setup takes less than a minute."
+      title: "Give your plants a voice.",
+      subtitle: "They already brighten your space — now they'll text you to stay alive.",
+      subtext: "Setup takes less than a minute — bring them to life."
     },
     phonePrompt: {
       title: "Where should your plants text you?",
