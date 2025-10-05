@@ -8,13 +8,25 @@ A delightful service where **your plants become contacts in your phone** and tex
 
 ## 🌟 Features
 
-- **🎭 Plant Personalities**: Each plant gets an AI-powered personality (dramatic, sarcastic, chill, chatty, zen)
+### Core Experience
+- **🎭 7 Plant Personalities**: Each plant gets a unique AI-powered personality (Sarcastic Survivor, Dramatic Diva, Chill Friend, High Maintenance, Steady Reliable, Independent Survivor, Dramatic Communicator)
 - **💬 Two-way Conversations**: Chat with your plants and get personality-appropriate responses
 - **⏰ Smart Care Reminders**: Plants remind you about watering, fertilizing, and misting in character
-- **🤖 AI Integration**: OpenAI-powered conversations for infinite personality variations
-- **📱 SMS Ready**: Built for Twilio integration (SMS system ready to deploy)
-- **🌿 Plant Database**: 50+ real plants with accurate care requirements
+- **🤖 OpenAI Integration**: Dynamic conversations with context-aware personality responses
+- **📱 SMS Ready**: Built for Twilio integration (full SMS system ready to deploy)
+
+### Plant Care
+- **🌿 209 Plant Database**: Comprehensive plant catalog with accurate care requirements
 - **📊 Care Tracking**: Automatic scheduling and care history tracking
+- **🗓️ Seasonal Adjustments**: Care schedules adapt to seasons and plant needs
+- **📝 Care Logs**: Track watering, fertilizing, repotting with timestamps
+
+### User Experience
+- **✨ Personality-Driven UI**: Every message, error, and loading state has brand voice
+- **⚙️ Settings & Controls**: Full account management, delete plants, delete account
+- **📄 Legal Compliance**: Terms of Service, Privacy Policy, GDPR/CCPA ready
+- **🔒 Privacy First**: SMS consent, opt-out instructions, data deletion
+- **📱 Mobile-First Design**: Optimized for the device where you'll use it most
 
 ## 🚀 Quick Start
 
@@ -87,13 +99,17 @@ frontend/
 
 ## 🌿 Plant Personalities
 
-Each plant type gets matched with an appropriate personality:
+Each plant type gets matched with an appropriate personality (7 distinct types):
 
-- **🎭 Dramatic**: Ferns, Bromeliads - "OH MY LEAVES! I'm DYING of thirst!"
-- **😏 Sarcastic**: Cacti, Snake Plants - "Oh great, day 8 without water. This is fine."
-- **😌 Chill**: Palms, Peace Lilies - "Hey friend, could use a drink when you get a chance"
-- **🗣️ Chatty**: Hanging plants, Ivy - "Did you know I photosynthesize better when you talk to me?"
-- **🧘 Zen**: Chinese Evergreens - "Water flows when it flows... but maybe today?"
+- **😏 Sarcastic Survivor**: Snake Plants, Cacti - "oh look who remembered I exist 🙄"
+- **🎭 Dramatic Diva**: Bromeliads, Orchids - "DARLING this is simply DIVINE! ✨"
+- **😎 Chill Friend**: Pothos, Foliage Plants - "yo what's good? just chillin here 🌱"
+- **💅 High Maintenance**: Fiddle Leaf Figs - "I require filtered water, not that tap nonsense"
+- **👍 Steady Reliable**: Palms, ZZ Plants - "all good here, steady as always"
+- **💪 Independent Survivor**: Air Plants - "don't need much, I got this"
+- **📢 Dramatic Communicator**: Ferns - "OMG you won't BELIEVE how I'm feeling today! 😱"
+
+See [`PERSONALITY_SYSTEM.md`](PERSONALITY_SYSTEM.md) for full character details and system prompts.
 
 ## 🤖 AI Integration
 
@@ -122,18 +138,29 @@ TWILIO_PHONE_NUMBER=your-twilio-number
 ## 🔧 API Endpoints
 
 ### Plant Management
-- `GET /api/v1/catalog` - Browse plants
-- `POST /api/v1/plants` - Add plant to collection
+- `GET /api/v1/catalog` - Browse all plants in catalog
+- `GET /api/v1/catalog/{plant_id}` - Get specific plant details
+- `POST /api/v1/plants` - Add plant to user collection
 - `GET /api/v1/users/{id}/plants` - Get user's plants
+- `PATCH /api/v1/plants/{id}` - Update plant (rename)
+- `DELETE /api/v1/plants/{id}` - Delete plant
+
+### User Management
+- `POST /api/v1/users` - Create new user
+- `POST /api/v1/users/find-or-create` - Find or create user by phone
+- `GET /api/v1/users/{id}` - Get user details
+- `GET /api/v1/users/{id}/dashboard` - Get user dashboard with care schedule
+- `DELETE /api/v1/users/{id}` - Delete user and all data (GDPR compliant)
 
 ### Conversations
-- `POST /api/v1/plants/{id}/chat` - Chat with plant
-- `POST /api/v1/plants/{id}/remind/{task}` - Get care reminder
-- `GET /api/v1/plants/{id}/personality-demo` - View personality samples
+- `POST /api/v1/plants/{id}/chat` - Chat with plant (AI-powered)
+- `POST /api/v1/plants/{id}/remind/{task}` - Get care reminder message
+- `GET /api/v1/plants/{id}/personality-demo` - View personality examples
 
 ### Care Management
 - `POST /api/v1/care/complete` - Log care completion
-- `GET /api/v1/users/{id}/schedule` - Get care schedule
+- `GET /api/v1/users/{id}/schedule` - Get upcoming care schedule
+- `GET /api/v1/personalities` - Get all personality types
 
 ## 🎯 Business Model (from one-pager)
 
@@ -168,10 +195,26 @@ npm run build
 
 ## 📊 Current Status
 
-✅ **Phase 1 Complete**: Core plant database and API  
-✅ **Phase 2 Complete**: Personality engine with AI integration  
-✅ **Phase 3 Complete**: Web interface for testing  
-🚧 **Phase 4 Ready**: SMS integration with Twilio  
+### ✅ Complete (MVP Ready)
+- **Core Platform**: 209 plant database, 7 personality types, AI chat
+- **User Experience**: Conversational onboarding, plant dashboard, settings
+- **Personality System**: OpenAI integration, context-aware responses
+- **User Controls**: Delete plants, delete account, logout
+- **Legal Compliance**: Terms of Service, Privacy Policy, SMS consent
+- **UI/UX Polish**: Personality-driven messages, modals, error handling
+- **Backend API**: Full REST API with all CRUD operations
+- **Care System**: Scheduling, tracking, history logging
+
+### 🚧 In Progress
+- **SMS Delivery**: Twilio integration ready, awaiting account approval
+- **SMS Webhooks**: Two-way SMS processing (backend ready, needs Twilio setup)
+
+### 🔮 Future Enhancements
+- Character avatars for contact cards (Issue #40)
+- Advanced care reminders with ML
+- Photo-based plant health diagnosis
+- IoT sensor integration
+- Social features and plant community  
 
 ## 🤝 Contributing
 
