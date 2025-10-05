@@ -127,7 +127,7 @@ export const messages = {
   onboarding: {
     welcome: {
       title: "Give your plants a voice.",
-      subtitle: "They already brighten your space — now they'll text you to stay alive.",
+      subtitle: "They already brighten your space — now they're part of your group chat.",
       subtext: "Setup takes less than a minute — bring them to life."
     },
     phonePrompt: {
