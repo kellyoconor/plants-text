@@ -108,6 +108,34 @@ def find_or_create_user(user: UserCreate, db: Session = Depends(get_db)):
     return db_user
 
 
+@router.delete("/users/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(get_db)):
+    """Delete user and all associated data (plants, care history, schedules)"""
+    # Get the user
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Get all user's plants
+    user_plants = db.query(UserPlant).filter(UserPlant.user_id == user_id).all()
+    
+    # Delete care history and schedules for each plant
+    for plant in user_plants:
+        # Delete care history
+        db.query(CareHistory).filter(CareHistory.user_plant_id == plant.id).delete()
+        # Delete care schedules
+        db.query(CareSchedule).filter(CareSchedule.user_plant_id == plant.id).delete()
+    
+    # Delete all user plants
+    db.query(UserPlant).filter(UserPlant.user_id == user_id).delete()
+    
+    # Delete the user
+    db.delete(user)
+    db.commit()
+    
+    return {"message": "User and all associated data deleted successfully"}
+
+
 @router.get("/users/{user_id}/dashboard", response_model=UserDashboard)
 def get_user_dashboard(user_id: str, db: Session = Depends(get_db)):
     """Get user dashboard with plants and upcoming care"""

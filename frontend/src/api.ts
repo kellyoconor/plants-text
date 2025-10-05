@@ -55,6 +55,11 @@ export const getUserDashboard = async (id: number) => {
   return response.data;
 };
 
+export const deleteUser = async (id: number): Promise<{ message: string }> => {
+  const response = await api.delete(`/users/${id}`);
+  return response.data;
+};
+
 // User Plant API
 export const addPlantToUser = async (plantData: {
   user_id: number;

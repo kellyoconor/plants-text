@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Leaf, Phone, Plus, MessageCircle, Send, Settings, Edit, Trash2 } from 'lucide-react';
-import { getUserPlants, chatWithPlant, getCareReminder, updatePlant, deletePlant } from '../api';
+import { getUserPlants, chatWithPlant, getCareReminder, updatePlant, deletePlant, deleteUser } from '../api';
 import { User, UserPlant } from '../types';
 import { messages } from '../utils/messages';
+import ConfirmationModal from './ConfirmationModal';
+import SettingsModal from './SettingsModal';
 
 interface PlantDashboardProps {
   user: User;
@@ -19,6 +21,10 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
   const [sendingMessage, setSendingMessage] = useState(false);
   const [editingPlantId, setEditingPlantId] = useState<number | null>(null);
   const [editingNickname, setEditingNickname] = useState('');
+  const [plantToDelete, setPlantToDelete] = useState<UserPlant | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string>('');
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     const loadUserData = async () => {
@@ -126,23 +132,32 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
     setEditingNickname('');
   };
 
-  const handleDeletePlant = async (plantId: number) => {
-    if (!window.confirm('Are you sure you want to delete this plant?')) return;
+  const handleDeletePlant = async () => {
+    if (!plantToDelete) return;
+    
+    setIsDeleting(true);
+    setDeleteError('');
     
     try {
-      await deletePlant(plantId);
+      await deletePlant(plantToDelete.id);
+      
       // Reload plants to get updated data
       const plants = await getUserPlants(user.id);
       setUserPlants(plants);
       
       // Clear selected plant if it was deleted
-      if (selectedPlant?.id === plantId) {
+      if (selectedPlant?.id === plantToDelete.id) {
         setSelectedPlant(null);
         setChatMessages([]);
       }
+      
+      // Close modal
+      setPlantToDelete(null);
     } catch (error) {
       console.error('Failed to delete plant:', error);
-      alert('Failed to delete plant. Please try again.');
+      setDeleteError(messages.errors.generic.message);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -195,7 +210,10 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
           
           {/* Settings and Logout */}
           <div className="flex items-center space-x-2">
-            <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+            <button 
+              onClick={() => setShowSettings(true)}
+              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+            >
               <Settings className="w-4 h-4" />
               <span className="text-sm font-body">{user.phone}</span>
             </button>
@@ -328,7 +346,7 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
                               <button 
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  handleDeletePlant(userPlant.id);
+                                  setPlantToDelete(userPlant);
                                 }}
                                 className="p-1 text-gray-400 hover:text-red-600 rounded"
                                 title="Delete"
@@ -460,6 +478,42 @@ const PlantDashboard: React.FC<PlantDashboardProps> = ({ user, onAddMorePlants, 
           )}
         </div>
       </div>
+
+      {/* Delete Plant Confirmation Modal */}
+      {plantToDelete && (
+        <ConfirmationModal
+          isOpen={true}
+          onClose={() => {
+            setPlantToDelete(null);
+            setDeleteError('');
+          }}
+          onConfirm={handleDeletePlant}
+          title={messages.confirmations.deletePlant(plantToDelete.nickname).title}
+          message={messages.confirmations.deletePlant(plantToDelete.nickname).message}
+          confirmText={messages.confirmations.deletePlant(plantToDelete.nickname).confirmText}
+          cancelText={messages.confirmations.deletePlant(plantToDelete.nickname).cancelText}
+          isDangerous={true}
+          isLoading={isDeleting}
+        />
+      )}
+
+      {/* Settings Modal */}
+      <SettingsModal
+        isOpen={showSettings}
+        onClose={() => setShowSettings(false)}
+        userPhone={user.phone}
+        onDeleteAccount={async () => {
+          await deleteUser(user.id);
+          // Close settings modal
+          setShowSettings(false);
+          // Logout (clears localStorage and returns to onboarding)
+          if (onLogout) onLogout();
+        }}
+        onLogout={() => {
+          setShowSettings(false);
+          if (onLogout) onLogout();
+        }}
+      />
     </div>
   );
 };

@@ -56,6 +56,7 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
   const [showContent, setShowContent] = useState(false);
   const [expandedPlantGroup, setExpandedPlantGroup] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string>('');
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   // Fade in animation on step change
   useEffect(() => {
@@ -296,9 +297,41 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
               </div>
             )}
 
-            <p className="text-xs text-gray-400 font-body">
+            <p className="text-xs text-gray-400 font-body mb-4">
               🔒 Your number is safe. We only use it for plant messages.
             </p>
+
+            {/* Terms & Privacy Checkbox */}
+            <label className="flex items-start space-x-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                checked={agreedToTerms}
+                onChange={(e) => setAgreedToTerms(e.target.checked)}
+                className="mt-1 w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500 cursor-pointer"
+              />
+              <span className="text-sm text-gray-600 font-body">
+                I agree to the{' '}
+                <a
+                  href="/terms.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-green-600 hover:text-green-700 underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Terms of Service
+                </a>{' '}
+                and{' '}
+                <a
+                  href="/privacy.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-green-600 hover:text-green-700 underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Privacy Policy
+                </a>
+              </span>
+            </label>
           </div>
 
           <div className="flex space-x-3">
@@ -311,7 +344,7 @@ const ConversationalOnboarding: React.FC<ConversationalOnboardingProps> = ({ onC
             </button>
             <button
               onClick={handlePhoneSubmit}
-              disabled={!phone.trim() || loading}
+              disabled={!phone.trim() || loading || !agreedToTerms}
               className="flex-1 bg-green-700 hover:bg-green-800 disabled:bg-gray-300 text-white py-4 px-6 rounded-2xl font-medium text-lg shadow-lg hover:shadow-xl disabled:shadow-none transform hover:scale-[1.02] disabled:scale-100 transition-all duration-200 font-body flex items-center justify-center space-x-2"
             >
               {loading ? (

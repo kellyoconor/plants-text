@@ -101,7 +101,26 @@ export const messages = {
     }),
     plantDeleted: (nickname: string) => ({
       message: `${nickname} has been removed. (We'll miss the drama.)`,
-    })
+    }),
+    accountDeleted: {
+      message: "Your account has been deleted. Your plants will miss you.",
+    }
+  },
+
+  // Confirmation Messages
+  confirmations: {
+    deletePlant: (nickname: string) => ({
+      title: `Remove ${nickname}?`,
+      message: "This plant will stop texting you. You can always add them back later.",
+      confirmText: "Remove plant",
+      cancelText: "Keep them"
+    }),
+    deleteAccount: {
+      title: "Delete your account?",
+      message: "This will permanently delete all your plants and data. This can't be undone.",
+      confirmText: "Delete everything",
+      cancelText: "Never mind"
+    }
   },
 
   // Onboarding
