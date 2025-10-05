@@ -29,6 +29,11 @@ body {
   letter-spacing: -0.02em;
 }
 
+.font-landing {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  letter-spacing: -0.02em;
+}
+
 .tracking-wide {
   letter-spacing: 0.05em;
 }
@@ -65,15 +70,48 @@ body {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-fade-in-delay-1 {
+  animation: fadeIn 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeIn 0.8s ease-out 0.4s forwards;
+  opacity: 0;
 }
 
 .delay-100 {
-  animation-delay: 0.1s;
+  animation-delay: 0.1s !important;
 }
 
 .delay-200 {
-  animation-delay: 0.2s;
+  animation-delay: 0.2s !important;
+}
+
+.delay-300 {
+  animation-delay: 0.3s !important;
+}
+
+.delay-500 {
+  animation-delay: 0.5s !important;
+}
+
+.delay-700 {
+  animation-delay: 0.7s !important;
+}
+
+.delay-900 {
+  animation-delay: 0.9s !important;
+}
+
+/* Custom gradient utilities */
+@layer utilities {
+  .bg-gradient-radial {
+    background-image: radial-gradient(var(--tw-gradient-stops));
+  }
 }
 
 code {
