@@ -109,7 +109,7 @@ Each plant type gets matched with an appropriate personality (7 distinct types):
 - **💪 Independent Survivor**: Air Plants - "don't need much, I got this"
 - **📢 Dramatic Communicator**: Ferns - "OMG you won't BELIEVE how I'm feeling today! 😱"
 
-See [`PERSONALITY_SYSTEM.md`](PERSONALITY_SYSTEM.md) for full character details and system prompts.
+See [`PERSONALITY_SYSTEM.md`](docs/product/PERSONALITY_SYSTEM.md) for full character details and system prompts.
 
 ## 🤖 AI Integration
 
@@ -215,6 +215,16 @@ npm run build
 - Photo-based plant health diagnosis
 - IoT sensor integration
 - Social features and plant community  
+
+## 📚 Documentation
+
+All documentation has been organized into [`/docs`](./docs/):
+
+- **[Product Docs](./docs/product/)** - Product vision, roadmaps, personality system, investor brief
+- **[Technical Docs](./docs/technical/)** - Deployment, security, testing, Twilio setup
+- **[Evaluation Docs](./docs/evaluation/)** - AI evaluation framework and results
+
+See [`docs/README.md`](./docs/README.md) for the complete documentation index.
 
 ## 🤝 Contributing
 
