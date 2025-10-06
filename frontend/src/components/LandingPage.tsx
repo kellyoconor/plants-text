@@ -54,21 +54,21 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-green-50/30 via-white to-emerald-50/30">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-green-100/50 shadow-sm shadow-green-900/5">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-600/25">
               <Leaf className="w-5 h-5 text-white" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
               SproutLine
             </span>
           </div>
           <button
             onClick={onGetStarted}
-            className="px-6 py-2 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-all duration-300"
+            className="px-6 py-2.5 bg-gradient-to-r from-gray-900 to-slate-800 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-gray-900/25 transition-all duration-300 hover:scale-105"
           >
             Try It
           </button>
@@ -76,26 +76,31 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-green-50/50 via-white to-emerald-50/30 pt-20 pb-0 overflow-visible" style={{ minHeight: '650px' }}>
+      <section className="relative pt-20 pb-0 overflow-visible" style={{ minHeight: '650px' }}>
+        {/* Layered gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-green-50/60 via-emerald-50/40 to-teal-50/30" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/60 to-transparent" />
+        
         <div className="max-w-7xl mx-auto px-6 py-12 relative" style={{ zIndex: 1 }}>
           <div className="grid lg:grid-cols-5 gap-2 items-center">
             {/* Left: Text Content */}
-            <div className="lg:col-span-2 space-y-6 relative" style={{ zIndex: 30 }}>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black font-landing text-gray-900 leading-tight">
+            <div className="lg:col-span-2 space-y-8 relative" style={{ zIndex: 30 }}>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black font-landing bg-gradient-to-br from-gray-900 via-gray-800 to-slate-700 bg-clip-text text-transparent leading-tight">
                 Your plants,
                 <br />
                 texting you!
               </h1>
-              <p className="text-xl md:text-2xl text-gray-600 font-body leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-700 font-body leading-relaxed max-w-xl">
                 They'll remind you to water them, roast you when you forget, and become the best group chat you've ever been in.
               </p>
               <div>
                 <button
                   onClick={onGetStarted}
-                  className="px-8 py-4 bg-gray-900 text-white rounded-2xl font-semibold text-lg hover:bg-gray-800 hover:scale-105 transition-all duration-300 relative"
+                  className="px-8 py-4 bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 text-white rounded-2xl font-semibold text-lg hover:shadow-2xl hover:shadow-gray-900/30 hover:scale-105 transition-all duration-500 relative group"
                   style={{ zIndex: 40 }}
                 >
-                  Get on the list 🌱
+                  <span className="relative z-10">Get on the list 🌱</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </button>
               </div>
             </div>
@@ -132,19 +137,28 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             zIndex: 20
           }}
         >
+          {/* Gradient blend layer behind wave */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/5 to-slate-900/10" />
+          
           <svg 
             className="relative block w-full h-full" 
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 1440 250" 
             preserveAspectRatio="none"
             style={{
-              filter: 'drop-shadow(0 -8px 24px rgba(0, 0, 0, 0.08))'
+              filter: 'drop-shadow(0 -8px 32px rgba(0, 0, 0, 0.12))'
             }}
           >
             {/* Wave rises up ~80px into the hero */}
+            <defs>
+              <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#1e293b" stopOpacity="1" />
+                <stop offset="100%" stopColor="#0f172a" stopOpacity="1" />
+              </linearGradient>
+            </defs>
             <path 
               d="M0,80 Q360,25 720,80 T1440,80 L1440,250 L0,250 Z" 
-              fill="#0f172a"
+              fill="url(#waveGradient)"
             />
           </svg>
         </div>
@@ -163,10 +177,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 1440 170" 
             preserveAspectRatio="none"
+            style={{
+              filter: 'drop-shadow(0 -4px 20px rgba(0, 0, 0, 0.1))'
+            }}
           >
+            <defs>
+              <linearGradient id="waveGradientMobile" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#1e293b" stopOpacity="1" />
+                <stop offset="100%" stopColor="#0f172a" stopOpacity="1" />
+              </linearGradient>
+            </defs>
             <path 
               d="M0,65 Q360,15 720,65 T1440,65 L1440,170 L0,170 Z" 
-              fill="#0f172a"
+              fill="url(#waveGradientMobile)"
             />
           </svg>
         </div>
@@ -175,13 +198,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       {/* How It Works - Alternating Steps */}
       <section className="relative -mt-[70px]">
         {/* Header */}
-        <div className="bg-slate-900 py-20 text-center" style={{ position: 'relative', zIndex: 30 }}>
-          <h2 className="text-4xl md:text-5xl font-bold font-landing text-white mb-4">
-            How It Works
-          </h2>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto font-body leading-relaxed px-6">
-            Three simple steps to never kill a plant again
-          </p>
+        <div className="relative py-24 text-center overflow-hidden" style={{ position: 'relative', zIndex: 30 }}>
+          {/* Gradient background layers */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-green-900/20 via-transparent to-emerald-900/20" />
+          
+          <div className="relative z-10">
+            <h2 className="text-4xl md:text-5xl font-bold font-landing text-white mb-6">
+              How It Works
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto font-body leading-relaxed px-6">
+              Three simple steps to never kill a plant again
+            </p>
+          </div>
         </div>
 
         {/* Step 1 - Text Left, Animation Right */}
