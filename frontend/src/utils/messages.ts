@@ -126,7 +126,7 @@ export const messages = {
   // Onboarding
   onboarding: {
     welcome: {
-      title: "Your plants have something to say.",
+      title: "Your plants want to text you.",
       subtitle: "They already brighten your space — now they're part of your group chat.",
       subtext: "Setup takes less than a minute — bring them to life."
     },

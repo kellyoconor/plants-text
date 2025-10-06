@@ -147,7 +147,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
             {/* Footer */}
             <div className="border-t border-gray-200 px-6 py-4 bg-gray-50 rounded-b-2xl">
               <p className="text-xs text-gray-500 font-body text-center">
-                Plant Texts v1.0 • Made with 🌱 for plant parents
+                Sproutline v1.0 • Made with 🌱 for plant parents
               </p>
             </div>
           </div>
