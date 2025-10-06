@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { ArrowRight, Leaf, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Leaf, CheckCircle } from 'lucide-react';
+import Lottie from 'lottie-react';
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -10,6 +11,29 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   const [phone, setPhone] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [animationData, setAnimationData] = useState(null);
+  const [iMessageAnimationData, setIMessageAnimationData] = useState(null);
+  const [searchAnimationData, setSearchAnimationData] = useState(null);
+
+  useEffect(() => {
+    // Load the notification animation from the public folder
+    fetch('/images/mockups/one-ttext.json')
+      .then(response => response.json())
+      .then(data => setAnimationData(data))
+      .catch(error => console.error('Error loading animation:', error));
+    
+    // Load the iMessage animation
+    fetch('/images/mockups/iMessage.json')
+      .then(response => response.json())
+      .then(data => setIMessageAnimationData(data))
+      .catch(error => console.error('Error loading iMessage animation:', error));
+    
+    // Load the Search animation
+    fetch('/images/mockups/Search.json')
+      .then(response => response.json())
+      .then(data => setSearchAnimationData(data))
+      .catch(error => console.error('Error loading Search animation:', error));
+  }, []);
 
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,10 +47,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-green-100">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
               <Leaf className="w-5 h-5 text-white" />
@@ -37,7 +61,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           </div>
           <button
             onClick={onGetStarted}
-            className="px-6 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full font-medium hover:shadow-lg transition-all duration-300 hover:scale-105"
+            className="px-6 py-2 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-all duration-300"
           >
             Try It
           </button>
@@ -45,248 +69,251 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       </header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 relative overflow-hidden bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
-        <div className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
-          <h1 className="text-6xl md:text-7xl font-bold font-landing text-gray-900 leading-tight animate-fade-in">
-            Your Plants,
-            <br />
-            <span className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
-              Texting You
-            </span>
-          </h1>
-          <p className="text-2xl md:text-3xl text-gray-600 max-w-2xl mx-auto font-body leading-relaxed animate-fade-in-delay-1">
-            Give them a personality. They'll remind you to water them, roast you when you forget, and become the best group chat you've ever been in.
-          </p>
-          <div className="animate-fade-in-delay-2">
-            <button
-              onClick={onGetStarted}
-              className="group px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 inline-flex items-center space-x-2"
-            >
-              <span>Get Started</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </div>
-        </div>
-      </section>
+      <section className="relative bg-gradient-to-br from-green-50/50 via-white to-emerald-50/30 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 pt-24 pb-32 md:pb-40">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text Content */}
+            <div className="space-y-8 z-10 relative">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black font-landing text-gray-900 leading-tight">
+                Your plants,
+                <br />
+                texting you!
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-600 font-body leading-relaxed">
+                They'll remind you to water them, roast you when you forget, and become the best group chat you've ever been in.
+              </p>
+              <div>
+                <button
+                  onClick={onGetStarted}
+                  className="px-8 py-4 bg-gray-900 text-white rounded-2xl font-semibold text-lg hover:bg-gray-800 transition-all duration-300"
+                >
+                  Join the waitlist
+                </button>
+              </div>
+            </div>
 
-      {/* Premium Showcase Section */}
-      <section className="py-20 md:py-28 px-6 bg-gradient-to-b from-gray-900 to-gray-800 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto relative z-10">
-          {/* iPhone with video/image */}
-          <div className="flex justify-center items-center opacity-0 animate-fade-in">
-            <div className="relative group">
-              {/* Soft glow */}
-              <div className="absolute -inset-8 bg-gradient-to-br from-green-500/20 via-emerald-500/20 to-teal-500/20 rounded-[4rem] blur-3xl"></div>
-              
-              {/* iPhone frame mask */}
-              <div className="relative transform transition-all duration-500 group-hover:scale-[1.02]">
-                <div className="relative w-full max-w-sm md:max-w-md mx-auto aspect-[9/19.5] rounded-[3rem] overflow-hidden shadow-2xl">
-                  {/* Static image (replace with video when ready) */}
-                  <img 
-                    src="/images/mockups/Thread-portrait.png" 
-                    alt="Rocky Rootboa conversation showing sarcastic plant personality"
-                    className="w-full h-full object-cover"
+            {/* Right: iPhone Animation */}
+            <div className="hidden lg:flex justify-end relative z-10">
+              <div className="w-full max-w-[550px]">
+                {iMessageAnimationData && (
+                  <Lottie 
+                    animationData={iMessageAnimationData}
+                    loop={true}
+                    className="w-full h-auto drop-shadow-2xl"
                   />
-                  
-                  {/* Uncomment for video:
-                  <video 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                    className="w-full h-full object-cover"
-                  >
-                    <source src="/images/mockups/Thread-portrait.mp4" type="video/mp4" />
-                  </video>
-                  */}
-                </div>
-                
-                {/* iPhone notch overlay (optional) */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-8 bg-black rounded-b-3xl opacity-90"></div>
+                )}
               </div>
             </div>
           </div>
-
         </div>
 
-        {/* Curved SVG divider to next section */}
-        <div className="absolute bottom-0 left-0 right-0 translate-y-1">
-          <svg 
-            viewBox="0 0 1440 120" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-auto"
-            preserveAspectRatio="none"
-          >
-            <path 
-              d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" 
-              fill="rgb(240, 253, 244)"
-            />
+        {/* Wave that cuts across the bottom */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 -mb-px">
+          <svg className="relative block w-full h-16 md:h-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path d="M0,40 Q360,100 720,40 T1440,40 L1440,100 L0,100 Z" className="fill-slate-900"></path>
           </svg>
         </div>
       </section>
 
-      {/* How It Works - Enhanced Single Section */}
-      <section className="py-32 px-6 bg-gradient-to-b from-green-50 via-white to-emerald-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-6xl font-bold font-landing text-gray-900 mb-6">
-              How It Works
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-body leading-relaxed">
-              Three simple steps to never kill a plant again
-            </p>
-          </div>
-          
-          <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
-            {/* Step 1 */}
-            <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-br from-green-100 to-emerald-100 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
-              <div className="relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center mb-6">
-                  <div className="text-6xl">📱</div>
+      {/* How It Works - Dark Section */}
+      <section className="relative bg-slate-900">
+        <div className="relative pt-20 pb-32 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold font-landing text-white mb-4">
+                How It Works
+              </h2>
+              <p className="text-lg text-gray-300 max-w-3xl mx-auto font-body leading-relaxed">
+                Three simple steps to never kill a plant again
+              </p>
+            </div>
+            
+            <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
+              {/* Step 1 - Search Animation */}
+              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 hover:bg-white/20 transition-all duration-300">
+                <div className="relative w-full max-w-sm h-auto mx-auto mb-6">
+                  <div className="absolute -inset-6 bg-gradient-to-br from-green-400/20 via-emerald-400/20 to-teal-400/20 rounded-full blur-3xl"></div>
+                  <div className="relative">
+                    {searchAnimationData && (
+                      <Lottie 
+                        animationData={searchAnimationData}
+                        loop={true}
+                        className="w-full h-auto drop-shadow-2xl"
+                      />
+                    )}
+                  </div>
                 </div>
-                <h3 className="text-3xl font-bold font-landing text-gray-900 mb-4 text-center">Add your plants</h3>
-                <p className="text-lg text-gray-600 font-body leading-relaxed text-center mb-6">
+                <h3 className="text-3xl font-bold font-landing text-white mb-4 text-center">Add your plants</h3>
+                <p className="text-lg text-gray-300 font-body leading-relaxed text-center mb-6">
                   Pick from our catalog, give them names and personalities
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-green-600 text-sm">✓</span>
+                    <div className="w-5 h-5 rounded-full bg-green-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-400 text-xs">✓</span>
                     </div>
-                    <p className="text-gray-600 font-body">Choose from 200+ plant species</p>
+                    <p className="text-gray-300 font-body">Choose from 200+ plant species</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-green-600 text-sm">✓</span>
+                    <div className="w-5 h-5 rounded-full bg-green-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-400 text-xs">✓</span>
                     </div>
-                    <p className="text-gray-600 font-body">Pick a personality type</p>
+                    <p className="text-gray-300 font-body">Pick a personality type</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-green-600 text-sm">✓</span>
+                    <div className="w-5 h-5 rounded-full bg-green-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-400 text-xs">✓</span>
                     </div>
-                    <p className="text-gray-600 font-body">Give them a unique name</p>
+                    <p className="text-gray-300 font-body">Give them a unique name</p>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Step 2 */}
-            <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
-              <div className="relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-emerald-100 to-teal-100 rounded-2xl flex items-center justify-center mb-6">
-                  <div className="text-6xl">💬</div>
+              {/* Step 2 - Hero Animation */}
+              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 hover:bg-white/20 transition-all duration-300">
+                <div className="relative w-full max-w-sm h-auto mx-auto mb-6">
+                  <div className="absolute -inset-6 bg-gradient-to-br from-green-400/20 via-emerald-400/20 to-teal-400/20 rounded-full blur-3xl"></div>
+                  <div className="relative">
+                    {animationData && (
+                      <Lottie 
+                        animationData={animationData}
+                        loop={true}
+                        className="w-full h-auto drop-shadow-2xl"
+                      />
+                    )}
+                  </div>
                 </div>
-                <h3 className="text-3xl font-bold font-landing text-gray-900 mb-4 text-center">They text you</h3>
-                <p className="text-lg text-gray-600 font-body leading-relaxed text-center mb-6">
+                <h3 className="text-3xl font-bold font-landing text-white mb-4 text-center">They text you</h3>
+                <p className="text-lg text-gray-300 font-body leading-relaxed text-center mb-6">
                   Get reminders, jokes, and updates — all in their unique voice
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-emerald-600 text-sm">✓</span>
+                    <div className="w-5 h-5 rounded-full bg-green-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-400 text-xs">✓</span>
                     </div>
-                    <p className="text-gray-600 font-body">Sarcastic, dramatic, or chill vibes</p>
+                    <p className="text-gray-300 font-body">Sarcastic, dramatic, or chill vibes</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-emerald-600 text-sm">✓</span>
+                    <div className="w-5 h-5 rounded-full bg-green-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-400 text-xs">✓</span>
                     </div>
-                    <p className="text-gray-600 font-body">Watering & care reminders</p>
+                    <p className="text-gray-300 font-body">Watering & care reminders</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-emerald-600 text-sm">✓</span>
+                    <div className="w-5 h-5 rounded-full bg-green-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-400 text-xs">✓</span>
                     </div>
-                    <p className="text-gray-600 font-body">Weather-based adjustments</p>
+                    <p className="text-gray-300 font-body">Weather-based adjustments</p>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Step 3 */}
-            <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-br from-teal-100 to-green-100 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
-              <div className="relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-teal-100 to-green-100 rounded-2xl flex items-center justify-center mb-6">
-                  <div className="text-6xl">🌿</div>
-                </div>
-                <h3 className="text-3xl font-bold font-landing text-gray-900 mb-4 text-center">Watch them thrive</h3>
-                <p className="text-lg text-gray-600 font-body leading-relaxed text-center mb-6">
+              {/* Step 3 */}
+              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 hover:bg-white/20 transition-all duration-300">
+                <div className="text-6xl mb-6 text-center">🌿</div>
+                <h3 className="text-3xl font-bold font-landing text-white mb-4 text-center">Watch them thrive</h3>
+                <p className="text-lg text-gray-300 font-body leading-relaxed text-center mb-6">
                   Never forget to water. Healthier plants, more fun.
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-teal-600 text-sm">✓</span>
+                    <div className="w-5 h-5 rounded-full bg-green-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-400 text-xs">✓</span>
                     </div>
-                    <p className="text-gray-600 font-body">Track growth & health</p>
+                    <p className="text-gray-300 font-body">Track growth & health</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-teal-600 text-sm">✓</span>
+                    <div className="w-5 h-5 rounded-full bg-green-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-400 text-xs">✓</span>
                     </div>
-                    <p className="text-gray-600 font-body">Build relationships with your plants</p>
+                    <p className="text-gray-300 font-body">Build relationships with your plants</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-teal-600 text-sm">✓</span>
+                    <div className="w-5 h-5 rounded-full bg-green-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-400 text-xs">✓</span>
                     </div>
-                    <p className="text-gray-600 font-body">Join the best group chat ever</p>
+                    <p className="text-gray-300 font-body">Join the best group chat ever</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Bottom Wave */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] -mb-px">
+          <svg className="relative block w-full h-16 md:h-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path d="M0,60 Q360,0 720,60 T1440,60 L1440,100 L0,100 Z" fill="#ecfdf5"></path>
+          </svg>
+        </div>
       </section>
 
       {/* Waitlist Section */}
-      <section id="waitlist" className="py-24 px-6 bg-gradient-to-b from-emerald-50 to-green-50">
-        <div className="max-w-md mx-auto">
-          <div className="bg-gradient-to-br from-green-600 via-emerald-600 to-teal-600 rounded-3xl p-12 text-white shadow-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-3xl">
-            {!isSubmitted ? (
-              <div className="text-center space-y-6">
-                <h3 className="text-3xl font-bold font-landing">Join the waitlist</h3>
-                <p className="text-green-50 font-body">Get notified when we launch new features</p>
-
-                <form onSubmit={handleWaitlistSubmit} className="space-y-3">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email"
-                    required
-                    className="w-full px-5 py-3 rounded-full text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all"
-                  />
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="Your phone (optional)"
-                    className="w-full px-5 py-3 rounded-full text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all"
-                  />
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full px-6 py-3 bg-white text-green-700 rounded-full font-semibold hover:bg-green-50 transition-all duration-300 hover:scale-105 disabled:opacity-50"
-                  >
-                    {isLoading ? 'Joining...' : 'Join Waitlist'}
-                  </button>
-                </form>
-              </div>
-            ) : (
-              <div className="text-center space-y-4">
-                <div className="flex justify-center">
-                  <CheckCircle className="w-16 h-16" />
+      <section id="waitlist" className="py-20 px-6 bg-gradient-to-b from-emerald-50 to-green-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left: iMessage Animation */}
+            <div className="flex justify-center lg:justify-start">
+              <div className="relative group w-full">
+                {/* Soft glow effect */}
+                <div className="absolute -inset-8 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-indigo-500/10 rounded-[3rem] blur-3xl"></div>
+                
+                {/* iMessage Animation */}
+                <div className="relative transform transition-all duration-500 group-hover:scale-[1.02]">
+                  {iMessageAnimationData && (
+                    <Lottie 
+                      animationData={iMessageAnimationData}
+                      loop={true}
+                      className="w-full h-auto drop-shadow-2xl"
+                    />
+                  )}
                 </div>
-                <h3 className="text-3xl font-bold font-landing">You're in! 🌱</h3>
-                <p className="text-green-50 font-body">We'll be in touch soon</p>
               </div>
-            )}
+            </div>
+
+            {/* Right: Waitlist Form */}
+            <div className="bg-gradient-to-br from-green-600 via-emerald-600 to-teal-600 rounded-3xl p-12 text-white shadow-2xl">
+              {!isSubmitted ? (
+                <div className="text-center space-y-6">
+                  <h3 className="text-3xl font-bold font-landing">Join the waitlist</h3>
+                  <p className="text-green-50 font-body">Get notified when we launch new features</p>
+
+                  <form onSubmit={handleWaitlistSubmit} className="space-y-3">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Your email"
+                      required
+                      className="w-full px-5 py-3 rounded-full text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all"
+                    />
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="Your phone (optional)"
+                      className="w-full px-5 py-3 rounded-full text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all"
+                    />
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full px-6 py-3 bg-white text-green-700 rounded-full font-semibold hover:bg-green-50 transition-all duration-300 hover:scale-105 disabled:opacity-50"
+                    >
+                      {isLoading ? 'Joining...' : 'Join Waitlist'}
+                    </button>
+                  </form>
+                </div>
+              ) : (
+                <div className="text-center space-y-4">
+                  <div className="flex justify-center">
+                    <CheckCircle className="w-16 h-16" />
+                  </div>
+                  <h3 className="text-3xl font-bold font-landing">You're in! 🌱</h3>
+                  <p className="text-green-50 font-body">We'll be in touch soon</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
