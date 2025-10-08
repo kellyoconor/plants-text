@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     
     # Production settings
     allowed_hosts: str = "*"  # Comma-separated list
-    cors_origins: str = "http://localhost:3000,http://localhost:5173"  # Comma-separated list
+    cors_origins: str = "http://localhost:3000,http://localhost:5173,http://localhost:3001,http://localhost:8080,http://localhost"  # Comma-separated list
     
     # API settings
     api_v1_prefix: str = "/api/v1"
