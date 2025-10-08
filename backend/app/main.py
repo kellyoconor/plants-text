@@ -24,18 +24,21 @@ def startup_event():
 # Origins are configured via CORS_ORIGINS environment variable
 cors_origins = settings.get_cors_origins()
 
-# In development, be more permissive with localhost
-if settings.environment == "development":
-    cors_origins.extend([
-        "http://localhost",
-        "http://127.0.0.1",
-        "http://localhost:3000",
-        "http://localhost:3001", 
-        "http://localhost:5173",
-        "http://localhost:8080"
-    ])
-    # Remove duplicates
-    cors_origins = list(set(cors_origins))
+# Always include common localhost origins for development
+cors_origins.extend([
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://localhost:3000",
+    "http://localhost:3001", 
+    "http://localhost:5173",
+    "http://localhost:8080"
+])
+# Remove duplicates
+cors_origins = list(set(cors_origins))
+
+# For now, be more permissive to fix the immediate issue
+if len(cors_origins) == 0 or settings.environment == "development":
+    cors_origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
